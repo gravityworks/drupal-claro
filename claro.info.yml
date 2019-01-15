@@ -54,18 +54,22 @@ libraries-override:
         css/components/form.css: false
 
 libraries-extend:
+  classy/image-widget:
+    - claro/image-widget
   core/ckeditor:
     - claro/ckeditor-dialog
   core/drupal.vertical-tabs:
     - claro/vertical-tabs
   core/jquery.ui:
     - claro/claro.jquery.ui
-  tour/tour-styling:
-    - claro/tour-styling
-  classy/image-widget:
-    - claro/image-widget
+  core/drupal.tableselect:
+    - claro/drupal.tableselect
+  media_library/view:
+    - claro/media_library.view
   system/admin:
     - claro/system.admin
+  tour/tour-styling:
+    - claro/tour-styling
 
 quickedit_stylesheets:
   - css/dist/components/quickedit.css

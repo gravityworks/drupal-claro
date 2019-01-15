@@ -18,6 +18,8 @@ global-styling:
       css/dist/components/entity-meta.css: {}
       css/dist/components/field-ui.css: {}
       css/dist/components/form.css: {}
+      css/dist/components/form--checkbox-radio.css: {}
+      css/dist/components/form--checkbox-radio--ie.css: {}
       css/dist/components/form--select.css: {}
       css/dist/components/form--text.css: {}
       css/dist/components/help.css: {}
@@ -42,6 +44,11 @@ global-styling:
       css/dist/layout/layout.css: {}
   dependencies:
     - system/admin
+    - core/jquery
+    - core/drupal
+    # @todo Remove 'claro/drupal-theme' from dependencies and add to core/drupal
+    # extensions after https://www.drupal.org/node/3024975 is in.
+    - claro/drupal-theme
 
 node-form:
   version: VERSION
@@ -151,3 +158,19 @@ system.admin:
       css/dist/components/system-admin--status-report.css: { weight: -10 }
     layout:
       css/dist/layout/system-admin--layout.css: { weight: -10 }
+
+drupal-theme:
+  js:
+    js/claro.theme.js: {}
+  dependencies:
+    - core/drupal
+
+# @todo Remove after https://www.drupal.org/node/3024975 is in.
+drupal.tableselect:
+  js:
+    js/claro.tableselect.js: {}
+
+# @todo Remove after https://www.drupal.org/node/3024975 is in.
+media_library.view:
+  js:
+    js/claro.media_library.view.js: {}
