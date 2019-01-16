@@ -52,18 +52,29 @@ libraries-override:
       component:
         css/components/details.css: false
         css/components/form.css: false
+  # @todo Refactor when https://www.drupal.org/node/2642122 is fixed.
+  filter/drupal.filter.admin:
+    css:
+      theme:
+        /core/themes/stable/css/filter/filter.admin.css: css/dist/theme/filter.theme.css
+  filter/drupal.filter:
+    css:
+      theme:
+        /core/themes/stable/css/filter/filter.admin.css: css/dist/theme/filter.theme.css
 
 libraries-extend:
+  ckeditor/drupal.ckeditor:
+    - claro/ckeditor-editor
   classy/image-widget:
     - claro/image-widget
   core/ckeditor:
     - claro/ckeditor-dialog
   core/drupal.vertical-tabs:
     - claro/vertical-tabs
-  core/jquery.ui:
-    - claro/claro.jquery.ui
   core/drupal.tableselect:
     - claro/drupal.tableselect
+  core/jquery.ui:
+    - claro/claro.jquery.ui
   media_library/view:
     - claro/media_library.view
   system/admin:
@@ -73,6 +84,10 @@ libraries-extend:
 
 quickedit_stylesheets:
   - css/dist/components/quickedit.css
+ckeditor_stylesheets:
+  - css/dist/base/elements.css
+  - css/dist/base/typography.css
+
 regions:
   header: 'Header'
   pre_content: 'Pre-content'

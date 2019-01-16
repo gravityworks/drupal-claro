@@ -50,9 +50,9 @@ module.exports = {
     '--color-input-focus-shadow': 'rgba(0, 74, 220, 0.3)', // Absolute zero with opacity.
     '--color-input-error': 'var(--color-maximumred)',
     '--color-input-border-error': 'var(--color-maximumred)',
-    '--color-input-label-disabled': 'rgba(84, 85, 96, 0.6)', // Davy's grey with opacity.
+    '--color-input-label-disabled': 'rgba(84, 85, 96, 0.6)', // Davy's grey with 0.6 opacity.
     '--color-input-fg-disabled': 'var(--color-oldsilver)',
-    '--color-input-bg-disabled': 'rgba(212, 212, 216, 0.3)', // Light gray with 0.3 opacity.
+    '--color-input-bg-disabled': '#f2f2f3', // Light gray with 0.3 opacity on white bg.
     '--color-input-border-disabled': '#bababf', // Old silver with 0.5 opacity on white bg.
     '--opacity-input-border-disabled': '0.5',
     '--size-input-border-radius': '0.125em', // (1/8)em ~ 2px
