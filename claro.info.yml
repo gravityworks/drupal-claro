@@ -52,6 +52,7 @@ libraries-override:
       component:
         css/components/details.css: false
         css/components/form.css: false
+        css/components/breadcrumb.css: false
   # @todo Refactor when https://www.drupal.org/node/2642122 is fixed.
   filter/drupal.filter.admin:
     css:
