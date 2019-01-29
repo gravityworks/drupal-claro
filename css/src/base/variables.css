@@ -57,4 +57,11 @@
   --size-input-border-radius: 0.125em; /* (1/8)em ~ 2px */
   --size-input-border: 0.0625em; /* (1/16)em ~ 1px */
   --size-required-mark: 0.5em; /* 7px inside the form element label. */
+  /* jQuery.UI dropdown. */
+  --color-jui-dropdown-fg: var(--color-davysgrey);
+  --color-jui-dropdown-bg: var(--color-white);
+  --color-jui-dropdown-fg--active: var(--color-white);
+  --color-jui-dropdown-bg--active: var(--color-absolutezero);
+  --color-jui-dropdown-border: rgba(216, 217, 224, 0.8); /* Light gray. */
+  --color-jui-dropdown-shadow: rgba(34, 35, 48, 0.1); /* Text color. */
 }
