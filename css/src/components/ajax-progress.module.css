@@ -92,6 +92,7 @@
  * IE11 and Edge are not handling these rem values smart enought.
  */
 /* This is a fix for ie11... */
+/* stylelint-disable-next-line selector-type-no-unknown */
 _:-ms-fullscreen,
 .ajax-progress-fullscreen::before {
   width: 30px;
@@ -100,6 +101,7 @@ _:-ms-fullscreen,
   background-size: 30px 30px;
 }
 /* ..and this is a fix for edge. */
+/* stylelint-disable-next-line selector-type-no-unknown */
 _:-ms-lang(x),
 .ajax-progress-fullscreen::before {
   width: 30px;

@@ -2,10 +2,12 @@
  * Generic elements.
  */
 
+html {
+  font: normal var(--size-font)/var(--size-lineheight) var(--font-family);
+}
 body {
   color: var(--color-fg);
   background: var(--color-bg);
-  font: normal 16px/1.5 var(--font-family);
 }
 
 .cke_editable:not(.cke_editable_inline) {

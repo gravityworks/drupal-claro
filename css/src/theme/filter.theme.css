@@ -9,6 +9,16 @@
 .text-full > .form-item {
   margin-bottom: 0;
 }
+.form-element--editor-format {
+  vertical-align: top;
+}
+
+@media screen and (max-width: 600px) {
+  /* Leave editor's select auto-scaled. */
+  .form-element.form-element--editor-format {
+    width: auto;
+  }
+}
 
 .filter-wrapper {
   margin-top: 0.5em; /* (8 / 16) */

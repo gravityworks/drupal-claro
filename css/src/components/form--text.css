@@ -15,6 +15,13 @@
   min-height: 3rem; /* iOS. */
 }
 
+.form-element--small {
+  font-size: var(--size-font-label);
+  padding: calc(0.25rem - var(--size-input-border)) calc(0.5rem - var(--size-input-border));
+  line-height: 0.875rem;
+  min-height: 1.5rem; /* iOS. */
+}
+
 /**
  * Override normalize.css's search appearance.
  */

@@ -30,8 +30,8 @@
   --font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   --size-font: 16px;
   --size-lineheight: 1.5;
-  --size-font-label: 14px;
-  --size-font-description: 12px;
+  --size-font-label: 0.889rem;
+  --size-font-description: 0.79rem;
   /*
    * Common.
    */

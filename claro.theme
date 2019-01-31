@@ -204,6 +204,9 @@ function _claro_text_format_prerender($element) {
   $element['format']['#attributes']['class'][] = 'clearfix';
   // Hide format select label visually.
   $element['format']['format']['#title_display'] = 'invisible';
+  $element['format']['format']['#wrapper_attributes']['class'][] = 'form-item--editor-format';
+  $element['format']['format']['#attributes']['class'][] = 'form-element--small';
+  $element['format']['format']['#attributes']['class'][] = 'form-element--editor-format';
 
   // Fix JS inconsistencies of the 'text_textarea_with_summary' widgets.
   // @todo Remove when https://www.drupal.org/node/3016343 is fixed.
@@ -372,6 +375,20 @@ function claro_preprocess_textarea(&$variables) {
   $variables['attributes']['class'][] = 'form-element';
   $variables['attributes']['class'][] = 'form-element--type-textarea';
   $variables['attributes']['class'][] = 'form-element--api-textarea';
+}
+
+/**
+ * Implements template_preprocess_HOOK() for select.
+ */
+function claro_preprocess_select(&$variables) {
+  if (!empty($variables['element']['#title_display']) && $variables['element']['#title_display'] === 'attribute' && !empty((string) $variables['element']['#title'])) {
+    $variables['attributes']['title'] = (string) $variables['element']['#title'];
+  }
+
+  $variables['attributes']['class'][] = 'form-element';
+  $variables['attributes']['class'][] = $variables['element']['#multiple'] ?
+    'form-element--type-select-multiple' :
+    'form-element--type-select';
 }
 
 /**
