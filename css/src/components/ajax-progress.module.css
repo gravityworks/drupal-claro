@@ -54,8 +54,8 @@
   display: inline-block;
   padding-right: 0.3125rem; /* 5px */
   padding-left: 1.875rem; /* 30px */
-  font-size: var(--size-font-label);
-  line-height: var(--size-lineheight); /* because inherited is 0 */
+  font-size: var(--font-size-label);
+  line-height: var(--line-height); /* because inherited is 0 */
   vertical-align: middle;
 }
 [dir="rtl"] .ajax-progress-throbber .message {

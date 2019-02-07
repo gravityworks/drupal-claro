@@ -3,7 +3,7 @@
  */
 
 html {
-  font: normal var(--size-font)/var(--size-lineheight) var(--font-family);
+  font: normal 100%/var(--line-height) var(--font-family);
 }
 body {
   color: var(--color-fg);
