@@ -6,10 +6,6 @@
 ::placeholder {
   color: var(--color-placeholder-fg);
 }
-/* IE 10 and 11 needs this set as important. */
-:-ms-input-placeholder {
-  color: var(--color-placeholder-fg) !important;
-}
 
 /**
  * General form item.
@@ -29,8 +25,8 @@ tr .form-item {
 }
 /* Remove spacing if the form item nested in table is the only child. */
 td > .form-item:only-child {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /**

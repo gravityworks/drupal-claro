@@ -429,34 +429,11 @@
  * Autocomplete
  */
 .ui-autocomplete {
-  border: var(--size-input-border) solid var(--color-jui-dropdown-border);
-  border-top: 0;
-  border-radius: 0 0 var(--size-input-border-radius) var(--size-input-border-radius);
-  box-shadow: 0 0.125rem 0.25rem var(--color-jui-dropdown-shadow);
-  background: var(--color-jui-dropdown-bg);
-  color: var(--color-jui-dropdown-fg);
-  overflow: hidden;
+  background: #fff;
+  border: 1px solid #ccc;
 }
 
 /* Suggestion list */
-.ui-autocomplete .ui-menu-item {
-  list-style: none;
-}
-.ui-autocomplete .ui-menu-item-wrapper {
-  display: block;
-  padding: 0.75rem 0.9375rem;
-  background: inherit;
-  color: inherit;
-}
-.ui-autocomplete .ui-menu-item-wrapper:focus,
-.ui-autocomplete .ui-menu-item-wrapper:hover {
-  text-decoration: none;
-}
-.ui-autocomplete .ui-menu-item-wrapper.ui-state-active {
-  background: var(--color-jui-dropdown-bg--active);
-  color: var(--color-jui-dropdown-fg--active);
-  margin: 0;
-}
 .ui-autocomplete .ui-menu-item.ui-state-focus,
 .autocomplete .ui-menu-item.ui-state-hover {
   background: #0072b9;
