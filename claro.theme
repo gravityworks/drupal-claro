@@ -360,6 +360,10 @@ function claro_preprocess_input(&$variables) {
     $variables['attributes']['class'][] = 'form-element';
     $variables['attributes']['class'][] = Html::getClass('form-element--type-' . $type_html);
     $variables['attributes']['class'][] = Html::getClass('form-element--api-' . $type_api);
+
+    if (!empty($variables['element']['#autocomplete_route_name'])) {
+      $variables['autocomplete_message'] = t('Loading…');
+    }
   }
 
   if (in_array($type_html, ['checkbox', 'radio'])) {
