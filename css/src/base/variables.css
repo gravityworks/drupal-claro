@@ -17,6 +17,11 @@
   /* Variations. */
   --color-absolutezero-hover: #003ebb;
   --color-absolutezero-active: #00339a;
+  --color-focus: #b3c9f5;
+  --color-bgblue-hover: #f0f5fd;
+  --color-bgblue-active: #e6ecf8;
+  --color-bgred-hover: #fdf5f5;
+  --color-bgred-active: #fceded;
   /*
    * Base.
    */
@@ -71,14 +76,16 @@
   --color-input-bg-disabled: #f2f2f3; /* Light gray with 0.3 opacity on white bg. */
   --color-input-border-disabled: #bababf; /* Old silver with 0.5 opacity on white bg. */
   --opacity-input-border-disabled: 0.5;
-  --size-input-border-radius: 0.125em; /* (1/8)em ~ 2px */
-  --size-input-border: 0.0625em; /* (1/16)em ~ 1px */
-  --size-required-mark: 0.5em; /* 7px inside the form element label. */
-  /* jQuery.UI dropdown. */
+  --size-input-border-radius: 0.125rem; /* (1/8)em ~ 2px */
+  --size-input-border: 0.0625rem; /* (1/16)em ~ 1px */
+  --size-required-mark: 0.4375rem; /* 7px inside the form element label. */
+  /**
+   * jQuery.UI dropdown.
+   */
   --color-jui-dropdown-fg: var(--color-davysgrey);
   --color-jui-dropdown-bg: var(--color-white);
   --color-jui-dropdown-fg--active: var(--color-white);
   --color-jui-dropdown-bg--active: var(--color-absolutezero);
-  --color-jui-dropdown-border: rgba(216, 217, 224, 0.8); /* Light gray. */
-  --color-jui-dropdown-shadow: rgba(34, 35, 48, 0.1); /* Text color. */
+  --color-jui-dropdown-border: rgba(216, 217, 224, 0.8); /* Light gray with 0.8 opacity. */
+  --color-jui-dropdown-shadow: rgba(34, 35, 48, 0.1); /* Text color with 0.1 opacity. */
 }

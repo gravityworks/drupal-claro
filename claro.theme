@@ -6,7 +6,9 @@
  */
 
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\GeneratedLink;
 use Drupal\Core\Link;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
@@ -360,6 +362,10 @@ function claro_preprocess_input(&$variables) {
     $variables['attributes']['class'][] = 'form-element';
     $variables['attributes']['class'][] = Html::getClass('form-element--type-' . $type_html);
     $variables['attributes']['class'][] = Html::getClass('form-element--api-' . $type_api);
+
+    if (!empty($variables['element']['#autocomplete_route_name'])) {
+      $variables['autocomplete_message'] = t('Loading…');
+    }
   }
 
   if (in_array($type_html, ['checkbox', 'radio'])) {
@@ -447,4 +453,65 @@ function claro_preprocess_radios(&$variables) {
  */
 function claro_preprocess_filter_tips(&$variables) {
   $variables['#attached']['library'][] = 'filter/drupal.filter';
+}
+
+/**
+ * Implements template_preprocess_HOOK() for table.
+ *
+ * @todo Revisit after https://www.drupal.org/node/3025726 or
+ * https://www.drupal.org/node/1973418 is in.
+ */
+function claro_preprocess_table(&$variables) {
+  if (!empty($variables['header'])) {
+    foreach ($variables['header'] as &$header_cell) {
+      // For 8.6.x and below.
+      // @todo Remove this after 8.6.x is out of support.
+      if ($header_cell['content'] instanceof GeneratedLink) {
+        $dom_doc = Html::load($header_cell['content']->getGeneratedLink());
+        $anchors = $dom_doc->getElementsByTagName('a');
+
+        if (!empty($anchors)) {
+          foreach ($anchors as $anchor) {
+            $anchor_href = $anchor->getAttribute('href');
+            $parsed_url = UrlHelper::parse($anchor_href);
+            $query = !empty($parsed_url['query']) ? $parsed_url['query'] : [];
+
+            if (isset($query['order']) && isset($query['sort'])) {
+              $header_cell['attributes']->addClass('sortable-heading');
+            }
+          }
+        }
+      }
+
+      // For 8.7.x and above.
+      if ($header_cell['content'] instanceof Link) {
+        $query = $header_cell['content']->getUrl()->getOption('query') ?: [];
+
+        if (isset($query['order']) && isset($query['sort'])) {
+          $header_cell['attributes']->addClass('sortable-heading');
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK() for views_view_table.
+ *
+ * @todo Revisit after https://www.drupal.org/node/3025726 or
+ * https://www.drupal.org/node/1973418 is in.
+ */
+function claro_preprocess_views_view_table(&$variables) {
+  if (!empty($variables['header'])) {
+    foreach ($variables['header'] as &$header_cell) {
+      if (!empty($header_cell['url'])) {
+        $parsed_url = UrlHelper::parse($header_cell['url']);
+        $query = !empty($parsed_url['query']) ? $parsed_url['query'] : [];
+
+        if (isset($query['order']) && isset($query['sort'])) {
+          $header_cell['attributes']->addClass('sortable-heading');
+        }
+      }
+    }
+  }
 }
