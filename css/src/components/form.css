@@ -24,13 +24,13 @@
  * overriding Classy.
  */
 tr .form-item {
-  margin-top: 0.75em;
-  margin-bottom: 0.75em;
+  margin-top: var(--space-s);
+  margin-bottom: var(--space-s);
 }
 /* Remove spacing if the form item nested in table is the only child. */
 td > .form-item:only-child {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-xs);
 }
 
 /**

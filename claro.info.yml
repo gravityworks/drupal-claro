@@ -52,9 +52,11 @@ libraries-override:
   classy/base:
     css:
       component:
+        css/components/breadcrumb.css: false
         css/components/details.css: false
         css/components/form.css: false
-        css/components/breadcrumb.css: false
+        css/components/tableselect.css: css/dist/components/tableselect.css
+        css/components/tabledrag.css: css/dist/components/tabledrag.css
   # @todo Refactor when https://www.drupal.org/node/2642122 is fixed.
   filter/drupal.filter.admin:
     css:
