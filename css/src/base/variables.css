@@ -2,7 +2,7 @@
   /*
    * Color Palette.
    */
-  --color-absolutezero: #0048dc;
+  --color-absolutezero: #003cc5;
   --color-white: #fff;
   --color-text: #222330;
   --color-whitesmoke: #f3f4f9;
@@ -15,8 +15,10 @@
   --color-sunglow: #ffd23f;
   --color-celadongreen: #228572;
   /* Variations. */
-  --color-absolutezero-hover: #003ebb;
-  --color-absolutezero-active: #00339a;
+  --color-absolutezero-hover: #0036b1;
+  --color-absolutezero-active: #00309e;
+  --color-lightgray-hover: #c2c3ca;
+  --color-lightgray-active: #adaeb3;
   --color-focus: #b3c9f5;
   --color-bgblue-hover: #f0f5fd;
   --color-bgblue-active: #e6ecf8;
