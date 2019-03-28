@@ -20,6 +20,12 @@ have them compiled as you save as well as generate source maps.
 yarn run watch:js
 ```
 
+It is also possible to build all files at once
+
+```
+yarn run build:js
+```
+
 To build source maps you need to use
 
 ```
@@ -27,8 +33,9 @@ yarn run watch:js-dev
 ```
 
 For building a single file use
+
 ```
-yarn run build:js -- --file misc/drupal.es6.js
+yarn run build:js -- --file js/responsive-details.es6.js
 ```
 
 ## Working on CSS
