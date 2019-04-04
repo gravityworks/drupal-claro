@@ -88,6 +88,8 @@ libraries-extend:
     - claro/autocomplete
   tour/tour-styling:
     - claro/tour-styling
+  shortcut/drupal.shortcut:
+    - claro/drupal.shortcut
 
 quickedit_stylesheets:
   - css/dist/components/quickedit.css

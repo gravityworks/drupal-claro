@@ -60,6 +60,7 @@
    * Common.
    */
   --speed-transition: 0.2s;
+  --transition: all 200ms ease-out;
   /*
    * Inputs.
    */
@@ -90,4 +91,11 @@
   --color-jui-dropdown-bg--active: var(--color-absolutezero);
   --color-jui-dropdown-border: rgba(216, 217, 224, 0.8); /* Light gray with 0.8 opacity. */
   --color-jui-dropdown-shadow: rgba(34, 35, 48, 0.1); /* Text color with 0.1 opacity. */
+  /**
+   * Shortcut action.
+   */
+  --color-shortcut-bg: var(--color-davysgrey);
+  --size-shortcut-border-radius: 2px;
+  --size-shortcut-padding: calc(0.5 * var(--space-xs)) var(--space-m);
+  --size-shortcut-icon: var(--space-l);
 }

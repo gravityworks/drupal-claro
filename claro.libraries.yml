@@ -188,3 +188,11 @@ autocomplete:
   version: VERSION
   js:
     js/claro.autocomplete.js: {}
+
+drupal.shortcut:
+  version: VERSION
+  css:
+    # @todo move this to components after
+    #   https://www.drupal.org/project/drupal/issues/3045467 is in.
+    theme:
+      css/dist/components/shortcut.css: {}
