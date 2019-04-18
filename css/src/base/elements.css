@@ -178,3 +178,18 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/**
+ * Default focus styles for focused elements.
+ *
+ * This is applied globally to all interactive elements except Toolbar and
+ * Settings Tray since they have their own styles.
+ *
+ * @todo https://www.drupal.org/project/claro/issues/3048785 :focus selector is
+ *   active for non-interactive elements in Internet Explorer 11.
+ */
+.page-wrapper *:focus {
+  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 5px var(--color-focus);
+  outline: 2px dotted transparent;
+  position: relative;
+}

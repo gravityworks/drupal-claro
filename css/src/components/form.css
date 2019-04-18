@@ -15,8 +15,8 @@
  * General form item.
  */
 .form-item {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+  margin-top: var(--space-l);
+  margin-bottom: var(--space-l);
 }
 /**
  * When a table row has a single form item, prevent it from adding unnecessary
@@ -113,8 +113,15 @@ td > .form-item:only-child {
  * Form actions.
  */
 .form-actions {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-top: var(--space-l);
+  margin-bottom: var(--space-l);
+}
+.form-actions .button {
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-xs);
 }
 
 /**
@@ -197,17 +204,6 @@ td > .form-item:only-child {
  * @legacy
  */
 @media screen and (max-width: 600px) {
-  .form-actions input {
-    float: none;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0.75em;
-    width: 100%;
-  }
-  .form-actions input:first-child,
-  .form-actions label + input {
-    margin-top: 0;
-  }
   details summary {
     overflow: hidden;
     text-overflow: ellipsis;

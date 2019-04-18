@@ -14,16 +14,18 @@
   --color-maximumred: #d72222;
   --color-sunglow: #ffd23f;
   --color-celadongreen: #228572;
+  --color-focus: #26a769;
   /* Variations. */
-  --color-absolutezero-hover: #0036b1;
-  --color-absolutezero-active: #00309e;
-  --color-lightgray-hover: #c2c3ca;
-  --color-lightgray-active: #adaeb3;
-  --color-focus: #b3c9f5;
-  --color-bgblue-hover: #f0f5fd;
-  --color-bgblue-active: #e6ecf8;
-  --color-bgred-hover: #fdf5f5;
-  --color-bgred-active: #fceded;
+  --color-lightgray-hover: #c2c3ca; /* 5% darker than base. */
+  --color-lightgray-active: #adaeb3; /* 10% darker than base. */
+  --color-absolutezero-hover: #0036b1; /* 5% darker than base. */
+  --color-absolutezero-active: #00309e; /* 10% darker than base. */
+  --color-maximumred-hover: #c11f1f; /* 5% darker than base. */
+  --color-maximumred-active: #ab1b1b; /* 10% darker than base. */
+  --color-bgblue-hover: #f0f5fd; /* 5% darker than base. */
+  --color-bgblue-active: #e6ecf8; /* 10% darker than base. */
+  --color-bgred-hover: #fdf5f5; /* 5% darker than base. */
+  --color-bgred-active: #fceded; /* 10% darker than base. */
   /*
    * Base.
    */
@@ -61,6 +63,7 @@
    */
   --speed-transition: 0.2s;
   --transition: all 200ms ease-out;
+  --base-border-radius: 2px;
   /*
    * Inputs.
    */
@@ -82,6 +85,30 @@
   --size-input-border-radius: 0.125rem; /* (1/8)em ~ 2px */
   --size-input-border: 0.0625rem; /* (1/16)em ~ 1px */
   --size-required-mark: 0.4375rem; /* 7px inside the form element label. */
+  /**
+   * Buttons.
+   */
+  --color-button-default-fg: var(--color-text);
+  --color-button-default-bg: var(--color-lightgray);
+  --color-button-default-bg-hover: var(--color-lightgray-hover);
+  --color-button-default-bg-active: var(--color-lightgray-active);
+  --color-button-default-bg-focus: var(--color-button-default-bg);
+  --color-button-default-disabled-bg: #ebebed;
+  --color-button-default-disabled-fg: var(--color-grayblue);
+  --color-button-border-focus: #5a8bed;
+  --color-button-primary-fg: var(--color-white);
+  --color-button-primary-bg: var(--color-absolutezero);
+  --color-button-primary-bg-hover: var(--color-absolutezero-hover);
+  --color-button-primary-bg-active: var(--color-absolutezero-active);
+  --color-button-primary-bg-focus: var(--color-button-primary-bg);
+  --color-button-primary-disabled-bg: var(--color-lightgray);
+  --color-button-primary-disabled-fg: var(--color-oldsilver);
+  --color-button-danger-fg: var(--color-white);
+  --color-button-danger-bg: var(--color-maximumred);
+  --color-button-danger-bg-hover: var(--color-maximumred-hover);
+  --color-button-danger-bg-active: var(--color-maximumred-active);
+  --color-button-danger-bg-focus: var(--color-button-danger-bg);
+  --size-button-border-radius: var(--base-border-radius);
   /**
    * jQuery.UI dropdown.
    */

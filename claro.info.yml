@@ -53,6 +53,7 @@ libraries-override:
     css:
       component:
         css/components/breadcrumb.css: false
+        css/components/button.css: false
         css/components/details.css: false
         css/components/form.css: false
         css/components/tableselect.css: css/dist/components/tableselect.css
