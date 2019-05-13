@@ -9,40 +9,70 @@
   function init(i, tab) {
     var $tab = $(tab);
     var $target = $tab.find('[data-drupal-nav-tabs-target]');
-    var isCollapsible = $tab.hasClass('is-collapsible');
+    var $active = $target.find('.js-active-tab');
 
-    function openMenu(e) {
+    var openMenu = function openMenu() {
       $target.toggleClass('is-open');
-    }
+    };
 
-    function handleResize(e) {
-      $tab.addClass('is-horizontal');
-      var $tabs = $tab.find('.tabs');
-      var isHorizontal = $tabs.outerHeight() <= $tabs.find('.tabs__tab').outerHeight();
-      $tab.toggleClass('is-horizontal', isHorizontal);
-      if (isCollapsible) {
-        $tab.toggleClass('is-collapse-enabled', !isHorizontal);
+    var toggleOrder = function toggleOrder(reset) {
+      var current = $active.index();
+      var original = $active.data('original-order');
+
+      if (original === 0 || reset === (current === original)) {
+        return;
       }
-      if (isHorizontal) {
-        $target.removeClass('is-open');
+
+      var siblings = {
+        first: '[data-original-order="0"]',
+        previous: '[data-original-order="' + (original - 1) + '"]'
+      };
+
+      var $first = $target.find(siblings.first);
+      var $previous = $target.find(siblings.previous);
+
+      if (reset && current !== original) {
+        $active.insertAfter($previous);
+      } else if (!reset && current === original) {
+        $active.insertBefore($first);
       }
-    }
+    };
+
+    var toggleCollapsed = function toggleCollapsed() {
+      if (window.matchMedia('(min-width: 48em)').matches) {
+        if ($tab.hasClass('is-horizontal') && !$tab.attr('data-width')) {
+          var width = 0;
+
+          $target.find('.js-tabs-link').each(function (index, value) {
+            width += $(value).outerWidth();
+          });
+          $tab.attr('data-width', width);
+        }
+
+        var isHorizontal = $tab.attr('data-width') <= $tab.outerWidth();
+        $tab.toggleClass('is-horizontal', isHorizontal);
+        toggleOrder(isHorizontal);
+      } else {
+        toggleOrder(false);
+      }
+    };
 
     $tab.addClass('position-container is-horizontal-enabled');
 
+    $target.find('.js-tab').each(function (index, element) {
+      var $item = $(element);
+      $item.attr('data-original-order', $item.index());
+    });
+
     $tab.on('click.tabs', '[data-drupal-nav-tabs-trigger]', openMenu);
-    $(window).on('resize.tabs', Drupal.debounce(handleResize, 150)).trigger('resize.tabs');
+    $(window).on('resize.tabs', Drupal.debounce(toggleCollapsed, 150)).trigger('resize.tabs');
   }
 
   Drupal.behaviors.navTabs = {
-    attach: function attach(context, settings) {
-      var $tabs = $(context).find('[data-drupal-nav-tabs]');
-      if ($tabs.length) {
-        var notSmartPhone = window.matchMedia('(min-width: 300px)');
-        if (notSmartPhone.matches) {
-          $tabs.once('nav-tabs').each(init);
-        }
-      }
+    attach: function attach(context) {
+      $(context).find('[data-drupal-nav-tabs].is-collapsible').once('nav-tabs').each(function (i, value) {
+        $(value).each(init);
+      });
     }
   };
 })(jQuery, Drupal);

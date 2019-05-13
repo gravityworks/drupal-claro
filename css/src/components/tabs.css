@@ -1,354 +1,241 @@
 /**
  * Tabs.
  */
-.is-collapse-enabled .tabs,
-.is-horizontal .tabs {
+.tabs-wrapper {
+  display: flex;
+}
+.tabs-wrapper > nav {
+  width: 100%;
+}
+.tabs {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--size-tabs-border-radius);
+  box-shadow: var(--shadow-tabs-base);
+  margin: 0 0 var(--space-l) 0;
+  border: var(--border-tabs-base);
+  width: 100%;
+}
+[dir="rtl"] .tabs {
+  margin: 0 0 var(--space-l) 0;
+}
+
+.tabs__tab {
+  border-bottom: var(--border-tabs-base);
+  background-color: var(--color-whitesmoke-light);
+  font-size: var(--font-size-s);
+  font-weight: bold;
   position: relative;
 }
-.is-collapse-enabled .tabs:before,
-.is-horizontal .tabs:before {
+.tabs__tab:last-child {
+  border-bottom: 0;
+}
+.tabs__tab.is-active {
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: space-between;
+  box-shadow: var(--shadow-tabs-base);
+}
+
+.tabs__link {
+  flex-grow: 1;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: var(--height-tabs-link);
+  padding: var(--space-s) var(--space-l);
+  color: var(--color-davysgrey);
+  overflow: hidden;
+  line-height: 1.2rem;
+}
+.tabs__link:focus {
+  color: var(--color-davysgrey);
+  margin: -1px;
+  border: var(--size-tabs-element-focus) solid var(--color-focus);
+  border-radius: var(--size-tabs-border-radius);
+  min-height: calc(var(--height-tabs-link) + var(--size-tabs-element-focus) - 1px);
+  box-shadow: none;
+  outline: none;
+  text-decoration: none;
+  padding-left: calc(var(--space-l) - var(--size-tabs-element-focus) + 1px); /* LTR */
+}
+[dir="rtl"] .tabs__link:focus {
+  padding-left: var(--space-l);
+  padding-right: calc(var(--space-l) - var(--size-tabs-element-focus) + 1px);
+}
+.tabs__link:hover {
+  color: var(--color-text);
+  text-decoration: none;
+}
+.tabs__link.is-active {
+  color: var(--color-absolutezero);
+  flex-grow: 1;
+  z-index: 1;
+}
+.tabs__link.is-active:focus {
+  border-radius: 0;
+  border-left: none; /* LTR */
+  margin: -1px 0;
+  padding-left: var(--space-l);
+  padding-right: var(--space-l);
+}
+.tabs__link:not(.is-active):focus {
+  z-index: 3;
+}
+[dir="rtl"] .tabs__link.is-active:focus {
+  border-left: var(--size-tabs-element-focus) solid var(--color-focus);
+  border-right: none;
+}
+.tabs__link.is-active:hover {
+  color: var(--color-text);
+}
+/* Active and hover indicator. */
+.tabs__tab::before,
+.tabs__link::before {
   content: '';
   display: block;
-  background-color: #a6a6a6;
-  height: 1px;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
-  right: 0;
 }
-
-/* Span the full width of the viewport */
-.content-header .is-horizontal .tabs:before,
-.content-header .is-collapse-enabled .tabs:before {
-  left: -2.5em;
-  right: -2.5em;
+.tabs__tab.is-active::before {
+  width: var(--size-tabs-element-active);
+  border-left: var(--size-tabs-element-active) solid var(--color-absolutezero); /* LTR */
+  height: calc(100% + 2px);
+  top: -1px;
+  left: -1px; /* LTR */
+  border-top-left-radius: var(--size-tabs-border-radius); /* LTR */
+  z-index: 2;
 }
-
-/**
- * Tab
- *
- * 1. Required by some elements such as <button>
- * 2. Fixed height needed to ensure alignment with absolutely-positioned
- *    active tab.
- */
-.tabs__tab {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  box-sizing: border-box;
-  margin: -1px 0 0;
-  padding: 9px 2em 7px 1em; /* LTR */
-  width: 100%;  /* 1 */
-  border: 1px solid #bfbfbf;
-  background-color: rgba(242, 242, 240, 0.7);
-  color: #0074bd;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-[dir="rtl"] .tabs__tab {
-  padding-left: 2em;
-  padding-right: 1em;
-}
-.tabs__tab:hover,
-.tabs__tab:focus {
-  color: #008ee6;
-  background-color: #fafaf7;
-}
-li.tabs__tab {
-  display: block;
-  padding: 0;
-}
-/* This is required to win over specifity of [dir="rtl"] .tabs__tab */
-[dir="rtl"] li.tabs__tab {
-  padding-left: 0;
-  padding-right: 0;
-}
-li.tabs__tab a {
-  padding: 9px 2em 7px 1em; /* LTR */
-}
-[dir="rtl"] li.tabs__tab a {
-  padding-left: 2em;
-  padding-right: 1em;
-}
-.tabs a:hover,
-.tabs a:focus {
-  text-decoration: none;
-}
-
-/* Primary tabs */
-.tabs.primary {
-  clear: both;
-  margin: 16px 0 0;
-  margin: 1rem 0 0;
-}
-.tabs.primary .tabs__tab.is-active {
-  z-index: 15;
-  border-color: #a6a6a6;
-  border-radius: 4px 0 0 0; /* LTR */
-  background-color: #fff;
-  color: #004f80;
-}
-[dir="rtl"] .tabs.primary .tabs__tab.is-active {
-  border-top-left-radius: 0;
-  border-top-right-radius: 4px;
-}
-.tabs.primary a {
-  background: none;
-}
-.tabs.primary a:focus {
-  color: #008ee6;
-  background-color: #fafaf7;
-  text-decoration: underline;
-}
-.tabs.primary .is-active a:focus {
-  background: none;
-  text-decoration: underline;
-}
-
-/* Only add the arrow if there's space */
-@media screen and (min-width: 18.75em) { /* 300px */
-  .tabs.primary a {
-    background: url(../../../images/core/0074bd/chevron-right.svg) 99% center no-repeat;
-  }
-  [dir="rtl"] .tabs.primary a {
-    background: url(../../../images/core/0074bd/chevron-left.svg) 1% center no-repeat;
-  }
-  .tabs.primary .tabs__tab.is-active a {
-    background-image: none;
-  }
-}
-.tabs__trigger {
-  display: none;
-}
-
-/* JS dependent styling */
-.is-collapse-enabled .tabs__trigger {
-  box-sizing: content-box;
-  display: block;
-  position: absolute;
-  z-index: 10;
-  right: 0; /* LTR */
-  top: 2px;
-  left: auto; /* LTR */
-  width: 25%;
-  padding-right: 4px;
-  padding-left: 4px;
-  border-left: 0; /* LTR */
-  border-radius: 0 4px 0 0; /* LTR */
-  font-size: 1.25em;
-  letter-spacing: 0.1em;
-  text-align: center;
-  outline: 0;
-}
-[dir="rtl"] .is-collapse-enabled .tabs__trigger {
-  border-right: 0;
-  border-left: 1px solid #bfbfbf;
-  border-radius: 4px 0 0 0;
-  right: auto;
-  left: 0;
-}
-.is-collapse-enabled .tabs {
-  padding-top: 38px;
-  max-height: 0;
-}
-.tabs.is-open {
-  max-height: 999em;
-  padding-bottom: 16px;
-  padding-bottom: 1rem;
-}
-.is-collapse-enabled .tabs__tab.is-active {
-  position: absolute;
-  top: 2px;
-  left: 0; /* LTR */
-  width: 75%;
-  border-bottom: 0;
-}
-[dir="rtl"] .is-collapse-enabled .tabs__tab.is-active {
+[dir="rtl"] .tabs__tab.is-active::before {
+  border-left: none;
+  border-right: var(--size-tabs-element-focus) solid var(--color-absolutezero);
   left: auto;
-  right: 0;
+  right: -1px;
+  border-radius: 0 var(--size-tabs-border-radius) 0 var(--size-tabs-border-radius);
 }
-.is-collapse-enabled .tabs.primary a.is-active:before {
-  content: none;
+.tabs.is-open .tabs__tab.is-active::before {
+  border-bottom-left-radius: 0; /* LTR */
 }
-.is-open .tabs__tab.is-active {
-  border-color: #a6a6a6;
-  background-color: #fff;
-  color: #004f80;
-  border-bottom: 1px solid #a6a6a6;
+[dir="rtl"] .tabs.is-open .tabs__tab.is-active::before {
+  border-bottom-right-radius: var(--size-tabs-border-radius);
 }
-
-/* Styles for the horizontal state always take priority */
-.is-horizontal .tabs {
-  max-height: none !important;
-  padding-top: 0 !important;
-  overflow: visible;
-}
-.is-horizontal .tabs__tab {
-  float: left; /* LTR */
-  height: auto;
-  width: auto;
-  margin: 0 0 -1px;
-  text-align: center;
-  border-bottom-color: #a6a6a6;
-}
-[dir="rtl"] .is-horizontal .tabs__tab {
-  float: right;
-  /* This is required to win over specifity of [dir="rtl"] .tabs > li */
-  margin-left: 0;
-}
-.is-horizontal .tabs__tab + .tabs__tab {
-  margin-left: -1px; /* LTR */
-}
-[dir="rtl"] .is-horizontal .tabs__tab + .tabs__tab {
-  margin-left: 0;
-  margin-right: -1px;
-}
-.is-horizontal .tabs.primary .tabs__tab:first-child {
-  border-radius: 4px 0 0 0; /* LTR */
-}
-[dir="rtl"] .is-horizontal .tabs.primary .tabs__tab:first-child {
-  border-radius: 0 4px 0 0;
-}
-.is-horizontal .tabs.primary .tabs__tab:last-child {
-  border-radius: 0 4px 0 0; /* LTR */
-}
-[dir="rtl"] .is-horizontal .tabs.primary .tabs__tab:last-child {
-  border-radius: 4px 0 0 0;
+.tabs__tab.is-active:focus::before {
+  top: calc(var(--size-tabs-element-focus) * -1);
+  height: calc(var(--height-tabs-link) + 2px);
 }
 
-/* Override the states above */
-.is-horizontal .tabs__tab.is-active,
-.is-horizontal .tabs.primary .tabs__tab.is-active,
-[dir="rtl"] .is-horizontal .tabs.primary .tabs__tab.is-active {
-  border-radius: 4px 4px 0 0;
-  position: relative;
-  width: auto;
-  top: 0;
-  border-bottom: 0;
-  margin: 0 -4px;
-}
-.is-horizontal .tabs.primary a {
-  background-image: none;
-  padding: 7px 2em 7px 2em;
-}
-.is-horizontal .tabs__trigger {
+.tabs__tab:not(.is-active) {
   display: none;
 }
-
-/* Secondary tabs */
-.tabs.secondary {
+.tabs--secondary .tabs__tab:not(.is-active) {
   display: block;
-  margin-top: 16px;
-  margin-top: 1rem;
 }
-.tabs.secondary .tabs__tab {
-  display: block;
-  padding: 5px 15px 5px 16px; /* LTR */
-  margin-left: -1px; /* LTR */
-  color: #0074bd;
-  -webkit-transition: border-color 0.2s, background-color 0.2s;
-  transition: border-color 0.2s, background-color 0.2s;
-}
-[dir="rtl"] .tabs.secondary .tabs__tab {
-  padding-left: 15px;
-  padding-right: 16px;
-  margin-left: 0;
-  margin-right: -1px;
-}
-/* This is required to win over specificity of [dir="rtl"] .tabs.secondary .tabs__tab */
-[dir="rtl"] .views-displays .tabs.secondary li,
-[dir="rtl"] .views-displays .tabs.secondary li.is-active {
-  padding-left: 0;
-  padding-right: 0;
-}
-.tabs.secondary .tabs__tab + .tabs__tab {
-  border-top: 1px solid #d9d8d4;
-}
-.tabs.secondary .tabs__tab.is-active {
-  color: #004f80;
-  border-left: 2px solid #004f80; /* LTR */
-  padding-left: 15px; /* LTR */
-}
-[dir="rtl"] .tabs.secondary .tabs__tab.is-active {
-  border-left: 1px solid #bfbfbf;
-  border-right: 2px solid #004f80;
-  padding-right: 15px;
-}
-/* This is required to win over specificity of [dir="rtl"] .tabs.secondary .tabs__tab.is-active */
-[dir="rtl"] .views-displays .tabs.secondary li.is-active {
-  border: 0 none;
-  padding-right: 0;
-}
-.tabs.secondary .tabs__tab:hover,
-.tabs.secondary .tabs__tab:focus {
-  color: #008ee6;
-  border-left: 2px solid #008ee6; /* LTR */
-  padding-left: 15px; /* LTR */
-}
-[dir="rtl"] .tabs.secondary .tabs__tab:hover,
-[dir="rtl"] .tabs.secondary .tabs__tab:focus {
-  border-left: 1px solid #bfbfbf;
-  border-right: 2px solid #008ee6;
-  padding-right: 15px;
-}
-/* This is required to win over specificity of [dir="rtl"] .tabs.secondary .tabs__tab:hover */
-[dir="rtl"] .views-displays .tabs li.tabs__tab:hover {
-  border: 0 none;
-  padding-right: 0;
-}
-.tabs.secondary a {
-  background-color: transparent;
-  padding: 7px 13px 5px;
-  text-decoration: none;
-}
-/* This is required to win over specificity of [dir="rtl"] li.tabs__tab a */
-[dir="rtl"] .tabs.secondary a {
-  padding-left: 13px;
-  padding-right: 13px;
-}
-/* This is required to win over specificity of [dir="rtl"] .tabs.secondary a */
-[dir="rtl"] .views-displays .tabs.secondary a {
-  padding-left: 7px;
-  padding-right: 7px;
-}
-.tabs.secondary .is-active a {
-  color: #004f80;
-}
-.tabs.secondary a:focus {
-  text-decoration: underline;
+.tabs.is-open > .tabs__tab {
+  display: flex;
 }
 
-/* Styles for the horizontal state */
-.is-horizontal .tabs.secondary .tabs__tab {
-  background: none;
-  float: left; /* LTR */
-  position: relative;
-  top: 0;
-  z-index: 15;
-  margin-left: 1em;
-  margin-right: 1em;
-  border-bottom: 2px solid transparent;
-  border-left: 1px solid transparent; /* LTR */
-  border-right-color: transparent; /* LTR */
-  border-top: 0;
-  padding: 0;
+.tabs__trigger {
+  flex-shrink: 0;
+  width: var(--height-tabs-link);
+  border-left: var(--border-tabs-trigger); /* LTR */
+  text-align: center;
+  padding-right: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-/**
- * 1. This is required to win over specifity of
- *      [dir="rtl"] .tabs.secondary .tabs__tab:hover,
- *      [dir="rtl"] .tabs.secondary .tabs__tab:focus
- */
-[dir="rtl"] .is-horizontal .tabs.secondary .tabs__tab {
-  float: right;
-  border-right: 1px solid transparent;
-  border-left-color: transparent;
-  padding-right: 0; /* 1 */
+[dir="rtl"] .tabs__trigger {
+  border-right: var(--border-tabs-trigger);
+  border-left: none;
 }
-.is-horizontal .tabs.secondary .tabs__tab.is-active {
-  border-bottom-color: #004f80;
+.tabs__trigger:focus {
+  box-shadow: none;
+  border: var(--size-tabs-element-focus) solid var(--color-focus);
+  border-radius: var(--size-tabs-border-radius);
+  padding-right: 0;
 }
-.is-horizontal .tabs.secondary .tabs__tab:hover,
-.is-horizontal .tabs.secondary .tabs__tab:focus {
-  border-bottom-color: #008ee6;
+
+@media screen and (min-width: 48em) {
+  .is-horizontal .tabs {
+    flex-direction: row;
+    box-shadow: none;
+    margin: 0;
+    border: 0;
+    width: auto;
+  }
+
+  .is-horizontal .tabs--secondary {
+    margin-bottom: var(--space-m);
+    border-bottom: var(--border-tabs-base);
+    margin-left: calc(calc(var(--size-tabs-element-focus) + 3px) * -1);
+    margin-right: calc(calc(var(--size-tabs-element-focus) + 3px) * -1);
+    padding: calc(var(--size-tabs-element-focus) + 3px) calc(var(--size-tabs-element-focus) + 3px) 0;
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  .is-horizontal .tabs__tab {
+    border-top: none;
+    border-bottom: none;
+    background: none;
+    font-size: var(--font-size-base);
+  }
+  .is-horizontal .tabs__tab.is-active {
+    background: none;
+    order: 0;
+    box-shadow: none;
+  }
+  .is-horizontal .tabs__tab.is-active::before {
+    content: none;
+  }
+  .is-horizontal .tabs__tab .tabs__link.is-active::before {
+    border-radius: 0;
+  }
+  .is-horizontal .tabs__trigger {
+    display: none;
+  }
+  .is-horizontal .tabs__tab {
+    display: block;
+  }
+
+  .is-horizontal .tabs__link {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: var(--size-tabs-border-radius) var(--size-tabs-border-radius) 0 0;
+  }
+
+  .is-horizontal .tabs__link:focus {
+    color: var(--color-text);
+    box-shadow: 0 0 0 2px var(--color-white), 0 0 0 calc(var(--size-tabs-element-focus) + 2px) var(--color-focus);
+    outline: 2px dotted transparent;
+    border: none;
+    border-radius: var(--size-tabs-border-radius) var(--size-tabs-border-radius) 0 0;
+    margin: 0;
+    min-height: var(--height-tabs-link);
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  [dir="rtl"] .is-horizontal .tabs__link:focus {
+    border: none;
+  }
+  .is-horizontal .tabs--primary .tabs__link:focus {
+    box-shadow: 0 0 0 2px var(--color-whitesmoke), 0 0 0 calc(var(--size-tabs-element-focus) + 2px) var(--color-focus);
+  }
+
+  .is-horizontal .tabs__link:hover {
+    color: var(--color-absolutezero-hover);
+    background: var(--color-tabs-background-hover);
+  }
+
+  .is-horizontal .tabs__link.is-active::before {
+    border-left: none;
+    border-right: none;
+    border-bottom: var(--size-tabs-element-active) solid var(--color-absolutezero);
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--size-tabs-element-active);
+    width: 100%;
+  }
 }

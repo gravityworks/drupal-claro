@@ -10,6 +10,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\GeneratedLink;
 use Drupal\Core\Link;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\media\MediaForm;
@@ -51,13 +52,45 @@ function claro_preprocess_menu_local_tasks(&$variables) {
       ],
     ];
   }
+
+  foreach (Element::children($variables['primary']) as $key) {
+    $variables['primary'][$key]['#level'] = 'primary';
+  }
+  foreach (Element::children($variables['secondary']) as $key) {
+    $variables['secondary'][$key]['#level'] = 'secondary';
+  }
 }
 
 /**
  * Implements hook_preprocess_HOOK() for menu-local-task templates.
  */
 function claro_preprocess_menu_local_task(&$variables) {
-  $variables['attributes']['class'][] = 'tabs__tab';
+  $variables['link']['#options']['attributes']['class'][] = 'tabs__link';
+  $variables['link']['#options']['attributes']['class'][] = 'js-tabs-link';
+
+  // Ensure is-active class is set when the tab is active. The generic active
+  // link handler applies stricter comparison rules than what is necessary for
+  // tabs.
+  if (isset($variables['is_active']) && $variables['is_active'] === TRUE) {
+    $variables['link']['#options']['attributes']['class'][] = 'is-active';
+  }
+
+  if (isset($variables['element']['#level'])) {
+    $variables['level'] = $variables['element']['#level'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu-local-task Views UI templates.
+ */
+function claro_preprocess_menu_local_task__views_ui(&$variables) {
+  // Remove 'tabs__link' without adding a new class because it couldn't be used
+  // reliably.
+  // @see https://www.drupal.org/node/3051605
+  $link_class_index = array_search('tabs__link', $variables['link']['#options']['attributes']['class']);
+  if ($link_class_index !== FALSE) {
+    unset($variables['link']['#options']['attributes']['class'][$link_class_index]);
+  }
 }
 
 /**
@@ -307,6 +340,20 @@ function claro_form_media_form_alter(&$form, FormStateInterface $form_state) {
     // display a top border over the published checkbox by defining a
     // media-edit-form.html.twig template the same way node does.
     $form['#attached']['library'][] = 'claro/media-form';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for view_edit_form.
+ */
+function claro_form_view_edit_form_alter(&$form, FormStateInterface $form_state) {
+  // @todo remove this after https://www.drupal.org/node/3051605 has been
+  //   solved.
+  $form['displays']['top']['tabs']['#prefix'] = preg_replace('/(class="(.+\s)?)tabs(\s.+"|")/', '$1views-tabs$3', $form['displays']['top']['tabs']['#prefix']);
+  $form['displays']['top']['tabs']['#prefix'] = preg_replace('/(class="(.+\s)?)secondary(\s.+"|")/', '$1views-tabs--secondary$3', $form['displays']['top']['tabs']['#prefix']);
+
+  foreach (Element::children($form['displays']['top']['tabs']) as $tab) {
+    $form['displays']['top']['tabs'][$tab]['#theme'] = 'menu_local_task__views_ui';
   }
 }
 

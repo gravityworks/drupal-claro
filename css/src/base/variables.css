@@ -6,8 +6,11 @@
   --color-white: #fff;
   --color-text: #222330;
   --color-whitesmoke: #f3f4f9;
+  --color-whitesmoke-light: #fafbfd;
+  --color-whitesmoke-o-40: rgba(243, 244, 249, 0.4);
   /* Secondary. */
   --color-lightgray: #d8d9e0;
+  --color-lightgray-o-80: rgba(216, 217, 224, 0.8);
   --color-grayblue: #8e929c;
   --color-oldsilver: #82828c;
   --color-davysgrey: #545560;
@@ -122,7 +125,19 @@
    * Shortcut action.
    */
   --color-shortcut-bg: var(--color-davysgrey);
-  --size-shortcut-border-radius: 2px;
+  --size-shortcut-border-radius: var(--base-border-radius);
   --size-shortcut-padding: calc(0.5 * var(--space-xs)) var(--space-m);
   --size-shortcut-icon: var(--space-l);
+  /*
+   * Tabs.
+   */
+  --size-tabs-border-radius: var(--base-border-radius);
+  --size-tabs-element-hover: 3px;
+  --size-tabs-element-focus: 3px;
+  --size-tabs-element-active: 3px;
+  --height-tabs-link: 3rem; /* 48px */
+  --border-tabs-base: 1px solid var(--color-lightgray);
+  --shadow-tabs-base: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --border-tabs-trigger: 1px solid rgba(216, 217, 224, 0.8);
+  --color-tabs-background-hover: #e6ecf8;
 }

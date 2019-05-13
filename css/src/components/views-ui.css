@@ -161,46 +161,187 @@ details.fieldset-no-legend {
 /* @group Attachment details tabs
  *
  * The tabs that switch between sections
+ *
+ * @todo this group contains lots of duplicates from core styles because Claro
+ *   has its custom markup for views tabs. Some of these could be removed after
+ *   https://www.drupal.org/node/3051605 has been solved.
  */
 
-.views-displays .secondary {
+.views-tabs {
+  overflow: visible;
+  margin: 0 200px 0 0; /* LTR */
+  padding: 0;
+  border-bottom: 0 none;
+  list-style: none;
   text-align: left; /* LTR */
 }
-[dir="rtl"] .views-displays .secondary {
+[dir="rtl"] .views-tabs {
   text-align: right;
+  margin-right: 0;
+  margin-left: 200px;
+}
+.views-tabs > li {
+  float: left; /* LTR */
+  padding: 0;
+  border-right: 0 none; /* LTR */
+}
+[dir="rtl"] .views-tabs > li {
+  float: right;
+  border-right: 1px solid #bfbfbf;
+  border-left: 0 none;
+}
+.views-tabs .open > a {
+  position: relative;
+  z-index: 51;
+}
+.views-tabs .views-display-deleted-link {
+  text-decoration: line-through;
+}
+.views-tabs .add {
+  position: relative;
+}
+.views-tabs .action-list {
+  position: absolute;
+  z-index: 50;
+  top: 23px;
+  left: 0; /* LTR */
+  margin: 0;
+}
+[dir="rtl"] .views-tabs .action-list {
+  right: 0;
+  left: auto;
+}
+.views-tabs .action-list li {
+  display: block;
 }
 
-.views-admin .icon.add {
-  background-position: center 3px;
-}
-
-.views-displays .secondary a:hover > .icon.add {
+.views-tab a:hover > .icon.add {
   background-position: center -25px;
 }
 
-.views-displays .secondary .open > a {
+.views-tab .open > a {
   border-radius: 7px 7px 0 0;
 }
 
-.views-displays .secondary .open > a:hover,
-.views-displays .secondary .open > a:focus {
+.views-tab .open > a:hover,
+.views-tab .open > a:focus {
   background-color: #f1f1f1;
   color: #008bcb;
 }
 
-.views-displays .secondary .action-list li:first-child {
+.views-tab .action-list li:first-child {
   border-radius: 0 7px 0 0; /* LTR */
 }
-[dir="rtl"] .views-displays .secondary .action-list li:first-child {
+[dir="rtl"] .views-tab .action-list li:first-child {
   border-radius: 7px 0 0 0;
 }
 
-.views-displays .secondary .action-list li:last-child {
+.views-tab .action-list li:last-child {
   border-radius: 0 0 7px 7px;
 }
 
-.views-displays .secondary .action-list input.form-submit {
+.views-tab .action-list input.form-submit {
   color: #008bcb;
+}
+
+.views-tabs li,
+.views-tabs li.is-active {
+  width: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.views-tabs li.add ul.action-list li {
+  margin: 0;
+}
+.views-tabs li {
+  margin: 0 5px 5px 6px; /* LTR */
+}
+[dir="rtl"] .views-tabs li {
+  margin-right: 6px;
+  margin-left: 5px;
+}
+.views-tabs li + li {
+  border-top: 0;
+}
+.views-tabs li:hover {
+  padding-left: 0; /* LTR */
+  border: 0;
+}
+[dir="rtl"] .views-tabs li:hover {
+  padding-right: 0;
+}
+.views-tabs a {
+  display: inline-block;
+  padding: 3px 7px;
+  border: 1px solid #cbcbcb;
+  border-radius: 7px;
+  font-size: small;
+  line-height: 1.3333;
+}
+
+/* Display a red border if the display doesn't validate. */
+.views-tabs li.is-active a.is-active.error,
+.views-tabs .error {
+  padding: 1px 6px;
+  border: 2px solid #ed541d;
+}
+.views-tabs a:focus {
+  text-decoration: underline;
+  outline: none;
+}
+.views-tabs li a {
+  background-color: #fff;
+}
+.views-tabs li a:hover,
+.views-tabs li.is-active a,
+.views-tabs li.is-active a.is-active {
+  color: #fff;
+  background-color: #555;
+}
+.views-tabs .open > a {
+  position: relative;
+  border-bottom: 1px solid transparent;
+  background-color: #f1f1f1;
+}
+.views-tabs .open > a:hover {
+  color: #0074bd;
+  background-color: #f1f1f1;
+}
+.views-tabs .action-list li {
+  padding: 2px 9px;
+  border-width: 0 1px;
+  border-style: solid;
+  border-color: #cbcbcb;
+  background-color: #f1f1f1;
+}
+.views-tabs .action-list li:first-child {
+  border-width: 1px 1px 0;
+}
+.views-displays .action-list li:last-child {
+  border-width: 0 1px 1px;
+}
+.views-tabs .action-list li:last-child {
+  border-width: 0 1px 1px;
+}
+.views-tabs .action-list input.form-submit {
+  margin: 0;
+  padding: 0;
+  border: medium none;
+  background: none repeat scroll 0 0 transparent;
+}
+.views-tabs .action-list input.form-submit:hover {
+  box-shadow: none;
+}
+.views-tabs .action-list li:hover {
+  background-color: #ddd;
+}
+
+.views-tabs a:hover > .icon.add {
+  background-position: center -25px;
+}
+.views-tabs .open a:hover > .icon.add {
+  background-position: center 3px;
 }
 
 /* @end */
