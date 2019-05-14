@@ -21,15 +21,6 @@ details.fieldset-no-legend {
  * a layout problem occurs for the Display format details if we don't fix its
  * padding), but it's probably safe to just let it apply everywhere.
  */
-#views-ui-add-form details details .claro-details__wrapper {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.views-display-tab details.box-padding .claro-details__wrapper {
-  padding: 0;
-}
-
 .views-admin input.form-submit,
 .views-ui-dialog input.form-submit,
 .views-admin a.button,

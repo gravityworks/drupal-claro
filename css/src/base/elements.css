@@ -172,7 +172,6 @@ details summary {
 }
 details summary:focus {
   outline: none;
-  text-decoration: underline;
 }
 img {
   max-width: 100%;
@@ -188,8 +187,8 @@ img {
  * @todo https://www.drupal.org/project/claro/issues/3048785 :focus selector is
  *   active for non-interactive elements in Internet Explorer 11.
  */
-.page-wrapper *:focus {
+.page-wrapper *:focus,
+.ui-dialog *:focus {
   box-shadow: 0 0 0 2px var(--color-white), 0 0 0 5px var(--color-focus);
   outline: 2px dotted transparent;
-  position: relative;
 }

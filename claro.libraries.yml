@@ -197,3 +197,7 @@ drupal.shortcut:
     #   https://www.drupal.org/project/drupal/issues/3045467 is in.
     theme:
       css/dist/components/shortcut.css: {}
+
+details-focus:
+  js:
+    js/claro.details.js: {}

@@ -88,6 +88,20 @@
   --size-input-border-radius: 0.125rem; /* (1/8)em ~ 2px */
   --size-input-border: 0.0625rem; /* (1/16)em ~ 1px */
   --size-required-mark: 0.4375rem; /* 7px inside the form element label. */
+  /*
+   * Details.
+   */
+  --color-details-bg: rgba(243, 244, 249, 0.4);
+  --color-details-border: rgba(216, 217, 224, 0.8);
+  --color-details-summary-shadow: var(--color-focus);
+  --details-wrapper-padding-desktop-bottom: calc(var(--space-m) + var(--space-s));
+  --details-wrapper-padding-desktop-left: calc(var(--space-m) + var(--space-s) + var(--space-xs));
+  --shadow-details: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --size-details-border: 1px;
+  --spread-radius-details-box-shadow: 2px;
+  --transition-duration-details-background-color: 0.12s;
+  --transition-duration-details-box-shadow: 0.2s;
+  --transition-duration-details-transform: 0.12s;
   /**
    * Buttons.
    */

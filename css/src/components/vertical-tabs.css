@@ -108,7 +108,9 @@
   margin: 0;
   padding: 0;
   border: 0;
+  background: none;
   color: #595959;
+  box-shadow: none;
 }
 .vertical-tabs__menu-item-summary {
   display: block;
@@ -117,4 +119,7 @@
 }
 .vertical-tabs__pane > summary {
   display: none;
+}
+.vertical-tabs__pane > .details-wrapper {
+  margin: 0;
 }

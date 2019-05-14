@@ -204,12 +204,6 @@ td > .form-item:only-child {
  * @legacy
  */
 @media screen and (max-width: 600px) {
-  details summary {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    box-sizing: border-box;
-  }
   .password-strength {
     width: 100%;
   }

@@ -42,6 +42,7 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
+    "postcss-calc": "^7.0.1",
     "postcss-cli": "^6.0.1",
     "postcss-custom-properties": "^8.0.8"
   },

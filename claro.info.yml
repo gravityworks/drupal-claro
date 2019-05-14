@@ -60,6 +60,7 @@ libraries-override:
         css/components/pager.css: false
         css/components/tableselect.css: css/dist/components/tableselect.css
         css/components/tabledrag.css: css/dist/components/tabledrag.css
+        css/components/collapse-processed.css: false
   # @todo Refactor when https://www.drupal.org/node/2642122 is fixed.
   filter/drupal.filter.admin:
     css:
@@ -77,6 +78,8 @@ libraries-extend:
     - claro/image-widget
   core/ckeditor:
     - claro/ckeditor-dialog
+  core/drupal.collapse:
+    - claro/details-focus
   core/drupal.vertical-tabs:
     - claro/vertical-tabs
   core/drupal.tableselect:
