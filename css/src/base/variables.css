@@ -140,4 +140,16 @@
   --shadow-tabs-base: 0 2px 4px rgba(0, 0, 0, 0.1);
   --border-tabs-trigger: 1px solid rgba(216, 217, 224, 0.8);
   --color-tabs-background-hover: #e6ecf8;
+  /**
+   * Pager.
+   */
+  --pager-size: 2rem; /* --space-m Ã— 2 */
+  --pager-border-width: 0.125rem; /* 2px */
+  --pager-fg: var(--color-davysgrey);
+  --pager-bg: var(--color-white);
+  --pager-bg--hover: var(--color-bgblue-active);
+  --pager-bg--focus: var(--color-focus);
+  --pager-fg--active: var(--color-white);
+  --pager-bg--active: var(--color-absolutezero);
+  --pager-action-border-radius: var(--pager-border-width);
 }

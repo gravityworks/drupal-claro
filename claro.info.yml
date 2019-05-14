@@ -57,6 +57,7 @@ libraries-override:
         css/components/details.css: false
         css/components/form.css: false
         css/components/tabs.css: false
+        css/components/pager.css: false
         css/components/tableselect.css: css/dist/components/tableselect.css
         css/components/tabledrag.css: css/dist/components/tabledrag.css
   # @todo Refactor when https://www.drupal.org/node/2642122 is fixed.
