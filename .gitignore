@@ -3,4 +3,3 @@ node_modules
 *.css.map
 
 .idea/
-css/dist
