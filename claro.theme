@@ -210,7 +210,6 @@ function claro_preprocess_admin_block_content(&$variables) {
  */
 function claro_preprocess_menu_local_action(array &$variables) {
   $variables['link']['#options']['attributes']['class'][] = 'button--primary';
-  $variables['link']['#options']['attributes']['class'][] = 'button--small';
 
   // We require Modernizr's touch test for button styling.
   $variables['#attached']['library'][] = 'core/modernizr';
