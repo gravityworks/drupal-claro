@@ -10,8 +10,12 @@
   font-weight: bold;
 }
 .system-modules td.checkbox {
+  padding-left: 1rem; /* LTR */
   min-width: 25px;
   width: 4%;
+}
+[dir="rtl"] .system-modules td.checkbox {
+  padding-right: 1rem;
 }
 .system-modules td.module {
   width: 25%;
@@ -85,6 +89,7 @@
   margin: 0 5px;
 }
 .system-modules .checkbox .form-item {
+  margin-top: 0;
   margin-bottom: 0;
 }
 .admin-requirements,
