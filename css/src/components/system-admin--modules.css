@@ -30,10 +30,6 @@
 }
 .system-modules details {
   color: #5c5c5b;
-  line-height: 20px;
-  overflow: hidden; /* truncates descriptions if too long */
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .system-modules details[open] {
   height: auto;
@@ -54,7 +50,6 @@
 .system-modules td details {
   border: 0;
   margin: 0;
-  height: 20px;
 }
 .system-modules td details summary {
   padding: 0;
