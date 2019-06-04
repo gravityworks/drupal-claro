@@ -1,41 +1,48 @@
 /**
- * Entity meta settings.
+ * @file
+ * Entity meta.
  */
-.entity-meta {
-  background-color: #edede8;
-  border-left: 1px solid #bfbfbf;
-  border-right: 1px solid #bfbfbf;
-  border-radius: 3px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
+
+:root {
+  --size-entity-meta-spacing: var(--space-xs);
 }
+
 .entity-meta__header {
-  background-color: #fcfcfa;
-  border-top: 1px solid #bfbfbf;
-  border-bottom: 1px solid #bfbfbf;
-  padding: 1em 1.5em;
-  border-radius: 3px 3px 0 0;
+  padding: calc(var(--space-m) - var(--size-entity-meta-spacing)) var(--space-m) calc(var(--space-l) - var(--size-entity-meta-spacing));
+  border: var(--size-details-border) solid var(--color-details-border);
+  border-radius: var(--size-accordion-border-radius);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
 }
+
+@media screen and (min-width: 48em) {
+  .entity-meta__header {
+    padding: calc(var(--space-l) - var(--size-entity-meta-spacing)) var(--space-l) var(--space-l);
+  }
+}
+
+.entity-meta__header .form-item {
+  margin-top: var(--size-entity-meta-spacing);
+  margin-bottom: var(--size-entity-meta-spacing);
+}
+
 .entity-meta__title {
   font-size: 1.231em;
   font-weight: bold;
   text-shadow: 0 1px 0 #fff;
   margin: 0.25em 0;
 }
-.entity-meta__header .form-item {
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
-.entity-meta__last-saved {
-  font-style: italic; /* As-designed, but really: why is this italic? */
+
+.entity-meta__revision {
+  margin-top: var(--space-l);
 }
 
-/**
- * Hide JS summary from the details polyfill to make it consistent with native
- * details elements.
- *
- * @todo Consider removing this after https://www.drupal.org/node/2493957 has
- *   been solved.
- */
-.entity-meta .claro-details .summary {
-  display: none;
+.entity-meta__header .form-type--item .form-item__label {
+  display: inline-block;
+  font-size: var(--font-size-base);
+  margin: 0;
+}
+
+.entity-meta__header .form-type--item .form-item__label::after {
+  content: ":";
 }

@@ -1,0 +1,44 @@
+/**
+ * @file
+ * Accordion styles.
+ */
+
+.accordion {
+  background-color: var(--color-white);
+  color: var(--color-text);
+  border: var(--size-details-border) solid var(--color-details-border);
+  border-radius: var(--size-accordion-border-radius);
+  box-shadow: var(--shadow-details);
+}
+
+.accordion__item {
+  margin: 0 -1px;
+  border-radius: 0;
+}
+
+.accordion__item:first-child {
+  margin-top: -1px;
+  border-top-right-radius: var(--size-accordion-border-radius);
+  border-top-left-radius: var(--size-accordion-border-radius);
+}
+
+.accordion__item + .accordion__item {
+  margin-top: -1px;
+}
+
+.accordion__item:last-child {
+  margin-bottom: -1px;
+  border-bottom-right-radius: var(--size-accordion-border-radius);
+  border-bottom-left-radius: var(--size-accordion-border-radius);
+}
+
+/**
+ * Hide JS summary from the details polyfill to make it consistent with native
+ * details elements.
+ *
+ * @todo Consider removing this after https://www.drupal.org/node/2493957 has
+ *   been solved.
+ */
+.accordion__item .claro-details__summary .summary {
+  display: none;
+}

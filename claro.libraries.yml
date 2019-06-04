@@ -6,6 +6,7 @@ global-styling:
       css/dist/base/typography.css: {}
       css/dist/base/print.css: {}
     component:
+      css/dist/components/accordion.css: {}
       css/dist/components/content-header.css: {}
       css/dist/components/container-inline.css: {}
       css/dist/components/container-inline.module.css: {}

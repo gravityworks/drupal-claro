@@ -224,10 +224,47 @@ function claro_element_info_alter(&$type) {
     $type['button']['#attached']['library'][] = 'core/modernizr';
   }
 
+  // Add a pre-render function that handles the sidebar of the node form.
+  // @todo Refactor when https://www.drupal.org/node/3056089 is in.
+  if (isset($type['container'])) {
+    $container_pre_renders = !empty($type['container']['#pre_render']) ? $type['container']['#pre_render'] : [];
+    array_unshift($container_pre_renders, '_claro_container_prerender');
+
+    $type['container']['#pre_render'] = $container_pre_renders;
+  }
+
   // @todo Refactor when https://www.drupal.org/node/3016343 is fixed.
   if (isset($type['text_format'])) {
     $type['text_format']['#pre_render'][] = '_claro_text_format_prerender';
   }
+}
+
+/**
+ * Prerender callback for container elements.
+ *
+ * @param array $element
+ *   The container element.
+ *
+ * @return array
+ *   The processed container element.
+ */
+function _claro_container_prerender(array $element) {
+  if (!empty($element['#accordion'])) {
+    // The container must work as an accordion list wrapper.
+    $element['#attributes']['class'][] = 'accordion';
+    $children_keys = Element::children($element['#groups']['advanced'], TRUE);
+
+    foreach ($children_keys as $key) {
+      $element['#groups']['advanced'][$key]['#attributes']['class'][] = 'accordion__item';
+
+      // Mark children with type Details as accordion item.
+      if (!empty($element['#groups']['advanced'][$key]['#type']) && $element['#groups']['advanced'][$key]['#type'] === 'details') {
+        $element['#groups']['advanced'][$key]['#accordion_item'] = TRUE;
+      }
+    }
+  }
+
+  return $element;
 }
 
 /**
@@ -309,6 +346,25 @@ function claro_preprocess_maintenance_page(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for details.
+ *
+ * @todo Revisit when https://www.drupal.org/node/3056089 is in.
+ */
+function claro_preprocess_details(&$variables) {
+  $element = $variables['element'];
+
+  if (!empty($element['#accordion_item'])) {
+    // Details should appear as an accordion item.
+    $variables['accordion_item'] = TRUE;
+  }
+
+  if (!empty($element['#accordion'])) {
+    // Details should appear as a standalone accordion.
+    $variables['accordion'] = TRUE;
+  }
+}
+
+/**
  * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
  *
  * Changes vertical tabs to container.
@@ -318,13 +374,13 @@ function claro_form_node_form_alter(&$form, FormStateInterface $form_state) {
   $form['#attached']['library'][] = 'claro/node-form';
 
   $form['advanced']['#type'] = 'container';
+  $form['advanced']['#accordion'] = TRUE;
   $form['meta']['#type'] = 'container';
   $form['meta']['#access'] = TRUE;
-  $form['meta']['changed']['#wrapper_attributes']['class'][] = 'container-inline';
-  $form['meta']['author']['#wrapper_attributes']['class'][] = 'container-inline';
 
   $form['revision_information']['#type'] = 'container';
   $form['revision_information']['#group'] = 'meta';
+  $form['revision_information']['#attributes']['class'][] = 'entity-meta__revision';
 }
 
 /**

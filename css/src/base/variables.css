@@ -98,10 +98,12 @@
   --details-wrapper-padding-desktop-left: calc(var(--space-m) + var(--space-s) + var(--space-xs));
   --shadow-details: 0 2px 4px rgba(0, 0, 0, 0.1);
   --size-details-border: 1px;
+  --size-details-border-radius: 2px;
   --spread-radius-details-box-shadow: 2px;
   --transition-duration-details-background-color: 0.12s;
   --transition-duration-details-box-shadow: 0.2s;
   --transition-duration-details-transform: 0.12s;
+  --size-accordion-border-radius: var(--base-border-radius);
   /**
    * Buttons.
    */
