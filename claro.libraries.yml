@@ -18,6 +18,7 @@ global-styling:
       css/dist/components/dropbutton.component.css: {}
       css/dist/components/entity-meta.css: {}
       css/dist/components/field-ui.css: {}
+      css/dist/components/fieldset.css: {}
       css/dist/components/form.css: {}
       css/dist/components/form--checkbox-radio.css: {}
       css/dist/components/form--checkbox-radio--ie.css: {}
