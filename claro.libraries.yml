@@ -27,7 +27,6 @@ global-styling:
       css/dist/components/menus-and-lists.css: {}
       css/dist/components/modules-page.css: {}
       css/dist/components/node.css: {}
-      css/dist/components/node-form.css: {}
       css/dist/components/page-title.css: {}
       css/dist/components/pager.css: {}
       css/dist/components/skip-link.css: {}
