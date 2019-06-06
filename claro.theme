@@ -237,6 +237,27 @@ function claro_element_info_alter(&$type) {
   if (isset($type['text_format'])) {
     $type['text_format']['#pre_render'][] = '_claro_text_format_prerender';
   }
+
+  // Add a pre-render function that handles dropbutton variants.
+  if (isset($type['dropbutton'])) {
+    $type['dropbutton']['#pre_render'][] = '_claro_dropbutton_prerender';
+  }
+}
+
+/**
+ * Prerender callback for Dropbutton element.
+ *
+ * @todo Revisit after https://www.drupal.org/node/3057581 is added.
+ */
+function _claro_dropbutton_prerender($element) {
+  if (!empty($element['#dropbutton_type']) && is_string($element['#dropbutton_type'])) {
+    $supported_types = ['small', 'extrasmall'];
+
+    if (in_array($element['#dropbutton_type'], $supported_types)) {
+      $element['#attributes']['class'][] = 'dropbutton--' . $element['#dropbutton_type'];
+    }
+  }
+  return $element;
 }
 
 /**
@@ -409,6 +430,56 @@ function claro_form_view_edit_form_alter(&$form, FormStateInterface $form_state)
 
   foreach (Element::children($form['displays']['top']['tabs']) as $tab) {
     $form['displays']['top']['tabs'][$tab]['#theme'] = 'menu_local_task__views_ui';
+  }
+
+  if (!empty($form['displays'])) {
+    // Change top extra actions to use the small dropbutton variant.
+    // @todo Revisit after https://www.drupal.org/node/3057581 is added.
+    if (!empty($form['displays']['top']['extra_actions'])) {
+      $form['displays']['top']['extra_actions']['#dropbutton_type'] = 'small';
+    }
+
+    // We process the dropbutton-like element on views edit form's
+    // display settings top section.
+    //
+    // That element should be a regular Dropbutton.
+    //
+    // After that the reported issue is fixed and the element is rendered with
+    // the Dropbutton type, we just have to set it's '#dropbutton_type' to
+    // 'extrasmall'.
+    //
+    // @todo: revisit after https://www.drupal.org/node/3057577 is fixed.
+    $dummy_dropbutton = &$form['displays']['settings']['settings_content']['tab_content']['details']['top']['actions'];
+    $child_keys = Element::children($dummy_dropbutton);
+    $prefix_regex = '/(<.*class\s*= *["\']?)([^"\']*)(.*)/i';
+    $child_count = 0;
+
+    foreach ($child_keys as $key) {
+      if (in_array($key, ['prefix', 'suffix'])) {
+        continue;
+      }
+      $nested_child_keys = Element::children($dummy_dropbutton[$key], TRUE);
+
+      if (!empty($nested_child_keys)) {
+        foreach ($nested_child_keys as $nested_key) {
+          $child_count++;
+          $prefix = $dummy_dropbutton[$key][$nested_key]['#prefix'];
+          $dummy_dropbutton[$key][$nested_key]['#prefix'] = preg_replace($prefix_regex, '$1$2 dropbutton__item dropbutton__item--extrasmall$3', $prefix);
+        }
+      }
+      else {
+        $child_count++;
+        $prefix = $dummy_dropbutton[$key]['#prefix'];
+        $dummy_dropbutton[$key]['#prefix'] = preg_replace($prefix_regex, '$1$2 dropbutton__item dropbutton__item--extrasmall$3', $prefix);
+      }
+    }
+
+    if (!empty($dummy_dropbutton['prefix']) && !empty($dummy_dropbutton['prefix']['#markup'])) {
+      $classes = 'dropbutton--extrasmall ';
+      $classes .= ($child_count > 1) ? 'dropbutton--multiple' : 'dropbutton--single';
+      $prefix = $dummy_dropbutton['prefix']['#markup'];
+      $dummy_dropbutton['prefix']['#markup'] = preg_replace($prefix_regex, '$1$2 ' . $classes . '$3', $prefix);
+    }
   }
 }
 
@@ -632,5 +703,60 @@ function claro_preprocess_views_view_table(&$variables) {
         }
       }
     }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for links__dropbutton__operations.
+ *
+ * Operations always use the extra small dropbutton variant.
+ */
+function claro_preprocess_links__dropbutton__operations(&$variables) {
+  $item_classes = ['dropbutton__item', 'dropbutton__item--extrasmall'];
+  $variables['attributes']['class'][] = 'dropbutton--extrasmall';
+
+  foreach ($variables['links'] as &$link_data) {
+    $link_data['attributes']->addClass($item_classes);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for links__dropbutton.
+ */
+function claro_preprocess_links__dropbutton(&$variables) {
+  // Add the right CSS class for the dropbutton list that helps reducing FOUC.
+  if (!empty($variables['links'])) {
+    $variables['attributes']['class'][] = count($variables['links']) > 1
+      ? 'dropbutton--multiple'
+      : 'dropbutton--single';
+  }
+
+  $item_classes = ['dropbutton__item'];
+
+  // Check that the dropbutton has a supported variant class.
+  // @todo Revisit after https://www.drupal.org/node/3057581 is added.
+  if (!empty($variables['attributes']['class'])) {
+    if (array_search('dropbutton--small', $variables['attributes']['class'])) {
+      $item_classes[] = 'dropbutton__item--small';
+    }
+    elseif (array_search('dropbutton--extrasmall', $variables['attributes']['class'])) {
+      $item_classes[] = 'dropbutton__item--extrasmall';
+    }
+  }
+
+  foreach ($variables['links'] as &$link_data) {
+    $link_data['attributes']->addClass($item_classes);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for views_ui_display_tab_bucket.
+ */
+function claro_preprocess_views_ui_display_tab_bucket(&$variables) {
+  // Instead of re-styling Views UI dropbuttons with module-specific CSS styles,
+  // change dropbutton variants to the extra small version.
+  // @todo Revisit after https://www.drupal.org/node/3057581 is added.
+  if (!empty($variables['actions']) && $variables['actions']['#type'] === 'dropbutton') {
+    $variables['actions']['#dropbutton_type'] = 'extrasmall';
   }
 }

@@ -25,7 +25,7 @@ details.fieldset-no-legend {
 .views-admin a.button,
 .views-ui-dialog a.button {
   margin-bottom: 0;
-  margin-right: 0; /* LTR */
+  margin-right: 0;
   margin-top: 0;
 }
 [dir="rtl"] .views-ui-dialog input.form-submit,

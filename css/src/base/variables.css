@@ -168,4 +168,24 @@
   --pager-fg--active: var(--color-white);
   --pager-bg--active: var(--color-absolutezero);
   --pager-action-border-radius: var(--pager-border-width);
+  /**
+   * Dropbutton
+   */
+  --size-dropbutton-spacing: var(--space-m);
+  --font-size-dropbutton: var(--font-size-base);
+  --line-height-dropbutton: var(--space-m);
+  --size-dropbutton-toggle: 3rem;
+  --size-dropbutton-border: 1px;
+  --size-dropbutton-toggle-spacing: var(--size-dropbutton-border);
+  --size-dropbutton-border-radius: 2px;
+  /* Variant variables: small. */
+  --size-dropbutton-spacing--small: 0.625rem;
+  --font-size-dropbutton--small: var(--font-size-xs);
+  --line-height-dropbutton--small: 0.75rem;
+  --size-dropbutton-toggle--small: calc((2 * var(--size-dropbutton-spacing--small)) + var(--line-height-dropbutton--small));
+  /* Variant variables: extra small. */
+  --size-dropbutton-spacing--extrasmall: 0.375rem;
+  --font-size-dropbutton--extrasmall: var(--font-size-xs);
+  --line-height-dropbutton--extrasmall: 0.75rem;
+  --size-dropbutton-toggle--extrasmall: calc((2 * var(--size-dropbutton-spacing--extrasmall)) + var(--line-height-dropbutton--extrasmall));
 }
