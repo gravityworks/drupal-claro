@@ -10,6 +10,7 @@
 /**
  * Progress bar.
  */
+
 .ajax-progress-bar {
   width: 13em;
   padding: 0 0.3125rem; /* 0 5px */
@@ -18,55 +19,52 @@
 /**
  * Throbber.
  */
-.ajax-progress-throbber {
+.ajax-progress--throbber {
+  display: inline-flex;
+  height: 1.125rem;
+  line-height: 1.125rem;
+  align-content: center;
   position: relative;
-  display: inline-block;
-  min-width: 1.875rem; /* 30px */
-  min-height: 1.5rem; /* 24px */
-  padding: 0;
-  line-height: 0;
+  white-space: nowrap;
   vertical-align: middle;
-}
-
-.ajax-progress-throbber::before,
-.ajax-progress-fullscreen::before {
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  width: 1.25rem; /* 20px */
-  height: 1.25rem;
-  margin: -0.6875rem 0; /* -11px, a bit bigger than the half of 20px */
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' %3E%3Cellipse fill='none' ry='4' rx='4' cy='5' cx='5' stroke='%23004adc' stroke-width='1' stroke-dashoffset='6.125' stroke-dasharray='25' /%3E%3C/svg%3E") 50% 50% no-repeat;
-  background-size: 1.25rem 1.25rem;
-  animation: claro-throbber 0.75s linear infinite;
-  content: "";
-}
-[dir="rtl"] .ajax-progress-throbber::before,
-[dir="rtl"] .ajax-progress-fullscreen::before {
-  animation-direction: reverse;
-}
-[dir="rtl"] .ajax-progress-throbber::before {
-  right: 0.3125rem; /* 5px */
-  left: auto;
-}
-
-.ajax-progress-throbber .message {
-  display: inline-block;
-  padding-right: 0.3125rem; /* 5px */
-  padding-left: 1.875rem; /* 30px */
-  font-size: var(--font-size-label);
-  line-height: var(--line-height); /* because inherited is 0 */
-  vertical-align: middle;
-}
-[dir="rtl"] .ajax-progress-throbber .message {
-  padding-right: 1.875rem; /* 30px */
-  padding-left: 0.3125rem; /* 5px */
+  margin: -3px var(--space-s) 0;
 }
 
 /**
+ * Remove margin from ajax throbbers following buttons because buttons already
+ * have a large margin set.
+ */
+.button + .ajax-progress--throbber {
+  margin-left: 0; /* LTR */
+}
+[dir="rtl"] .button + .ajax-progress--throbber {
+  margin-left: var(--space-s);
+  margin-right: 0;
+}
+
+.ajax-progress__throbber {
+  height: 1.125rem;
+  width: 1.125rem;
+  box-sizing: border-box;
+  border: 2px solid var(--color-absolutezero);
+  border-right: 2px dotted transparent;
+  border-radius: 50%;
+  animation: claro-throbber 0.75s linear infinite;
+}
+
+.ajax-progress__message {
+  display: inline-block;
+  padding-left: var(--space-s);
+  font-size: var(--font-size-label);
+}
+[dir="rtl"] .ajax-progress__message {
+  padding-left: 0;
+  padding-right: var(--space-s);
+}
+/**
  * Full screen throbber.
  */
-.ajax-progress-fullscreen {
+.ajax-progress--fullscreen {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -80,38 +78,38 @@
   box-sizing: border-box;
   z-index: 1000;
 }
-/* Overrides properties from merged rule of throbber. */
-.ajax-progress-fullscreen::before {
+.ajax-progress__throbber--fullscreen {
+  position: absolute;
+  top: 50%;
   left: 50%;
-  width: 1.875rem; /* 30px */
-  height: 1.875rem; /* 30px */
-  margin: -0.9375rem;
-  background-size: 1.875rem 1.875rem;
+  width: 1.75rem; /* 28px */
+  height: 1.75rem; /* 28px */
+  margin: -0.875rem;
+  border: 3px solid var(--color-absolutezero);
+  border-right: 3px dotted transparent;
+  content: '';
 }
-/**
- * IE11 and Edge are not handling these rem values smart enought.
- */
-/* This is a fix for ie11... */
-/* stylelint-disable-next-line selector-type-no-unknown */
-_:-ms-fullscreen,
-.ajax-progress-fullscreen::before {
-  width: 30px;
-  height: 30px;
-  margin: -15px;
-  background-size: 30px 30px;
-}
-/* ..and this is a fix for edge. */
-/* stylelint-disable-next-line selector-type-no-unknown */
-_:-ms-lang(x),
-.ajax-progress-fullscreen::before {
-  width: 30px;
-  height: 30px;
-  margin: -15px;
-  background-size: 30px 30px;
+
+@media screen and (-ms-high-contrast: active) {
+  /**
+   * Throbber animation is shaky on Edge RTL on high contrast for border width
+   * less than 4px.
+   */
+  @supports (-ms-ime-align:auto) {
+    [dir="rtl"] .ajax-progress__throbber {
+      border-width: 4px;
+    }
+  }
+  .progress__bar {
+    background-color: windowText;
+  }
 }
 
 @keyframes claro-throbber {
-  to {
-    transform: rotate(360deg);
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(360deg);
   }
 }

@@ -5,6 +5,7 @@
   --color-absolutezero: #003cc5;
   --color-white: #fff;
   --color-text: #222330;
+  --color-text-light: var(--color-grayblue);
   --color-whitesmoke: #f3f4f9;
   --color-whitesmoke-light: #fafbfd;
   --color-whitesmoke-o-40: rgba(243, 244, 249, 0.4);
@@ -16,8 +17,8 @@
   --color-davysgrey: #545560;
   --color-maximumred: #d72222;
   --color-sunglow: #ffd23f;
-  --color-celadongreen: #228572;
-  --color-focus: #26a769;
+  --color-lightninggreen: #26a769;
+  --color-focus: var(--color-lightninggreen);
   /* Variations. */
   --color-lightgray-hover: #c2c3ca; /* 5% darker than base. */
   --color-lightgray-active: #adaeb3; /* 10% darker than base. */
@@ -188,4 +189,34 @@
   --font-size-dropbutton--extrasmall: var(--font-size-xs);
   --line-height-dropbutton--extrasmall: 0.75rem;
   --size-dropbutton-toggle--extrasmall: calc((2 * var(--size-dropbutton-spacing--extrasmall)) + var(--line-height-dropbutton--extrasmall));
+  /**
+   * Progress Bar.
+   */
+  --color-progress-track-bg: var(--color-lightgray);
+  --color-progress-track-border: var(--color-grayblue);
+  /* default color of progress bar */
+  --color-progress-bar-bg: var(--color-absolutezero);
+  --color-progress-bar-border: var(--color-absolutezero);
+  --color-progress-bar-label: var(--color-text);
+  --color-progress-bar-description: var(--color-text-light);
+  --font-size-progress-bar-label: var(--font-size-base);
+  --font-size-progress-bar-label-small: var(--font-size-label);
+  --font-size-progress-bar-description: var(--font-size-xs);
+  --size-progress-bar-default: var(--space-m);
+  --size-progress-bar-default-radius: var(--space-m);
+  --size-progress-bar-small: var(--space-xs);
+  --size-progress-bar-small-radius: var(--space-xs);
+  --size-progress-bar-spacing: var(--space-xs);
+  /* is-weak */
+  --color-progress-bar-bg-is-weak: var(--color-maximumred);
+  --color-progress-bar-border-is-weak: var(--color-maximumred);
+  /* is-fair */
+  --color-progress-bar-bg-is-fair: var(--color-sunglow);
+  --color-progress-bar-border-is-fair: #977405;
+  /* is-good */
+  --color-progress-bar-bg-is-good: var(--color-progress-bar-bg-is-fair);
+  --color-progress-bar-border-is-good: var(--color-progress-bar-border-is-fair);
+  /* is-strong */
+  --color-progress-bar-bg-is-strong: var(--color-lightninggreen);
+  --color-progress-bar-border-is-strong: var(--color-lightninggreen);
 }

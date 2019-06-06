@@ -201,3 +201,7 @@ drupal.shortcut:
 details-focus:
   js:
     js/claro.details.js: {}
+
+ajax:
+  js:
+    js/claro.ajax.js: {}

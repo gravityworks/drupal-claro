@@ -73,6 +73,10 @@ libraries-override:
       component:
         css/components/dropbutton.css: false
 
+  classy/progress:
+    css:
+      component:
+        css/components/progress.css: css/dist/components/progress.css
   # @todo Refactor when https://www.drupal.org/node/2642122 is fixed.
   filter/drupal.filter.admin:
     css:
@@ -115,6 +119,8 @@ libraries-extend:
     - claro/tour-styling
   shortcut/drupal.shortcut:
     - claro/drupal.shortcut
+  core/drupal.ajax:
+    - claro/ajax
 
 quickedit_stylesheets:
   - css/dist/components/quickedit.css
