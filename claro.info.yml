@@ -14,8 +14,8 @@
 name: Claro
 type: theme
 base theme: classy
-description: 'The default administration theme for Drupal 8 was designed with clean lines, simple blocks, and sans-serif font to emphasize the tools and tasks at hand.'
-alt text: 'Default administration theme for Drupal 8 with simple blocks and clean lines.'
+description: 'A clean, accessible and powerful Drupal administration theme.'
+alt text: 'Screenshot of Claro, Drupal administration theme.'
 package: Core
 # version: VERSION
 core: 8.x
@@ -35,10 +35,15 @@ libraries-override:
       theme:
         /core/themes/stable/css/system/system.admin.css: false
 
+  core/drupal.dropbutton:
+    css:
+      component:
+        /core/themes/stable/css/core/dropbutton/dropbutton.css: css/dist/components/dropbutton.css
+
   core/drupal.vertical-tabs:
     css:
       component:
-        misc/vertical-tabs.css: false
+        /core/themes/stable/css/core/vertical-tabs.css: false
   core/jquery.ui:
     css:
       theme:
@@ -55,12 +60,23 @@ libraries-override:
         css/components/breadcrumb.css: false
         css/components/button.css: false
         css/components/details.css: false
+        css/components/dropbutton.css: false
         css/components/form.css: false
         css/components/tabs.css: false
         css/components/pager.css: false
         css/components/tableselect.css: css/dist/components/tableselect.css
         css/components/tabledrag.css: css/dist/components/tabledrag.css
         css/components/collapse-processed.css: false
+
+  classy/dropbutton:
+    css:
+      component:
+        css/components/dropbutton.css: false
+
+  classy/progress:
+    css:
+      component:
+        css/components/progress.css: css/dist/components/progress.css
   # @todo Refactor when https://www.drupal.org/node/2642122 is fixed.
   filter/drupal.filter.admin:
     css:
@@ -71,6 +87,11 @@ libraries-override:
       theme:
         /core/themes/stable/css/filter/filter.admin.css: css/dist/theme/filter.theme.css
 
+  views_ui/admin.styling:
+    css:
+      theme:
+        /core/themes/stable/css/views_ui/views_ui.admin.theme.css: css/dist/theme/views_ui.admin.theme.css
+
 libraries-extend:
   ckeditor/drupal.ckeditor:
     - claro/ckeditor-editor
@@ -80,6 +101,8 @@ libraries-extend:
     - claro/ckeditor-dialog
   core/drupal.collapse:
     - claro/details-focus
+  core/drupal.dropbutton:
+    - claro/drupal-theme
   core/drupal.vertical-tabs:
     - claro/vertical-tabs
   core/drupal.tableselect:
@@ -96,6 +119,8 @@ libraries-extend:
     - claro/tour-styling
   shortcut/drupal.shortcut:
     - claro/drupal.shortcut
+  core/drupal.ajax:
+    - claro/ajax
 
 quickedit_stylesheets:
   - css/dist/components/quickedit.css

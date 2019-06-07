@@ -21,22 +21,19 @@ details.fieldset-no-legend {
  * a layout problem occurs for the Display format details if we don't fix its
  * padding), but it's probably safe to just let it apply everywhere.
  */
-.views-admin input.form-submit,
 .views-ui-dialog input.form-submit,
 .views-admin a.button,
 .views-ui-dialog a.button {
   margin-bottom: 0;
-  margin-right: 0; /* LTR */
+  margin-right: 0;
   margin-top: 0;
 }
-[dir="rtl"] .views-admin input.form-submit,
 [dir="rtl"] .views-ui-dialog input.form-submit,
 [dir="rtl"] .views-admin a.button,
 [dir="rtl"] .views-ui-dialog a.button {
   margin-left: 0;
   margin-right: 1em;
 }
-[dir="rtl"] .views-admin input.form-submit:first-child,
 [dir="rtl"] .views-ui-dialog input.form-submit:first-child,
 [dir="rtl"] .views-admin a.button:first-child,
 [dir="rtl"] .views-ui-dialog a.button:first-child {

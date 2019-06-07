@@ -6,6 +6,7 @@ global-styling:
       css/dist/base/typography.css: {}
       css/dist/base/print.css: {}
     component:
+      css/dist/components/accordion.css: {}
       css/dist/components/content-header.css: {}
       css/dist/components/container-inline.css: {}
       css/dist/components/container-inline.module.css: {}
@@ -14,9 +15,9 @@ global-styling:
       css/dist/components/details.css: {}
       css/dist/components/divider.css: {}
       css/dist/components/messages.css: {}
-      css/dist/components/dropbutton.component.css: {}
       css/dist/components/entity-meta.css: {}
       css/dist/components/field-ui.css: {}
+      css/dist/components/fieldset.css: {}
       css/dist/components/form.css: {}
       css/dist/components/form--checkbox-radio.css: {}
       css/dist/components/form--checkbox-radio--ie.css: {}
@@ -26,7 +27,6 @@ global-styling:
       css/dist/components/menus-and-lists.css: {}
       css/dist/components/modules-page.css: {}
       css/dist/components/node.css: {}
-      css/dist/components/node-form.css: {}
       css/dist/components/page-title.css: {}
       css/dist/components/pager.css: {}
       css/dist/components/skip-link.css: {}
@@ -201,3 +201,7 @@ drupal.shortcut:
 details-focus:
   js:
     js/claro.details.js: {}
+
+ajax:
+  js:
+    js/claro.ajax.js: {}
