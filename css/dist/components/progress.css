@@ -35,7 +35,6 @@
   background-color: #003cc5;
   margin-top: -1px;
   margin-left: -1px; /* LTR */
-  padding: 0 1px;
   height: 1rem;
   border-radius: 1rem;
   -webkit-transition: width 0.5s ease-out;
@@ -51,16 +50,16 @@
   background-color: #d72222;
 }
 .progress__bar.is-fair {
-  border-color: #ffd23f;
+  border-color: #977405;
   background-color: #ffd23f;
 }
 .progress__bar.is-good {
-  border-color: #003cc5;
-  background-color: #003cc5;
+  border-color: #977405;
+  background-color: #ffd23f;
 }
 .progress__bar.is-strong {
-  border-color: #228572;
-  background-color: #228572;
+  border-color: #26a769;
+  background-color: #26a769;
 }
 
 .progress__label {

@@ -1,42 +1,44 @@
 /**
- * Entity meta settings.
+ * @file
+ * Entity meta.
  */
-.entity-meta {
-  background-color: #edede8;
-  border-left: 1px solid #bfbfbf;
-  border-right: 1px solid #bfbfbf;
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
-}
+
 .entity-meta__header {
-  background-color: #fcfcfa;
-  border-top: 1px solid #bfbfbf;
-  border-bottom: 1px solid #bfbfbf;
-  padding: 1em 1.5em;
-  border-radius: 3px 3px 0 0;
+  padding: 0.5rem 1rem 1rem;
+  border: 1px solid rgba(216, 217, 224, 0.8);
+  border-radius: 2px;
+  background-color: #fff;
+  color: #222330;
 }
+
+@media screen and (min-width: 48em) {
+  .entity-meta__header {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+}
+
+.entity-meta__header .form-item {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .entity-meta__title {
   font-size: 1.231em;
   font-weight: bold;
   text-shadow: 0 1px 0 #fff;
   margin: 0.25em 0;
 }
-.entity-meta__header .form-item {
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
-.entity-meta__last-saved {
-  font-style: italic; /* As-designed, but really: why is this italic? */
+
+.entity-meta__revision {
+  margin-top: 1.5rem;
 }
 
-/**
- * Hide JS summary from the details polyfill to make it consistent with native
- * details elements.
- *
- * @todo Consider removing this after https://www.drupal.org/node/2493957 has
- *   been solved.
- */
-.entity-meta .claro-details .summary {
-  display: none;
+.entity-meta__header .form-type--item .form-item__label {
+  display: inline-block;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.entity-meta__header .form-type--item .form-item__label::after {
+  content: ":";
 }

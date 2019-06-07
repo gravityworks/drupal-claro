@@ -4,23 +4,60 @@
  *
  * @see collapse.js
  */
+
+/**
+ * Available modifiers are:
+ *  - .claro-details--accordion
+ *  - .claro-details--accordion-item
+ *
+ * 'Accordion item' is used for the details of the node edit sidebar. For creating
+ * accordion item list from a set of details, set the surrounding Container
+ * render element's '#accordion' key to TRUE.
+ *
+ * The other variant is 'accordion'. Despite the fact that it isn't used
+ * anywhere right now, we implemented it (since the design defines that).
+ * This variant can be used by setting the '#accordion' to TRUE for a
+ * Details render element:
+ * @code
+ * $build['detail_accordion'] = [
+ *   '#type' => 'details',
+ *   '#accordion' => TRUE,
+ * ];
+ */
+
 .claro-details {
   display: block;
   border: 1px solid rgba(216, 217, 224, 0.8);
   margin-top: 1rem;
   margin-bottom: 1rem;
   background-color: #fff;
+  color: #222330;
   border-radius: 2px;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.claro-details--accordion,
-.entity-meta .claro-details {
+.claro-details--accordion-item {
   margin-top: 0;
   margin-bottom: 0;
-  background: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
+
+.claro-details--accordion-item:first-of-type {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+
+.claro-details--accordion-item:last-of-type {
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+/**
+ * Details summary styles.
+ */
 
 .claro-details__summary {
   -webkit-box-sizing: border-box;
@@ -32,7 +69,7 @@
   color: #545560;
   line-height: 1rem;
   text-transform: capitalize;
-  border-radius: 2px;
+  border-radius: 1px;
   -webkit-transition: background-color 0.12s ease-in-out;
   transition: background-color 0.12s ease-in-out;
   cursor: pointer;
@@ -43,20 +80,39 @@
   padding-left: 1rem;
 }
 
-.claro-details--accordion .claro-details__summary,
-.entity-meta .claro-details__summary {
+/* Modifiers */
+.claro-details__summary--accordion,
+.claro-details__summary--accordion-item {
   padding: 1.5rem 1.5rem 1.5rem 2.25rem; /* LTR */
+  background: #fff;
 }
-
-[dir="rtl"] .claro-details--accordion .claro-details__summary,
-[dir="rtl"] .entity-meta .claro-details__summary {
+[dir="rtl"] .claro-details__summary--accordion,
+[dir="rtl"] .claro-details__summary--accordion-item {
   padding-right: 2.25rem;
   padding-left: 1.5rem;
+}
+/**
+ * Accordion list items must not have border radius except they are the first
+ * or the last ones.
+ */
+.claro-details__summary--accordion-item {
+  border-radius: 0;
+}
+
+.claro-details--accordion-item:first-child .claro-details__summary--accordion-item {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+
+.claro-details--accordion-item:last-child .claro-details__summary--accordion-item {
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
 }
 
 /**
  * Details marker styles.
  */
+
 /* Remove the marker on Chrome */
 .claro-details__summary::-webkit-details-marker {
   display: none;
@@ -152,22 +208,40 @@
  */
 .claro-details__summary::after {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
   -webkit-transition: opacity 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out;
   opacity: 0;
-  -webkit-box-shadow:
-    inset 0 0 0 2px #26a769,
-    0 0 0 1px #26a769;
-  box-shadow:
-    inset 0 0 0 2px #26a769,
-    0 0 0 1px #26a769;
+  -webkit-box-shadow: inset 0 0 0 3px #26a769;
+  box-shadow: inset 0 0 0 3px #26a769;
   content: "";
   border-radius: 2px;
   pointer-events: none;
+}
+
+.claro-details > .claro-details__summary--accordion-item::after {
+  border-radius: 0;
+}
+
+.claro-details:first-child > .claro-details__summary--accordion-item::after {
+  border-radius: 2px 2px 0 0;
+}
+
+.claro-details:last-child > .claro-details__summary--accordion-item::after {
+  border-radius: 0 0 2px 2px;
+}
+
+/**
+ * Focus box of accordions and accordion items must not have bottom border
+ * radius if their accordion is expanded.
+ */
+.claro-details[open] > .claro-details__summary--accordion::after,
+.claro-details[open] > .claro-details__summary--accordion-item::after {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 /**
@@ -178,10 +252,21 @@
   box-shadow: none;
 }
 
+[open] .claro-details__summary--accordion,
+[open] .claro-details__summary--accordion-item {
+  color: #003cc5;
+}
+
 .claro-details__summary:hover::before,
 .claro-details__summary:hover:focus::before,
-.claro-details[open] > .claro-details__summary:focus::before {
+.claro-details[open] > .claro-details__summary:focus::before,
+.claro-details[open] > .claro-details__summary--accordion::before,
+.claro-details[open] > .claro-details__summary--accordion-item::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M5.2109375,1.3144531 3.7890625,2.7226562 9.0917969,8.0761719 3.7890625,13.429688 5.2109375,14.837891 11.908203,8.0761719Z' fill='%230036B1'/%3E%3C/svg%3E");
+}
+
+.claro-details[open] > .claro-details__summary {
+  border-radius: 1px 1px 0 0;
 }
 
 .claro-details[open] > .claro-details__summary::before {
@@ -204,9 +289,13 @@
     transform: rotate(135deg); /* for LTR and RTL */
     margin-right: 0.125rem;
     margin-top: -0.40625rem;
-    /* transform-origin:; */
-    /* transform: matrix(-0.707107, 0.707107, -0.707107, -0.707107, 0, 0) */
   }
+}
+
+.claro-details[open] > .claro-details__summary--accordion,
+.claro-details[open] > .claro-details__summary--accordion-item {
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .claro-details__summary:hover {
@@ -222,6 +311,24 @@
  * Active has to be here for Firefox.
  * Merges standard collapse-processed selectors.
  */
+
+[open] > .claro-details__summary--accordion:not(:focus):not(:active)::after,
+[open] > .claro-details__summary--accordion-item:not(:focus):not(:active)::after,
+.collapse-processed[open] > .claro-details__summary--accordion .details-title:not(:focus)::after,
+.collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 3px solid #003cc5;
+  border-width: 0 0 0 3px; /* LTR */
+  opacity: 1;
+}
+[dir="rtl"] [open] > .claro-details__summary--accordion:not(:focus)::after,
+[dir="rtl"] [open] > .claro-details__summary--accordion-item:not(:focus)::after,
+[dir="rtl"] .collapse-processed[open] > .claro-details__summary--accordion .details-title:not(:focus)::after,
+[dir="rtl"] .collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after {
+  border-width: 0 3px 0 0;
+}
+
 .claro-details__summary:focus::after,
 .claro-details__summary:active::after,
 .collapse-processed > .claro-details__summary .details-title:focus::after {
@@ -247,21 +354,56 @@
 }
 
 /**
- * Details content.
+ * Details wrapper and content.
+ *
+ * Accordion and accordion-item variants should have an extra background.
+ * In that case, we render an additional wrapper 'claro-details__content' that
+ * creates the visual margins around the content, and use the original
+ * wrapper for setting the background color.
+ *
+ * If there is no border or padding defined, margins of parent-child elements
+ * collapse to the highest value. We want to take benefit of this behavior,
+ * because the elements inside the details content won't cause too big
+ * vertical spacing.
  */
-.claro-details__wrapper {
+.claro-details__wrapper,
+.claro-details__content {
   margin: 1rem;
+}
+
+.claro-details__wrapper--accordion,
+.claro-details__wrapper--accordion-item {
+  margin: 0;
+}
+.claro-details__wrapper--accordion::before,
+.claro-details__wrapper--accordion::after,
+.claro-details__wrapper--accordion-item::before,
+.claro-details__wrapper--accordion-item::after {
+  display: table;
+  clear: both;
+  content: "";
 }
 
 @media screen and (min-width: 48em) {
   .claro-details__wrapper {
     margin: 1.5rem 2.25rem;
   }
+
+  .claro-details__wrapper--accordion,
+  .claro-details__wrapper--accordion-item {
+    margin: 0;
+  }
 }
 
-.claro-details--accordion .claro-details__wrapper,
-.entity-meta .claro-details__wrapper {
+.claro-details__content--accordion,
+.claro-details__content--accordion-item {
+  margin: 1rem 1rem 1.5rem;
+}
+
+.claro-details__wrapper--accordion,
+.claro-details__wrapper--accordion-item {
   background-color: rgba(243, 244, 249, 0.4);
+  border-top: 1px solid rgba(216, 217, 224, 0.8);
 }
 
 /**
@@ -279,12 +421,22 @@
   display: block;
   padding: 1rem 1rem 1rem 2.25rem; /* LTR */
   color: inherit;
-  border-radius: 2px;
+  border-radius: 1px;
   position: relative;
 }
 [dir="rtl"] .collapse-processed > .claro-details__summary .details-title {
   padding-right: 2.25rem;
   padding-left: 1rem;
+}
+
+.collapse-processed > .claro-details__summary--accordion .details-title,
+.collapse-processed > .claro-details__summary--accordion-item .details-title {
+  padding: 1.5rem 1.5rem 1.5rem 2.25rem; /* LTR */
+}
+[dir="rtl"] .collapse-processed > .claro-details__summary--accordion .details-title,
+[dir="rtl"] .collapse-processed > .claro-details__summary--accordion-item .details-title {
+  padding-right: 2.25rem;
+  padding-left: 1.5rem;
 }
 
 /* Focus and hover states. */
@@ -294,6 +446,7 @@
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  z-index: 1;
 }
 
 .collapse-processed > .claro-details__summary .details-title::after {
@@ -315,7 +468,48 @@
   opacity: 1;
 }
 
+/* Accordion item modifiers for the focus box. */
+
+.collapse-processed > .claro-details__summary--accordion-item .details-title::after {
+  border-radius: 0;
+}
+
+.collapse-processed:first-child > .claro-details__summary--accordion-item .details-title::after {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+}
+
+.collapse-processed:last-child > .claro-details__summary--accordion-item .details-title::after {
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.collapse-processed[open] > .claro-details__summary--accordion .details-title::after,
+.collapse-processed[open] > .claro-details__summary--accordion-item .details-title::after {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/**
+ * Hide JS summary from the details polyfill to make it consistent with native
+ * details elements.
+ *
+ * @todo Consider removing this after https://www.drupal.org/node/2493957 has
+ * been solved.
+ */
+.claro-details__summary--accordion .summary,
+.claro-details__summary--accordion-item .summary {
+  display: none;
+}
+
 @media screen and (-ms-high-contrast: active) {
+  .collapse-processed[open] > .claro-details__summary--accordion .details-title:not(:focus)::after,
+  .collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after {
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+  }
   .collapse-processed > .claro-details__summary .details-title::after {
     top: -5px;
     right: -5px;

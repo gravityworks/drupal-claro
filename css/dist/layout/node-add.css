@@ -1,3 +1,7 @@
+/**
+ * Layout overrides for node add/edit form.
+ */
+
 .layout-region-node-footer__content {
   margin-top: 1.5em;
 }
@@ -21,4 +25,9 @@
   .layout-region-node-footer__content {
     margin-top: 0.5em;
   }
+}
+
+/* Push sidebar down to horizontal align with form section */
+.layout-region-node-secondary {
+  margin-top: 1.5rem;
 }
