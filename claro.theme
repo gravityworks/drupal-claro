@@ -450,38 +450,35 @@ function claro_form_view_edit_form_alter(&$form, FormStateInterface $form_state)
     //
     // @todo: revisit after https://www.drupal.org/node/3057577 is fixed.
     $dummy_dropbutton = &$form['displays']['settings']['settings_content']['tab_content']['details']['top']['actions'];
+    $child_keys = Element::children($dummy_dropbutton);
+    $prefix_regex = '/(<.*class\s*= *["\']?)([^"\']*)(.*)/i';
+    $child_count = 0;
 
-    if ($dummy_dropbutton) {
-      $child_keys = Element::children($dummy_dropbutton);
-      $prefix_regex = '/(<.*class\s*= *["\']?)([^"\']*)(.*)/i';
-      $child_count = 0;
+    foreach ($child_keys as $key) {
+      if (in_array($key, ['prefix', 'suffix'])) {
+        continue;
+      }
+      $nested_child_keys = Element::children($dummy_dropbutton[$key], TRUE);
 
-      foreach ($child_keys as $key) {
-        if (in_array($key, ['prefix', 'suffix'])) {
-          continue;
-        }
-        $nested_child_keys = Element::children($dummy_dropbutton[$key], TRUE);
-
-        if (!empty($nested_child_keys)) {
-          foreach ($nested_child_keys as $nested_key) {
-            $child_count++;
-            $prefix = $dummy_dropbutton[$key][$nested_key]['#prefix'];
-            $dummy_dropbutton[$key][$nested_key]['#prefix'] = preg_replace($prefix_regex, '$1$2 dropbutton__item dropbutton__item--extrasmall$3', $prefix);
-          }
-        }
-        else {
+      if (!empty($nested_child_keys)) {
+        foreach ($nested_child_keys as $nested_key) {
           $child_count++;
-          $prefix = $dummy_dropbutton[$key]['#prefix'];
-          $dummy_dropbutton[$key]['#prefix'] = preg_replace($prefix_regex, '$1$2 dropbutton__item dropbutton__item--extrasmall$3', $prefix);
+          $prefix = $dummy_dropbutton[$key][$nested_key]['#prefix'];
+          $dummy_dropbutton[$key][$nested_key]['#prefix'] = preg_replace($prefix_regex, '$1$2 dropbutton__item dropbutton__item--extrasmall$3', $prefix);
         }
       }
-
-      if (!empty($dummy_dropbutton['prefix']) && !empty($dummy_dropbutton['prefix']['#markup'])) {
-        $classes = 'dropbutton--extrasmall ';
-        $classes .= ($child_count > 1) ? 'dropbutton--multiple' : 'dropbutton--single';
-        $prefix = $dummy_dropbutton['prefix']['#markup'];
-        $dummy_dropbutton['prefix']['#markup'] = preg_replace($prefix_regex, '$1$2 ' . $classes . '$3', $prefix);
+      else {
+        $child_count++;
+        $prefix = $dummy_dropbutton[$key]['#prefix'];
+        $dummy_dropbutton[$key]['#prefix'] = preg_replace($prefix_regex, '$1$2 dropbutton__item dropbutton__item--extrasmall$3', $prefix);
       }
+    }
+
+    if (!empty($dummy_dropbutton['prefix']) && !empty($dummy_dropbutton['prefix']['#markup'])) {
+      $classes = 'dropbutton--extrasmall ';
+      $classes .= ($child_count > 1) ? 'dropbutton--multiple' : 'dropbutton--single';
+      $prefix = $dummy_dropbutton['prefix']['#markup'];
+      $dummy_dropbutton['prefix']['#markup'] = preg_replace($prefix_regex, '$1$2 ' . $classes . '$3', $prefix);
     }
   }
 }
