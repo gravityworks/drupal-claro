@@ -117,7 +117,7 @@ _:-ms-fullscreen,
 
 @media screen and (min-width: 48em) {
   .fieldset__wrapper {
-    margin: 0 var(--space-l) calc(var(--space-m) + var(--space-s));
+    margin: 0 var(--space-l);
   }
 }
 

@@ -763,3 +763,12 @@ function claro_preprocess_views_ui_display_tab_bucket(&$variables) {
     $variables['actions']['#dropbutton_type'] = 'extrasmall';
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views_exposed_form.
+ *
+ * Groups the exposed form fields in a fieldset.
+ */
+function claro_form_views_exposed_form_alter(&$form, FormStateInterface $form_state) {
+  $form['#theme_wrappers'][] = 'fieldset';
+}
