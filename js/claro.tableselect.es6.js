@@ -1,6 +1,6 @@
 /**
  * @file
- * Overrides tableselect.js checkbox constuction.
+ * Overrides tableselect.js checkbox construction.
  *
  * @todo Remove after https://www.drupal.org/node/3024975 is in.
  */
@@ -9,18 +9,23 @@
   /**
    * Replacement callback used in Drupal.behaviors.tableSelect.
    *
+   * @param {Integer} index
+   *   The element index.
+   * @param {HTMLElement} value
+   *   The table element.
+   *
    * @see tableselect.es6.js
    */
-  Drupal.tableSelect = function() {
+  Drupal.tableSelect = (index, value) => {
     // Do not add a "Select all" checkbox if there are no rows with checkboxes
     // in the table.
-    if ($(this).find('td input[type="checkbox"]').length === 0) {
+    if ($(value).find('td input[type="checkbox"]').length === 0) {
       return;
     }
 
     // Keep track of the table, which checkbox is checked and alias the
     // settings.
-    const table = this;
+    const table = value;
     let checkboxes;
     let lastChecked;
     const $table = $(table);
@@ -28,14 +33,14 @@
       selectAll: Drupal.t('Select all rows in this table'),
       selectNone: Drupal.t('Deselect all rows in this table'),
     };
-    const updateSelectAll = function(state) {
+    const updateSelectAll = (state) => {
       // Update table's select-all checkbox (and sticky header's if available).
       $table
         .prev('table.sticky-header')
         .addBack()
         .find('th.select-all input[type="checkbox"]')
-        .each(function() {
-          const $checkbox = $(this);
+        .each((i, element) => {
+          const $checkbox = $(element);
           const stateChanged = $checkbox.prop('checked') !== state;
 
           $checkbox.attr(
@@ -56,14 +61,13 @@
     $table
       .find('th.select-all')
       .prepend($(Drupal.theme('checkbox')).attr('title', strings.selectAll))
-      .on('click', event => {
+      .on('click', (event) => {
         if ($(event.target).is('input[type="checkbox"]')) {
           // Loop through all checkboxes and set their state to the select all
           // checkbox' state.
-          checkboxes.each(function() {
-            const $checkbox = $(this);
-            const stateChanged =
-              $checkbox.prop('checked') !== event.target.checked;
+          checkboxes.each((i, element) => {
+            const $checkbox = $(element);
+            const stateChanged = $checkbox.prop('checked') !== event.target.checked;
 
             /**
              * @checkbox {HTMLElement}
@@ -77,7 +81,7 @@
             /**
              * @checkbox {HTMLElement}
              */
-            $checkbox.closest('tr').toggleClass('selected', this.checked);
+            $checkbox.closest('tr').toggleClass('selected', event.target.checked);
           });
           // Update the title and the state of the check all box.
           updateSelectAll(event.target.checked);
@@ -87,16 +91,16 @@
     // For each of the checkboxes within the table that are not disabled.
     checkboxes = $table
       .find('td input[type="checkbox"]:enabled')
-      .on('click', function(e) {
+      .on('click', (e) => {
         // Either add or remove the selected class based on the state of the
         // check all checkbox.
 
         /**
-         * @this {HTMLElement}
+         * @e.target {HTMLElement}
          */
-        $(this)
+        $(e.target)
           .closest('tr')
-          .toggleClass('selected', this.checked);
+          .toggleClass('selected', e.target.checked);
 
         // If this is a shift click, we need to highlight everything in the
         // range. Also make sure that we are actually checking checkboxes
@@ -112,9 +116,7 @@
 
         // If all checkboxes are checked, make sure the select-all one is checked
         // too, otherwise keep unchecked.
-        updateSelectAll(
-          checkboxes.length === checkboxes.filter(':checked').length,
-        );
+        updateSelectAll(checkboxes.length === checkboxes.filter(':checked').length);
 
         // Keep track of the last checked checkbox.
         lastChecked = e.target;

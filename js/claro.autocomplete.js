@@ -8,19 +8,20 @@
 (function ($, Drupal) {
   Drupal.behaviors.claroAutoCompete = {
     attach: function attach(context) {
-      $(context).find('input.form-autocomplete').once('claroAutoComplete').each(function () {
+      $(context).find('input.form-autocomplete').once('claroAutoComplete').each(function (index, value) {
+        var $input = $(value);
         var timeout = 400;
         var classRemoveTimeout = void 0;
         var classRemove = function classRemove($autoCompleteElem) {
           $autoCompleteElem.removeClass('is-autocompleting');
         };
 
-        $(this).on('input autocompletesearch autocompleteresponses', function (event) {
+        $input.on('input autocompletesearch autocompleteresponses', function (event) {
           if (event && event.type && event.type === 'autocompletesearch') {
-            $(this).addClass('is-autocompleting');
+            $(event.target).addClass('is-autocompleting');
           }
           clearTimeout(classRemoveTimeout);
-          classRemoveTimeout = setTimeout(classRemove, timeout, $(this));
+          classRemoveTimeout = setTimeout(classRemove, timeout, $(event.target));
         });
       });
     }
