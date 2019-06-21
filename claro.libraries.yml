@@ -24,7 +24,6 @@ global-styling:
       css/dist/components/form--text.css: {}
       css/dist/components/form--select.css: {}
       css/dist/components/help.css: {}
-      css/dist/components/inline-form.css: {}
       css/dist/components/menus-and-lists.css: {}
       css/dist/components/modules-page.css: {}
       css/dist/components/node.css: {}
