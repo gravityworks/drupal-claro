@@ -6,12 +6,12 @@
 **/
 
 (function ($, Drupal) {
-  Drupal.tableSelect = function () {
-    if ($(this).find('td input[type="checkbox"]').length === 0) {
+  Drupal.tableSelect = function (index, value) {
+    if ($(value).find('td input[type="checkbox"]').length === 0) {
       return;
     }
 
-    var table = this;
+    var table = value;
     var checkboxes = void 0;
     var lastChecked = void 0;
     var $table = $(table);
@@ -20,8 +20,8 @@
       selectNone: Drupal.t('Deselect all rows in this table')
     };
     var updateSelectAll = function updateSelectAll(state) {
-      $table.prev('table.sticky-header').addBack().find('th.select-all input[type="checkbox"]').each(function () {
-        var $checkbox = $(this);
+      $table.prev('table.sticky-header').addBack().find('th.select-all input[type="checkbox"]').each(function (i, element) {
+        var $checkbox = $(element);
         var stateChanged = $checkbox.prop('checked') !== state;
 
         $checkbox.attr('title', state ? strings.selectNone : strings.selectAll);
@@ -34,15 +34,15 @@
 
     $table.find('th.select-all').prepend($(Drupal.theme('checkbox')).attr('title', strings.selectAll)).on('click', function (event) {
       if ($(event.target).is('input[type="checkbox"]')) {
-        checkboxes.each(function () {
-          var $checkbox = $(this);
+        checkboxes.each(function (i, element) {
+          var $checkbox = $(element);
           var stateChanged = $checkbox.prop('checked') !== event.target.checked;
 
           if (stateChanged) {
             $checkbox.prop('checked', event.target.checked).trigger('change');
           }
 
-          $checkbox.closest('tr').toggleClass('selected', this.checked);
+          $checkbox.closest('tr').toggleClass('selected', event.target.checked);
         });
 
         updateSelectAll(event.target.checked);
@@ -50,7 +50,7 @@
     });
 
     checkboxes = $table.find('td input[type="checkbox"]:enabled').on('click', function (e) {
-      $(this).closest('tr').toggleClass('selected', this.checked);
+      $(e.target).closest('tr').toggleClass('selected', e.target.checked);
 
       if (e.shiftKey && lastChecked && lastChecked !== e.target) {
         Drupal.tableSelectRange($(e.target).closest('tr')[0], $(lastChecked).closest('tr')[0], e.target.checked);
