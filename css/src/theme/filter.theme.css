@@ -54,7 +54,7 @@
 .filter-guidelines__item {
   margin-top: 0.5em; /* (6 / 12) */
   font-size: 0.75em; /* (12 / 16) */
-  color: var(--color-description-fg);
+  color: var(--input-fg-color--description);
 }
 .filter-guidelines p {
   margin-top: 0.3333em; /* (4 / 12) */

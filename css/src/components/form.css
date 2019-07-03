@@ -4,11 +4,11 @@
  */
 
 ::placeholder {
-  color: var(--color-placeholder-fg);
+  color: var(--input-fg-color--placeholder);
 }
 /* IE 10 and 11 needs this set as important. */
 :-ms-input-placeholder {
-  color: var(--color-placeholder-fg) !important;
+  color: var(--input-fg-color--placeholder) !important;
 }
 
 /**
@@ -55,13 +55,13 @@ td > .form-item:only-child,
 }
 /* Label states. */
 .form-item__label.has-error {
-  color: var(--color-input-error);
+  color: var(--input--error-color);
 }
 .form-item__label.option.has-error {
   color: inherit;
 }
 .form-item__label.is-disabled {
-  color: var(--color-input-fg-disabled);
+  color: var(--input--disabled-fg-color);
   cursor: default; /* @todo ...or auto? */
 }
 .form-item__label.form-required::after,
@@ -72,9 +72,9 @@ td > .form-item:only-child,
   /* Use a background image to prevent screen readers from announcing the text. */
   background-image: url(../../../images/core/ee0000/required.svg);
   background-repeat: no-repeat;
-  background-size: var(--size-required-mark) var(--size-required-mark);
-  width: var(--size-required-mark);
-  height: var(--size-required-mark);
+  background-size: var(--input--required-mark-size) var(--input--required-mark-size);
+  width: var(--input--required-mark-size);
+  height: var(--input--required-mark-size);
   margin-right: 0.3em;
   margin-left: 0.3em;
 }
@@ -85,13 +85,13 @@ td > .form-item:only-child,
 .form-item__description {
   font-size: calc(12em / 16); /* 12px */
   line-height: calc(17 / 12); /* 17px */
-  color: var(--color-description-fg);
+  color: var(--input-fg-color--description);
   margin-top: calc(6em / 12); /* 6px */
   margin-bottom: calc(6em / 12); /* 6px */
 }
 /* Description states. */
 .form-item__description.is-disabled {
-  color: var(--color-input-fg-disabled);
+  color: var(--input--disabled-fg-color);
 }
 
 /**
@@ -101,14 +101,14 @@ td > .form-item:only-child,
   font-size: calc(12em / 16); /* 12px */
   font-weight: normal;
   line-height: calc(17 / 12); /* 17px */
-  color: var(--color-input-error);
+  color: var(--input--error-color);
   margin-top: calc(6em / 12); /* 6px */
   margin-bottom: calc(6em / 12); /* 6px */
 }
 
 .form-item__prefix.is-disabled,
 .form-item__suffix.is-disabled {
-  color: var(--color-input-fg-disabled);
+  color: var(--input--disabled-fg-color);
 }
 
 /**

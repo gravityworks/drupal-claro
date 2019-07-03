@@ -6,9 +6,9 @@
 .accordion {
   background-color: var(--color-white);
   color: var(--color-text);
-  border: var(--size-details-border) solid var(--color-details-border);
-  border-radius: var(--size-accordion-border-radius);
-  box-shadow: var(--shadow-details);
+  border: var(--details-border-size) solid var(--details-border-color);
+  border-radius: var(--details-accordion-border-size-radius);
+  box-shadow: var(--details-box-shadow);
 }
 
 .accordion__item {
@@ -18,8 +18,8 @@
 
 .accordion__item:first-child {
   margin-top: -1px;
-  border-top-right-radius: var(--size-accordion-border-radius);
-  border-top-left-radius: var(--size-accordion-border-radius);
+  border-top-right-radius: var(--details-accordion-border-size-radius);
+  border-top-left-radius: var(--details-accordion-border-size-radius);
 }
 
 .accordion__item + .accordion__item {
@@ -28,8 +28,8 @@
 
 .accordion__item:last-child {
   margin-bottom: -1px;
-  border-bottom-right-radius: var(--size-accordion-border-radius);
-  border-bottom-left-radius: var(--size-accordion-border-radius);
+  border-bottom-right-radius: var(--details-accordion-border-size-radius);
+  border-bottom-left-radius: var(--details-accordion-border-size-radius);
 }
 
 /**

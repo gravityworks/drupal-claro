@@ -5,6 +5,39 @@
  * @see progress.js
  */
 
+:root {
+  /**
+  * Progress Bar.
+  */
+  --progress-track-bg-color: var(--color-lightgray);
+  --progress-track-border-color: var(--color-grayblue);
+  /* default color of progress bar */
+  --progress-bar-bg-color: var(--color-absolutezero);
+  --progress-bar-border-color: var(--color-absolutezero);
+  --progress-bar-label-color: var(--color-text);
+  --progress-bar-description-color: var(--color-text-light);
+  --progress-bar-label-font-size: var(--font-size-base);
+  --progress-bar-small-label-font-size: var(--font-size-label);
+  --progress-bar-description-font-size: var(--font-size-xs);
+  --progress-bar-default-size: var(--space-m);
+  --progress-bar-default-size-radius: var(--space-m);
+  --progress-bar-small-size: var(--space-xs);
+  --progress-bar-small-size-radius: var(--space-xs);
+  --progress-bar-spacing-size: var(--space-xs);
+  /* is-weak */
+  --progress-bar--is-weak-bg-color: var(--color-maximumred);
+  --progress-bar--is-weak-border-color: var(--color-maximumred);
+  /* is-fair */
+  --progress-bar--is-fair-bg-color: var(--color-sunglow);
+  --progress-bar--is-fair-border-color: #977405;
+  /* is-good */
+  --progress-bar--is-good-bg-color: var(--progress-bar--is-fair-bg-color);
+  --progress-bar--is-good-border-color: var(--progress-bar--is-fair-border-color);
+  /* is-strong */
+  --progress-bar--is-strong-bg-color: var(--color-lightninggreen);
+  --progress-bar--is-strong-border-color: var(--color-lightninggreen);
+}
+
 .progress::after {
   display: table;
   clear: both;
@@ -12,31 +45,31 @@
 }
 
 .progress--small .progress__track {
-  height: var(--size-progress-bar-small);
+  height: var(--progress-bar-small-size);
 }
 .progress--small .progress__bar {
-  height: var(--size-progress-bar-small);
+  height: var(--progress-bar-small-size);
 }
 
 .progress--small .progress__label {
-  font-size: var(--font-size-progress-bar-label-small);
+  font-size: var(--progress-bar-small-label-font-size);
 }
 
 .progress__track {
-  border-color: var(--color-progress-track-border);
-  border-radius: var(--size-progress-bar-default-radius);
-  background-color: var(--color-progress-track-bg);
-  height: var(--size-progress-bar-default);
+  border-color: var(--progress-track-border-color);
+  border-radius: var(--progress-bar-default-size-radius);
+  background-color: var(--progress-track-bg-color);
+  height: var(--progress-bar-default-size);
   margin-top: 0;
 }
 
 .progress__bar {
-  border: 1px var(--color-progress-bar-border) solid;
-  background-color: var(--color-progress-bar-bg);
+  border: 1px var(--progress-bar-border-color) solid;
+  background-color: var(--progress-bar-bg-color);
   margin-top: -1px;
   margin-left: -1px; /* LTR */
-  height: var(--size-progress-bar-default);
-  border-radius: var(--size-progress-bar-default-radius);
+  height: var(--progress-bar-default-size);
+  border-radius: var(--progress-bar-default-size-radius);
   transition: width 0.5s ease-out;
 }
 [dir="rtl"] .progress__bar {
@@ -45,34 +78,34 @@
 }
 /* Variations of progress bar for password field */
 .progress__bar.is-weak {
-  border-color: var(--color-progress-bar-border-is-weak);
-  background-color: var(--color-progress-bar-bg-is-weak);
+  border-color: var(--progress-bar--is-weak-border-color);
+  background-color: var(--progress-bar--is-weak-bg-color);
 }
 .progress__bar.is-fair {
-  border-color: var(--color-progress-bar-border-is-fair);
-  background-color: var(--color-progress-bar-bg-is-fair);
+  border-color: var(--progress-bar--is-fair-border-color);
+  background-color: var(--progress-bar--is-fair-bg-color);
 }
 .progress__bar.is-good {
-  border-color: var(--color-progress-bar-border-is-good);
-  background-color: var(--color-progress-bar-bg-is-good);
+  border-color: var(--progress-bar--is-good-border-color);
+  background-color: var(--progress-bar--is-good-bg-color);
 }
 .progress__bar.is-strong {
-  border-color: var(--color-progress-bar-border-is-strong);
-  background-color: var(--color-progress-bar-bg-is-strong);
+  border-color: var(--progress-bar--is-strong-border-color);
+  background-color: var(--progress-bar--is-strong-bg-color);
 }
 
 .progress__label {
-  font-size: var(--font-size-progress-bar-label);
+  font-size: var(--progress-bar-label-font-size);
   font-weight: 600;
-  margin-bottom: var(--size-progress-bar-spacing);
+  margin-bottom: var(--progress-bar-spacing-size);
 }
 
 .progress__description,
 .progress__percentage {
-  color: var(--color-progress-bar-description);
+  color: var(--progress-bar-description-color);
   overflow: hidden;
-  font-size: var(--font-size-progress-bar-description);
-  margin-top: var(--size-progress-bar-spacing);
+  font-size: var(--progress-bar-description-font-size);
+  margin-top: var(--progress-bar-spacing-size);
 }
 
 @media screen and (prefers-reduced-motion: reduce) {

@@ -7,11 +7,11 @@
   min-width: 0;
   margin: var(--space-m) 0;
   padding: 0;
-  border: var(--size-details-border) solid var(--color-details-border);
+  border: var(--details-border-size) solid var(--details-border-color);
   border-radius: var(--base-border-radius);
   background-color: var(--color-white);
   color: var(--color-text);
-  box-shadow: var(--shadow-details);
+  box-shadow: var(--details-box-shadow);
 }
 
 .fieldset--group {
@@ -82,23 +82,23 @@ _:-ms-fullscreen,
 }
 
 .fieldset__label.is-disabled {
-  color: var(--color-input-fg-disabled);
+  color: var(--input--disabled-fg-color);
 }
 
 .fieldset__label.has-error {
-  color: var(--color-input-error);
+  color: var(--input--error-color);
 }
 
 .fieldset__description {
   font-size: calc(12em / 16); /* 12px */
   line-height: calc(17 / 12); /* 17px */
-  color: var(--color-description-fg);
+  color: var(--input-fg-color--description);
   margin-top: calc(6em / 12); /* 6px */
   margin-bottom: calc(6em / 12); /* 6px */
 }
 
 .fieldset__description.is-disabled {
-  color: var(--color-input-fg-disabled);
+  color: var(--input--disabled-fg-color);
 }
 
 /* Error message (Inline form errors). */
@@ -106,7 +106,7 @@ _:-ms-fullscreen,
   font-size: calc(12em / 16); /* 12px */
   font-weight: normal;
   line-height: calc(17 / 12); /* 17px */
-  color: var(--color-input-error);
+  color: var(--input--error-color);
   margin-top: calc(6em / 12); /* 6px */
   margin-bottom: calc(6em / 12); /* 6px */
 }
