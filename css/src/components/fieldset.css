@@ -50,6 +50,8 @@ _:-ms-fullscreen,
 }
 
 .fieldset__legend--composite {
+  float: none;
+  width: auto;
   margin-top: calc(4em / 14); /* 4px */
   margin-bottom: calc(4em / 14); /* 4px */
   color: inherit;
