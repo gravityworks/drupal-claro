@@ -57,6 +57,7 @@ libraries-override:
   classy/base:
     css:
       component:
+        css/components/action-links.css: false
         css/components/breadcrumb.css: false
         css/components/button.css: false
         css/components/details.css: false
@@ -121,6 +122,8 @@ libraries-extend:
     - claro/drupal.shortcut
   core/drupal.ajax:
     - claro/ajax
+  views/views.module:
+    - claro/views
 
 quickedit_stylesheets:
   - css/dist/components/quickedit.css

@@ -1,0 +1,24 @@
+.views-form__bulk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  margin-top: var(--space-xs);
+}
+
+.views-form__bulk-actions .form-item {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.views-form__bulk-actions .form-actions {
+  margin: var(--space-s) 0 0 var(--space-xs); /* LTR */
+}
+
+[dir="rtl"] .views-form__bulk-actions .form-actions {
+  margin: var(--space-s) var(--space-xs) 0 0;
+}
+
+.views-form__bulk-actions .button {
+  margin-top: var(--space-s);
+  margin-bottom: 0;
+}

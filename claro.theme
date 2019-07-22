@@ -14,6 +14,7 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\media\MediaForm;
+use Drupal\views\Form\ViewsForm;
 
 /**
  * Implements hook_preprocess_HOOK() for HTML document templates.
@@ -487,6 +488,60 @@ function claro_form_view_edit_form_alter(&$form, FormStateInterface $form_state)
 }
 
 /**
+ * Implements hook_form_alter().
+ */
+function claro_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Check if the form is a views form (such as the one at admin/content).
+  if ($form_state->getFormObject() instanceof ViewsForm) {
+    $view = $form_state->getBuildInfo()['args'][0];
+    $view_title = $view->getTitle();
+    if (!empty($form['header'])) {
+      // Add BEM class to the header.
+      $form['header']['#attributes']['class'][] = 'views-form__header';
+
+      // Loop through the header and if there are bulk actions, add attributes
+      // to improve the accessibility of those items.
+      foreach (Element::children($form['header']) as $key) {
+        if (strpos($key, '_bulk_form') !== FALSE) {
+          $label = t('Perform actions on the selected items in the %view_title view', ['%view_title' => $view_title]);
+          $label_id = $key . '_group_label';
+
+          // Add BEM class to bulk actions container.
+          $form['header'][$key]['#attributes']['class'][] = 'views-form__bulk-actions';
+
+          // Group the bulk actions select and submit elements, and add a label
+          // that makes the purpose of these elements more clear to
+          // screenreaders.
+          $form['header'][$key]['#attributes']['role'] = 'group';
+          $form['header'][$key]['#attributes']['aria-labelledby'] = $label_id;
+          $form['header'][$key]['group_label'] = [
+            '#type' => 'container',
+            '#markup' => $label,
+            '#attributes' => [
+              'id' => $label_id,
+              'class' => ['visually-hidden'],
+            ],
+            '#weight' => -1,
+          ];
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views_exposed_form.
+ */
+function claro_form_views_exposed_form_alter(&$form, FormStateInterface $form_state) {
+  $view = $form_state->getStorage()['view'];
+  $view_title = $view->getTitle();
+
+  // Add a label so screenreaders can identify the purpose of the exposed form
+  // without having to scan content that appears further down the page.
+  $form['#attributes']['aria-label'] = t('Filter the contents of the %view_title view', ['%view_title' => $view_title]);
+}
+
+/**
  * Implements hook_preprocess_form_element().
  */
 function claro_preprocess_form_element(&$variables) {
@@ -761,5 +816,42 @@ function claro_preprocess_views_ui_display_tab_bucket(&$variables) {
   // @todo Revisit after https://www.drupal.org/node/3057581 is added.
   if (!empty($variables['actions']) && $variables['actions']['#type'] === 'dropbutton') {
     $variables['actions']['#dropbutton_type'] = 'extrasmall';
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_mini_pager().
+ */
+function claro_preprocess_views_mini_pager(&$variables) {
+  // Parse the request to get the information required to build pagination
+  // links that aren't already supplied by $variables.
+  $request = \Drupal::request();
+  $current_url = Url::createFromRequest($request);
+  $parsed_url = UrlHelper::parse($request->getUri());
+  $query = !empty($parsed_url['query']) ? $parsed_url['query'] : [];
+
+  // If this is anything other than the first page, create an item
+  if($variables['items']['current'] > 1) {
+    unset($query['page']);
+    $current_url->setOption('query', $query);
+    $variables['items']['first']['href'] = $current_url->toString();
+  }
+
+  // If there are additional pages, create an item that advances to the last
+  // page. In some instances, it will also be necessary to create an item that
+  // advances to the next page.
+  if($variables['quantity'] - $variables['items']['current'] > 0) {
+    $query['page'] = $variables['quantity'] - 1;
+    $current_url->setOption('query', $query);
+    $variables['items']['last']['href'] = $current_url->toString();
+
+    // The Content view (and perhaps others?) do not provide a "next" item to
+    // the mini pager, even when there is definitely a next page. In those
+    // instances, one can be generated here.
+    if (!isset($variables['items']['next'])) {
+      $query['page'] = $variables['current'];
+      $current_url->setOption('query', $query);
+      $variables['items']['next']['href'] = $current_url->toString();
+    }
   }
 }
