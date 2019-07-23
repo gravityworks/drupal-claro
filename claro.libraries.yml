@@ -7,7 +7,6 @@ global-styling:
       css/dist/base/print.css: {}
     component:
       css/dist/components/accordion.css: {}
-      css/dist/components/action-links.css: {}
       css/dist/components/content-header.css: {}
       css/dist/components/container-inline.css: {}
       css/dist/components/container-inline.module.css: {}
@@ -206,9 +205,3 @@ details-focus:
 ajax:
   js:
     js/claro.ajax.js: {}
-
-views:
-  css:
-    component:
-      css/dist/components/views-exposed-form.css: {}
-      css/dist/components/views-bulk-actions.css: {}

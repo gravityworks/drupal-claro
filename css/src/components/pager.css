@@ -118,16 +118,6 @@
   margin-left: 0;
 }
 
-/**
- * On the mini pager, remove margins for the first and last icons. They are not
- * needed as there is no accompanying text.
- */
-.pager--mini .pager__item--first .pager__link::before,
-.pager--mini .pager__item--last .pager__link::after {
-  margin-right: 0;
-  margin-left: 0;
-}
-
 @media (-ms-high-contrast: active) {
   .pager__item a:hover {
     text-decoration: underline;
