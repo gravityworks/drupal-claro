@@ -36,6 +36,7 @@
     'fieldset__legend',
     attributes.hasClass('fieldgroup') and not attributes.hasClass('form-composite') ? 'fieldset__legend--group',
     attributes.hasClass('form-composite') ? 'fieldset__legend--composite',
+    title_display == 'invisible' ? 'fieldset__legend--invisible' : 'fieldset__legend--visible',
   ]
 %}
 {%
@@ -46,9 +47,12 @@
 
 <fieldset{{ attributes.addClass(classes) }}>
   {#  Always wrap fieldset legends in a <span> for CSS positioning. #}
+  {% if legend.title %}
   <legend{{ legend.attributes.addClass(legend_classes) }}>
     <span{{ legend_span.attributes.addClass(legend_span_classes) }}>{{ legend.title }}</span>
   </legend>
+  {% endif %}
+
   <div{{ content_attributes.addClass(wrapper_classes) }}>
     {% if inline_items %}
       <div class="container-inline">

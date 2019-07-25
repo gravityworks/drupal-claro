@@ -7,11 +7,11 @@
  * Form item modifiers.
  */
 .form-type--boolean {
-  margin-left: 1.5em; /* LTR */
-  line-height: 1.5em;
+  margin-left: var(--space-l); /* LTR */
+  line-height: var(--space-l);
 }
 [dir="rtl"] .form-type--boolean {
-  margin-right: 1.5em;
+  margin-right: var(--space-l);
   margin-left: 0;
 }
 
@@ -20,14 +20,14 @@
  */
 .form-type--boolean .form-boolean {
   float: left; /* LTR */
-  margin-left: -1.5em; /* LTR */
+  margin-left: calc(var(--space-l) * -1); /* LTR */
   position: relative;
-  top: 0.75em;
+  top: calc(var(--space-l) / 2);
   transform: translateY(-50%);
 }
 [dir="rtl"] .form-type--boolean .form-boolean {
   float: right;
-  margin-right: -1.5em;
+  margin-right: calc(var(--space-l) * -1);
   margin-left: 0;
 }
 
