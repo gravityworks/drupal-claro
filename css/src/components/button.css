@@ -75,6 +75,24 @@
   margin: var(--space-s) 0 var(--space-s) var(--space-s);
 }
 
+/* Styles for action link buttons */
+.button--action {
+  margin: 0;
+}
+
+.button--action::before {
+  margin-left: -0.25em; /* LTR */
+  padding-right: 0.25em; /* LTR */
+  content: "+";
+  font-weight: 900;
+}
+[dir="rtl"] .button--action::before {
+  margin-right: -0.25em;
+  margin-left: 0;
+  padding-right: 0;
+  padding-left: 0.25em;
+}
+
 /* Primary button styles */
 .button--primary {
   background-color: var(--button-bg-color--primary);
