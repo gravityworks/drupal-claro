@@ -205,3 +205,15 @@ details-focus:
 ajax:
   js:
     js/claro.ajax.js: {}
+
+form.password-confirm:
+  css:
+    component:
+      css/dist/components/form--password-confirm.css: {}
+  js:
+    js/user.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.once
+    - claro/global-styling

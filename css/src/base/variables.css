@@ -17,6 +17,7 @@
   --color-davysgrey: #545560;
   --color-maximumred: #d72222;
   --color-sunglow: #ffd23f;
+  --color-sunglow-shaded: #977405;
   --color-lightninggreen: #26a769;
   --color-focus: var(--color-lightninggreen);
   /* Variations. */
@@ -66,7 +67,7 @@
    * Common.
    */
   --speed-transition: 0.2s;
-  --transition: all 200ms ease-out;
+  --transition: all var(--speed-transition) ease-out;
   --base-border-radius: 2px;
   /*
    * Inputs.
@@ -135,4 +136,17 @@
   --jui-dropdown--active-bg-color: var(--color-absolutezero);
   --jui-dropdown-border-color: rgba(216, 217, 224, 0.8); /* Light gray with 0.8 opacity. */
   --jui-dropdown-shadow-color: rgba(34, 35, 48, 0.1); /* Text color with 0.1 opacity. */
+  /**
+   * Progress bar.
+   */
+  --progress-bar-border-size: 1px;
+  --progress-bar-small-size: calc(var(--space-xs) - (2 * var(--progress-bar-border-size)));
+  --progress-bar-small-size-radius: var(--space-xs);
+  --progress-bar-spacing-size: var(--space-xs);
+  --progress-bar-transition: width 0.5s ease-out;
+  --progress-bar-label-color: var(--color-text);
+  --progress-bar-description-color: var(--color-davysgrey);
+  --progress-bar-description-font-size: var(--font-size-xs);
+  --progress-track-border-color: var(--color-grayblue);
+  --progress-track-bg-color: var(--color-lightgray);
 }
