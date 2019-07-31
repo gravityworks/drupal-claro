@@ -125,6 +125,9 @@ td > .form-item:only-child,
   margin-top: var(--space-xs);
   margin-bottom: var(--space-xs);
 }
+.form-actions .ajax-progress--throbber {
+  align-self: center;
+}
 
 /**
  * Password module.

@@ -17,7 +17,6 @@ global-styling:
       css/dist/components/divider.css: {}
       css/dist/components/messages.css: {}
       css/dist/components/entity-meta.css: {}
-      css/dist/components/field-ui.css: {}
       css/dist/components/fieldset.css: {}
       css/dist/components/form.css: {}
       css/dist/components/form--checkbox-radio.css: {}

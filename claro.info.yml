@@ -87,6 +87,11 @@ libraries-override:
 
   user/drupal.user: claro/form.password-confirm
 
+  field_ui/drupal.field_ui:
+    css:
+      theme:
+        /core/themes/stable/css/field_ui/field_ui.admin.css: css/dist/theme/field-ui.admin.css
+
   filter/drupal.filter.admin:
     css:
       theme:
