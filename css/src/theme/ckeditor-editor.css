@@ -24,7 +24,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: var(--color-input-bg);
+  background: var(--input-bg-color);
   content: "";
 }
 
@@ -48,7 +48,7 @@
 
 /* Default */
 .cke.cke_chrome {
-  border-color: var(--color-input-border);
+  border-color: var(--input-border-color);
 }
 
 /* Error. */
@@ -56,7 +56,7 @@
 .error + .cke .cke_contents,
 .error + .cke .cke_top,
 .error + .cke .cke_bottom {
-  border-color: var(--color-input-border-error);
+  border-color: var(--input--error-border-color);
 }
 
 /* Hover. */
@@ -68,7 +68,7 @@
 .error + .cke:hover .cke_contents,
 .error + .cke:hover .cke_top,
 .error + .cke:hover .cke_bottom {
-  border-color: var(--color-input-border-hover);
+  border-color: var(--input--hover-border-color);
 }
 
 /* Focus. */
@@ -80,12 +80,12 @@
 .error + .cke.cke_focus .cke_contents,
 .error + .cke.cke_focus .cke_top,
 .error + .cke.cke_focus .cke_bottom {
-  border-color: var(--color-input-border-focus);
+  border-color: var(--input--focus-border-color);
 }
 
 /* Disabled. */
 [disabled] + .cke.cke_chrome {
-  border-color: var(--color-input-border-disabled);
+  border-color: var(--input--disabled-border-color);
 }
 [disabled] + .cke .cke_contents,
 [disabled] + .cke .cke_top,
@@ -94,14 +94,14 @@
 }
 [disabled] + .cke .cke_contents {
   background: hsl(240, 4%, 90%); /* Calculated from disabled input bg and iframe opacity. */
-  border-color: var(--color-input-bg-disabled);
+  border-color: var(--input--disabled-bg-color);
 }
 [disabled] + .cke iframe,
 [disabled] + .cke .cke_source {
   opacity: 0.505;
 }
 [disabled] + .cke .cke_bottom {
-  background: var(--color-input-bg-disabled);
+  background: var(--input--disabled-bg-color);
 }
 [disabled] + .cke .cke_bottom > * {
   /* Don't show element path dor disabled editor. */

@@ -8,20 +8,20 @@
   background-position: 100% 50%;
   background-size: 2.75rem 0.5625rem; /* w: 14px + (2 * 15px), h: 9px */
   background-repeat: no-repeat;
-  padding-right: calc(2rem - var(--size-input-border));
+  padding-right: calc(2rem - var(--input-border-size));
 }
 [dir="rtl"] .form-element--type-select {
-  padding-right: calc(1rem - var(--size-input-border));
-  padding-left: calc(2rem - var(--size-input-border));
+  padding-right: calc(1rem - var(--input-border-size));
+  padding-left: calc(2rem - var(--input-border-size));
   background-position: 0 50%;
 }
 .form-element--type-select.form-element--small {
   background-size: 1.75rem 0.5625rem; /* w: 14px + (2 * 7px), h: 9px */
-  padding-right: calc(1.5rem - var(--size-input-border));
+  padding-right: calc(1.5rem - var(--input-border-size));
 }
 [dir="rtl"] .form-element--type-select.form-element--small {
-  padding-right: calc(0.5rem - var(--size-input-border));
-  padding-left: calc(1.5rem - var(--size-input-border));
+  padding-right: calc(0.5rem - var(--input-border-size));
+  padding-left: calc(1.5rem - var(--input-border-size));
 }
 
 .form-element--type-select::-ms-expand {

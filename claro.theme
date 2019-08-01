@@ -16,6 +16,15 @@ use Drupal\Core\Url;
 use Drupal\media\MediaForm;
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter() for form_element.
+ */
+function claro_theme_suggestions_form_element_alter(&$suggestions, $variables) {
+  if (!empty($variables['element']['#type'])) {
+    $suggestions[] = 'form_element__' . $variables['element']['#type'];
+  }
+}
+
+/**
  * Implements hook_preprocess_HOOK() for HTML document templates.
  */
 function claro_preprocess_html(&$variables) {
@@ -210,6 +219,12 @@ function claro_preprocess_admin_block_content(&$variables) {
  */
 function claro_preprocess_menu_local_action(array &$variables) {
   $variables['link']['#options']['attributes']['class'][] = 'button--primary';
+  $variables['attributes']['class'][] = 'action-links__item';
+  $legacy_class_key = array_search('button-action', $variables['link']['#options']['attributes']['class']);
+
+  if ($legacy_class_key !== FALSE) {
+    $variables['link']['#options']['attributes']['class'][$legacy_class_key] = 'button--action';
+  }
 
   // We require Modernizr's touch test for button styling.
   $variables['#attached']['library'][] = 'core/modernizr';
@@ -487,6 +502,45 @@ function claro_form_view_edit_form_alter(&$form, FormStateInterface $form_state)
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for views_exposed_form.
+ */
+function claro_form_views_exposed_form_alter(&$form, FormStateInterface $form_state) {
+  $view = $form_state->getStorage()['view'];
+  $view_title = $view->getTitle();
+
+  // Add BEM classes for items in the form.
+  // Sorted keys.
+  $child_keys = Element::children($form, TRUE);
+  $last_key = NULL;
+  $child_before_actions_key = NULL;
+
+  foreach ($child_keys as $child_key) {
+    if (!empty($form[$child_key]['#type'])) {
+      if ($form[$child_key]['#type'] === 'actions') {
+        // We need the key of the element that precedes the actions element.
+        $child_before_actions_key = $last_key;
+        $form[$child_key]['#attributes']['class'][] = 'views-exposed-form__item';
+        $form[$child_key]['#attributes']['class'][] = 'views-exposed-form__item--actions';
+      }
+
+      if (!in_array($form[$child_key]['#type'], ['hidden', 'actions'])) {
+        $form[$child_key]['#wrapper_attributes']['class'][] = 'views-exposed-form__item';
+        $last_key = $child_key;
+      }
+    }
+  }
+
+  if ($child_before_actions_key) {
+    // Add a modifier class to the item that precedes the form actions.
+    $form[$child_before_actions_key]['#wrapper_attributes']['class'][] = 'views-exposed-form__item--preceding-actions';
+  }
+
+  // Add a label so screenreaders can identify the purpose of the exposed form
+  // without having to scan content that appears further down the page.
+  $form['#attributes']['aria-label'] = t('Filter the contents of the %view_title view', ['%view_title' => $view_title]);
+}
+
+/**
  * Implements hook_preprocess_form_element().
  */
 function claro_preprocess_form_element(&$variables) {
@@ -499,19 +553,6 @@ function claro_preprocess_form_element(&$variables) {
 
     if (!empty($variables['description']['attributes'])) {
       $variables['description']['attributes']->addClass('is-disabled');
-    }
-  }
-
-  // Remove 'container-inline' class from the main attributes and add a flag
-  // instead.
-  // @todo remove this after https://www.drupal.org/node/3059593 has been
-  //   resolved.
-  if (!empty($variables['attributes']['class'])) {
-    $container_inline_key = array_search('container-inline', $variables['attributes']['class']);
-
-    if ($container_inline_key !== FALSE) {
-      unset($variables['attributes']['class'][$container_inline_key]);
-      $variables['inline_items'] = TRUE;
     }
   }
 }
@@ -624,6 +665,45 @@ function claro_preprocess_fieldset(&$variables) {
     if (!empty($variables['description']) && !empty($variables['description']['attributes'])) {
       $variables['description']['attributes']->addClass('is-disabled');
     }
+  }
+
+  // Remove 'container-inline' class from the main attributes and add a flag
+  // instead.
+  // @todo remove this after https://www.drupal.org/node/3059593 has been
+  //   resolved.
+  if (!empty($variables['attributes']['class'])) {
+    $container_inline_key = array_search('container-inline', $variables['attributes']['class']);
+
+    if ($container_inline_key !== FALSE) {
+      unset($variables['attributes']['class'][$container_inline_key]);
+      $variables['inline_items'] = TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form_element__password_confirm.
+ */
+function claro_preprocess_form_element__password_confirm(&$variables) {
+  // Add CSS classes needed for theming the password confirm widget.
+  $variables['attributes']['class'][] = 'password-confirm';
+  $variables['attributes']['class'][] = 'is-initial';
+  $variables['attributes']['class'][] = 'is-password-empty';
+  $variables['attributes']['class'][] = 'is-confirm-empty';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form_element__password.
+ */
+function claro_preprocess_form_element__password(&$variables) {
+  if (!empty($variables['element']['#array_parents']) && in_array('pass1', $variables['element']['#array_parents'])) {
+    // This is the main password form element.
+    $variables['attributes']['class'][] = 'password-confirm__password';
+  }
+
+  if (!empty($variables['element']['#array_parents']) && in_array('pass2', $variables['element']['#array_parents'])) {
+    // This is the password confirm form element.
+    $variables['attributes']['class'][] = 'password-confirm__confirm';
   }
 }
 

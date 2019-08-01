@@ -3,6 +3,21 @@
  * Styles for Claro's Pagination.
  */
 
+:root {
+  /**
+  * Pager.
+  */
+  --pager-size: 2rem; /* --space-m Ã— 2 */
+  --pager-border-width: 0.125rem; /* 2px */
+  --pager-fg-color: var(--color-davysgrey);
+  --pager-bg-color: var(--color-white);
+  --pager--hover-bg-color: var(--color-bgblue-active);
+  --pager--focus-bg-color: var(--color-focus);
+  --pager--active-fg-color: var(--color-white);
+  --pager--active-bg-color: var(--color-absolutezero);
+  --pager-border-radius--action: var(--pager-border-width);
+}
+
 .pager {
   margin-top: var(--space-m);
   margin-bottom: var(--space-m);
@@ -31,8 +46,8 @@
   padding-left: var(--space-xs);
   box-sizing: border-box;
   border-radius: var(--space-m); /* Pager size ÷ 2 */
-  background: var(--pager-bg); /* Make sure that the text is visible on dark background. */
-  color: var(--pager-fg);
+  background: var(--pager-bg-color); /* Make sure that the text is visible on dark background. */
+  color: var(--pager-fg-color);
   height: var(--pager-size);
   line-height: 1;
 }
@@ -43,16 +58,16 @@
 }
 .pager__link:hover,
 .pager__link.is-active:hover {
-  background: var(--pager-bg--hover);
-  color: var(--pager-fg);
+  background: var(--pager--hover-bg-color);
+  color: var(--pager-fg-color);
 }
 .pager__link--action-link {
-  border-radius: var(--pager-action-border-radius);
+  border-radius: var(--pager-border-radius--action);
 }
 /* Active number link. */
 .pager__link.is-active {
-  background: var(--pager-bg--active);
-  color: var(--pager-fg--active);
+  background: var(--pager--active-bg-color);
+  color: var(--pager--active-fg-color);
 }
 .pager__item--first .pager__link::before {
   background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 2V14' stroke='%23545560' stroke-width='2'/%3E%3Cpath d='M14 2L8 8L14 14' stroke='%23545560' stroke-width='2'/%3E%3C/svg%3E%0A");

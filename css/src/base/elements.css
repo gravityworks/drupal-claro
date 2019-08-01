@@ -11,7 +11,7 @@ body {
 }
 
 .cke_editable:not(.cke_editable_inline) {
-  margin: 1em calc(1em - var(--size-input-border) - var(--size-input-border));
+  margin: 1em calc(1em - var(--input-border-size) - var(--input-border-size));
 }
 
 a,

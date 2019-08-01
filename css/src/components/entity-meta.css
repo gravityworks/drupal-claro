@@ -9,8 +9,8 @@
 
 .entity-meta__header {
   padding: calc(var(--space-m) - var(--size-entity-meta-spacing)) var(--space-m) calc(var(--space-l) - var(--size-entity-meta-spacing));
-  border: var(--size-details-border) solid var(--color-details-border);
-  border-radius: var(--size-accordion-border-radius);
+  border: var(--details-border-size) solid var(--details-border-color);
+  border-radius: var(--details-accordion-border-size-radius);
   background-color: var(--color-bg);
   color: var(--color-fg);
 }
