@@ -3,6 +3,12 @@
  * Styles for Claro's Pagination.
  */
 
+:root {
+  /**
+  * Pager.
+  */ /* --space-m Ã— 2 */ /* 2px */
+}
+
 .pager {
   margin-top: 1rem;
   margin-bottom: 1rem;

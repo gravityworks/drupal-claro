@@ -1,6 +1,13 @@
 /**
  * Tabs.
  */
+
+:root {
+  /**
+  * Tabs.
+  */ /* 48px */
+}
+
 .tabs-wrapper {
   display: -webkit-box;
   display: -webkit-flex;

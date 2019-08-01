@@ -4,6 +4,12 @@
  * Styling for the shortcut module.
  */
 
+:root {
+  /**
+  * Shortcut action.
+  */
+}
+
 /**
  * Add/remove links.
  */
@@ -26,8 +32,8 @@
   -webkit-transform: translateY(-0.5rem);
   -ms-transform: translateY(-0.5rem);
   transform: translateY(-0.5rem);
-  -webkit-transition: all 200ms ease-out;
-  transition: all 200ms ease-out;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   vertical-align: top;
