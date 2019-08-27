@@ -22,22 +22,30 @@
   margin-top: var(--space-m);
   margin-bottom: var(--space-m);
 }
+
 .pager__items {
   font-weight: bold;
   text-align: center;
-  margin: var(--space-m) 0;
+  margin: var(--space-m) 0; /* LTR */
   display: flex;
   justify-content: center;
   align-items: flex-end;
   flex-wrap: wrap;
   list-style: none;
 }
+[dir="rtl"] .pager__items {
+  margin: var(--space-m) 0;
+}
+
 .pager__item {
   display: inline-block;
   vertical-align: top;
-  margin: 0 calc(var(--space-xs) / 2);
+  margin-right: calc(var(--space-xs) / 2);
+  margin-left: calc(var(--space-xs) / 2);
 }
-.pager__link {
+
+.pager__link,
+.pager__item--current {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,7 +73,8 @@
   border-radius: var(--pager-border-radius--action);
 }
 /* Active number link. */
-.pager__link.is-active {
+.pager__link.is-active,
+.pager__item--current {
   background: var(--pager--active-bg-color);
   color: var(--pager--active-fg-color);
 }
@@ -99,23 +108,38 @@
 [dir="rtl"] .pager__item--last .pager__link::after {
   transform: scaleX(-1);
 }
-.pager__item--first .pager__link::before,
-.pager__item--previous .pager__link::before {
-  margin-right: var(--space-xs); /* LTR */
+
+.pager__item--mini {
+  margin-right: calc(var(--space-m) / 2);
+  margin-left: calc(var(--space-m) / 2);
 }
-[dir="rtl"] .pager__item--first .pager__link::before,
-[dir="rtl"] .pager__item--previous .pager__link::before {
-  margin-left: var(--space-xs);
+.pager__link--mini {
+  border-radius: 50%;
+}
+
+/**
+ * On the mini pager, remove margins for the previous and next icons.
+ * Margins are not needed here as there is no accompanying text.
+ */
+.pager__link--mini::before {
   margin-right: 0;
-}
-.pager__item--next .pager__link::after,
-.pager__item--last .pager__link::after {
-  margin-left: var(--space-xs); /* LTR */
-}
-[dir="rtl"] .pager__item--next .pager__link::after,
-[dir="rtl"] .pager__item--last .pager__link::after {
-  margin-right: var(--space-xs);
   margin-left: 0;
+}
+
+.pager__item-title--backwards {
+  margin-left: 0.5rem; /* LTR */
+}
+[dir="rtl"] .pager__item-title--backwards {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+.pager__item-title--forward {
+  margin-right: 0.5rem; /* LTR */
+}
+[dir="rtl"] .pager__item-title--forward {
+  margin-right: 0;
+  margin-left: 0.5rem;
 }
 
 @media (-ms-high-contrast: active) {
