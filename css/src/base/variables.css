@@ -69,6 +69,8 @@
   --speed-transition: 0.2s;
   --transition: all var(--speed-transition) ease-out;
   --base-border-radius: 2px;
+  --focus-border-size: 3px;
+  --outline-size: 2px;
   /*
    * Inputs.
    */

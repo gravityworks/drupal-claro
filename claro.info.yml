@@ -30,6 +30,7 @@ libraries-override:
         /core/themes/stable/css/system/components/system-status-counter.css: css/dist/components/system-status-counter.css
         /core/themes/stable/css/system/components/system-status-report-counters.css: css/dist/components/system-status-report-counters.css
         /core/themes/stable/css/system/components/system-status-report-general-info.css: css/dist/components/system-status-report-general-info.css
+        /core/themes/stable/css/system/components/tabledrag.module.css: css/dist/components/tabledrag.css
   system/admin:
     css:
       theme:
@@ -39,6 +40,10 @@ libraries-override:
     css:
       component:
         /core/themes/stable/css/core/dropbutton/dropbutton.css: css/dist/components/dropbutton.css
+
+  core/drupal.tabledrag:
+    js:
+      misc/tabledrag.js: js/claro.tabledrag.js
 
   core/drupal.vertical-tabs:
     css:
@@ -69,7 +74,7 @@ libraries-override:
         css/components/tabs.css: false
         css/components/pager.css: false
         css/components/tableselect.css: css/dist/components/tableselect.css
-        css/components/tabledrag.css: css/dist/components/tabledrag.css
+        css/components/tabledrag.css: false
         css/components/collapse-processed.css: false
 
   classy/dropbutton:
