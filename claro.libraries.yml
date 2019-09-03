@@ -222,3 +222,7 @@ views:
   css:
     component:
       css/dist/components/views-exposed-form.css: {}
+
+messages:
+  js:
+    js/messages.js: {}
