@@ -852,13 +852,3 @@ function claro_preprocess_views_mini_pager(&$variables) {
   // @todo Revisit after https://www.drupal.org/node/3059232 is fixed.
   $variables['heading_id'] = Html::getUniqueId('pagination-heading');
 }
-
-/**
- * Implements hook_preprocess_HOOK() for status_messages.
- */
-function claro_preprocess_status_messages(&$variables) {
-  $variables['title_ids'] = [];
-  foreach ($variables['message_list'] as $message_type => $messages) {
-    $variables['title_ids'][$message_type] = Html::getUniqueId("message-$message_type-title");
-  }
-}

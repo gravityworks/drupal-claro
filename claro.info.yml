@@ -82,11 +82,6 @@ libraries-override:
       component:
         css/components/dropbutton.css: false
 
-  classy/messages:
-    css:
-      component:
-        css/components/messages.css: false
-
   classy/progress:
     css:
       component:
@@ -128,8 +123,6 @@ libraries-extend:
     - claro/details-focus
   core/drupal.dropbutton:
     - claro/drupal-theme
-  core/drupal.message:
-    - claro/messages
   core/drupal.vertical-tabs:
     - claro/vertical-tabs
   core/drupal.tableselect:
