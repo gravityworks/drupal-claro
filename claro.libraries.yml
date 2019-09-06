@@ -7,7 +7,7 @@ global-styling:
       css/dist/base/print.css: {}
     component:
       css/dist/components/accordion.css: {}
-      css/dist/components/action-links.css: {}
+      css/dist/components/action-link.css: {}
       css/dist/components/content-header.css: {}
       css/dist/components/container-inline.css: {}
       css/dist/components/container-inline.module.css: {}
@@ -42,6 +42,7 @@ global-styling:
     theme:
       css/dist/theme/colors.css: {}
     layout:
+      css/dist/layout/action-links.css: {}
       css/dist/layout/layout.css: {}
   dependencies:
     - system/admin
