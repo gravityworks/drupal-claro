@@ -13,10 +13,11 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
 .pager__items {
   font-weight: bold;
   text-align: center;
-  margin: 1rem 0;
+  margin: 1rem 0; /* LTR */
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -37,12 +38,19 @@
   flex-wrap: wrap;
   list-style: none;
 }
+[dir="rtl"] .pager__items {
+  margin: 1rem 0;
+}
+
 .pager__item {
   display: inline-block;
   vertical-align: top;
-  margin: 0 0.25rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
 }
-.pager__link {
+
+.pager__link,
+.pager__item--current {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -84,7 +92,8 @@
   border-radius: 0.125rem;
 }
 /* Active number link. */
-.pager__link.is-active {
+.pager__link.is-active,
+.pager__item--current {
   background: #003cc5;
   color: #fff;
 }
@@ -120,23 +129,38 @@
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
 }
-.pager__item--first .pager__link::before,
-.pager__item--previous .pager__link::before {
-  margin-right: 0.5rem; /* LTR */
-}
-[dir="rtl"] .pager__item--first .pager__link::before,
-[dir="rtl"] .pager__item--previous .pager__link::before {
+
+.pager__item--mini {
+  margin-right: 0.5rem;
   margin-left: 0.5rem;
-  margin-right: 0;
 }
-.pager__item--next .pager__link::after,
-.pager__item--last .pager__link::after {
+.pager__link--mini {
+  border-radius: 50%;
+}
+
+/**
+ * On the mini pager, remove margins for the previous and next icons.
+ * Margins are not needed here as there is no accompanying text.
+ */
+.pager__link--mini::before {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.pager__item-title--backwards {
   margin-left: 0.5rem; /* LTR */
 }
-[dir="rtl"] .pager__item--next .pager__link::after,
-[dir="rtl"] .pager__item--last .pager__link::after {
+[dir="rtl"] .pager__item-title--backwards {
   margin-right: 0.5rem;
   margin-left: 0;
+}
+
+.pager__item-title--forward {
+  margin-right: 0.5rem; /* LTR */
+}
+[dir="rtl"] .pager__item-title--forward {
+  margin-right: 0;
+  margin-left: 0.5rem;
 }
 
 @media (-ms-high-contrast: active) {
