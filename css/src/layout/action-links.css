@@ -1,21 +1,24 @@
 /**
  * @file
- * Styles for link buttons and action links.
+ * Layout styles for local actions.
  */
 
+/**
+ * Action link layout styles.
+ */
 .action-links {
   margin: var(--space-m) 0;
   padding: 0;
   list-style: none;
 }
+/* This is required to win over specificity of [dir="rtl"] ul */
 [dir="rtl"] .action-links {
-  /* This is required to win over specificity of [dir="rtl"] ul */
   margin-right: 0;
 }
 
 .action-links__item {
   display: inline-block;
-  margin: 0 var(--space-xs);
+  margin: 0 calc(var(--space-xs) / 2);
 }
 
 .action-links__item:first-child {
@@ -23,14 +26,14 @@
 }
 [dir="rtl"] .action-links__item:first-child {
   margin-right: 0;
-  margin-left: var(--space-xs);
+  margin-left: calc(var(--space-xs) / 2);
 }
 
 .action-links__item:last-child {
   margin-right: 0; /* LTR */
 }
 [dir="rtl"] .action-links__item:last-child {
-  margin-right: var(--space-xs);
+  margin-right: calc(var(--space-xs) / 2);
   margin-left: 0;
 }
 

@@ -23,9 +23,10 @@
 /**
  * Base button styles.
  *
- * These styles have been duplicated to dropbutton.css since that component
- * inherits most of these design elements. Whenever making changes to this file,
- * remember to check if that needs to be applied to dropbutton.css as well.
+ * These styles have been duplicated to dropbutton.css and action-links.css
+ * since those components inherits most of these design elements. Whenever
+ * making changes to this file, remember to check if that needs to be applied to
+ * dropbutton.css or action-links.css as well.
  */
 .button {
   display: inline-block;
@@ -42,10 +43,10 @@
   text-decoration: none;
   border-radius: var(--button-border-radius-size);
   cursor: pointer;
-  margin: var(--space-m) var(--space-m) var(--space-m) 0; /* LTR */
+  margin: var(--space-m) var(--space-s) var(--space-m) 0; /* LTR */
 }
 [dir="rtl"] .button {
-  margin: var(--space-m) 0 var(--space-m) var(--space-m);
+  margin: var(--space-m) 0 var(--space-m) var(--space-s);
 }
 
 .button:not(:focus) {
@@ -67,12 +68,12 @@
 
 /* Common styles for small buttons */
 .no-touchevents .button--small {
-  margin: var(--space-s) var(--space-s) var(--space-s) 0; /* LTR */
+  margin: var(--space-s) var(--space-xs) var(--space-s) 0; /* LTR */
   padding: calc(var(--space-xs) - 1px) calc(var(--space-m) - 1px); /* 1 */
   font-size: var(--font-size-xs);
 }
 [dir="rtl"].no-touchevents .button--small {
-  margin: var(--space-s) 0 var(--space-s) var(--space-s);
+  margin: var(--space-s) 0 var(--space-s) var(--space-xs);
 }
 
 /* Styles for action link buttons */
