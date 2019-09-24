@@ -18,7 +18,7 @@
 .form-element--small {
   font-size: var(--font-size-label);
   padding: calc(0.25rem - var(--input-border-size)) calc(0.5rem - var(--input-border-size));
-  line-height: 0.875rem;
+  line-height: 1rem;
   min-height: 1.5rem; /* iOS. */
 }
 
