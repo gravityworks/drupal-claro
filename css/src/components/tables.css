@@ -124,20 +124,28 @@ _:-ms-fullscreen, /* Only IE 11 */
 tr {
   border-bottom: 0.0625rem solid var(--color-lightgray);
 }
+tr,
+.draggable-table.tabledrag-disabled tr {
+  background: var(--color-white);
+  color: var(--color-text);
+}
 thead tr {
   border: 0;
 }
 tr:hover,
 tr:focus {
   background: var(--color-bgblue-hover);
+  color: var(--color-text);
 }
 tr.color-warning:hover,
 tr.color-warning:focus {
   background: #fdf8ed;
+  color: var(--color-text);
 }
 tr.color-error:hover,
 tr.color-error:focus {
   background: #fcf4f2;
+  color: var(--color-text);
 }
 
 td {
@@ -161,6 +169,18 @@ td.is-active {
   background: none;
 }
 
+/**
+ * Target every .form-element input that parent is a form-item of a table cell.
+ * This ignores the filter format select of the textarea editor.
+ */
+td > .form-item > .form-element,
+td > .ajax-new-content > .form-item > .form-element {
+  width: 100%;
+}
+
+th.is-disabled {
+  color: var(--input--disabled-fg-color);
+}
 /* Force browsers to calculate the width of a 'select all' <th> element. */
 th.select-all {
   width: 1px;

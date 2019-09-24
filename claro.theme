@@ -240,6 +240,9 @@ function claro_element_info_alter(&$type) {
   if (isset($type['button'])) {
     $type['button']['#attached']['library'][] = 'core/modernizr';
   }
+  if (isset($type['submit'])) {
+    $type['submit']['#attached']['library'][] = 'core/modernizr';
+  }
 
   // Add a pre-render function that handles the sidebar of the node form.
   // @todo Refactor when https://www.drupal.org/node/3056089 is in.
@@ -815,6 +818,65 @@ function claro_preprocess_fieldset(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for field_multiple_value_form.
+ */
+function claro_preprocess_field_multiple_value_form(&$variables) {
+  // Make disabled available for the template.
+  $variables['disabled'] = !empty($variables['element']['#disabled']);
+
+  if ($variables['multiple']) {
+    // Add an additional CSS class for the field label table cell.
+    // This repeats the logic of template_preprocess_field_multiple_value_form()
+    // without using '#prefix' and '#suffix' for the wrapper element.
+    //
+    // If the field is multiple, we don't have to check the existence of the
+    // table header cell.
+    //
+    // @see template_preprocess_field_multiple_value_form().
+    $header_attributes = ['class' => ['form-item__label', 'form-item__label--multiple-value-form']];
+    if (!empty($variables['element']['#required'])) {
+      $header_attributes['class'][] = 'js-form-required';
+      $header_attributes['class'][] = 'form-required';
+    }
+    // Using array_key_first() for addressing the first header cell would be
+    // more elegant here, but we can rely on the related theme.inc preprocess.
+    $variables['table']['#header'][0]['data'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h4',
+      '#value' => $variables['element']['#title'],
+      '#attributes' => $header_attributes,
+    ];
+
+    if ($variables['disabled']) {
+      $variables['table']['#attributes']['class'][] = 'tabledrag-disabled';
+      $variables['table']['#attributes']['class'][] = 'js-tabledrag-disabled';
+
+      // We will add the 'is-disabled' CSS class to the disabled table header
+      // cells.
+      $header_attributes['class'][] = 'is-disabled';
+      foreach ($variables['table']['#header'] as &$cell) {
+        if (is_array($cell) && isset($cell['data'])) {
+          $cell = $cell + ['class' => []];
+          $cell['class'][] = 'is-disabled';
+        }
+        else {
+          // We have to modify the structure of this header cell.
+          $cell = [
+            'data' => $cell,
+            'class' => ['is-disabled'],
+          ];
+        }
+      }
+    }
+
+    // Make add-more button smaller.
+    if (!empty($variables['button'])) {
+      $variables['button']['#attributes']['class'][] = 'button--small';
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_HOOK() for form_element__password_confirm.
  */
 function claro_preprocess_form_element__password_confirm(&$variables) {
@@ -863,11 +925,11 @@ function claro_preprocess_filter_tips(&$variables) {
 
 /**
  * Implements template_preprocess_HOOK() for table.
- *
- * @todo Revisit after https://www.drupal.org/node/3025726 or
- * https://www.drupal.org/node/1973418 is in.
  */
 function claro_preprocess_table(&$variables) {
+  // Adding table sort indicator CSS class for inactive sort link.
+  // @todo Revisit after https://www.drupal.org/node/3025726 or
+  // https://www.drupal.org/node/1973418 is in.
   if (!empty($variables['header'])) {
     foreach ($variables['header'] as &$header_cell) {
       // For 8.6.x and below.
@@ -899,6 +961,39 @@ function claro_preprocess_table(&$variables) {
       }
     }
   }
+
+  // Mark the whole table and the first cells if rows are draggable.
+  if (!empty($variables['rows'])) {
+    $draggable_row_found = FALSE;
+    foreach ($variables['rows'] as &$row) {
+      /** @var \Drupal\Core\Template\Attribute $row['attributes'] */
+      if (!empty($row['attributes']) && $row['attributes']->hasClass('draggable')) {
+        if (!$draggable_row_found) {
+          $variables['attributes']['class'][] = 'draggable-table';
+          $draggable_row_found = TRUE;
+        }
+
+        reset($row['cells']);
+        $first_cell_key = key($row['cells']);
+        // The 'attributes' key is always here and it is an
+        // \Drupal\Core\Template\Attribute.
+        // @see template_preprocess_table();
+        $row['cells'][$first_cell_key]['attributes']->addClass('tabledrag-cell');
+
+        // Check that the first cell is empty or not.
+        if (empty($row['cells'][$first_cell_key]) || empty($row['cells'][$first_cell_key]['content'])) {
+          $row['cells'][$first_cell_key]['attributes']->addClass('tabledrag-cell--only-drag');
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK() for field_ui_table.
+ */
+function claro_preprocess_field_ui_table(&$variables) {
+  claro_preprocess_table($variables);
 }
 
 /**

@@ -151,4 +151,8 @@
   --progress-bar-description-font-size: var(--font-size-xs);
   --progress-track-border-color: var(--color-grayblue);
   --progress-track-bg-color: var(--color-lightgray);
+  /**
+   * Tabledrag icon size.
+   */
+  --tabledrag-handle-icon-size: calc(17rem / 16); /* 17px */
 }

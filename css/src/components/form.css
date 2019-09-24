@@ -28,12 +28,6 @@ tr .form-item,
   margin-top: var(--space-s);
   margin-bottom: var(--space-s);
 }
-/* Remove spacing if the form item nested in table is the only child. */
-td > .form-item:only-child,
-.container-inline .form-item:only-child {
-  margin-top: var(--space-xs);
-  margin-bottom: var(--space-xs);
-}
 
 /**
  * Form element label.
@@ -45,6 +39,13 @@ td > .form-item:only-child,
   margin-top: calc(var(--space-xs) / 2); /* 4px */
   margin-bottom: calc(var(--space-xs) / 2); /* 4px */
   font-weight: bold;
+}
+.form-item__label--multiple-value-form {
+  font-size: inherit;
+  line-height: inherit;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: inherit;
 }
 .form-item__label[for] {
   cursor: pointer;

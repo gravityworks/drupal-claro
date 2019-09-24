@@ -21,6 +21,7 @@ global-styling:
       css/dist/components/form.css: {}
       css/dist/components/form--checkbox-radio.css: {}
       css/dist/components/form--checkbox-radio--ie.css: {}
+      css/dist/components/form--field-multiple.css: {}
       css/dist/components/form--text.css: {}
       css/dist/components/form--select.css: {}
       css/dist/components/help.css: {}
