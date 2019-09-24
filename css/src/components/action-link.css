@@ -1,7 +1,38 @@
 /**
  * @file
  * Styles for action links.
+ *
+ * Contains Action link component and the action-links layout styles.
  */
+
+/**
+ * Action links layout.
+ */
+.action-links,
+[dir="rtl"] .action-links {
+  list-style: none;
+  margin: var(--space-l) 0;
+}
+
+.action-links__item {
+  display: inline-block;
+}
+
+.action-links__item + .action-links__item > .action-link {
+  margin-left: var(--space-s); /* LTR */
+}
+[dir="rtl"] .action-links__item + .action-links__item > .action-link {
+  margin-right: var(--space-s);
+  margin-left: 0;
+}
+
+.action-links__item + .action-links__item > .action-link--small {
+  margin-left: var(--space-xs); /* LTR */
+}
+[dir="rtl"] .action-links__item + .action-links__item > .action-link--small {
+  margin-right: var(--space-xs);
+  margin-left: 0;
+}
 
 /**
  * The action link component.
@@ -12,10 +43,9 @@
   border-radius: var(--button-border-radius-size);
   background-color: var(--color-bg);
   color: var(--color-davysgrey);
-  text-align: center;
   font-size: var(--font-size-base);
   font-weight: 700;
-  line-height: var(--space-l); /* Bigger line-height need to prevent the icon from increasing the height */
+  line-height: var(--space-l); /* Bigger line-height needed to prevent the icon from increasing the height */
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
 }

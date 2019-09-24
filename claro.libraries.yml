@@ -42,7 +42,7 @@ global-styling:
     theme:
       css/dist/theme/colors.css: {}
     layout:
-      css/dist/layout/action-links.css: {}
+      css/dist/layout/local-actions.css: {}
       css/dist/layout/layout.css: {}
   dependencies:
     - system/admin
@@ -159,13 +159,14 @@ system.admin:
   css:
     component:
       css/dist/components/system-admin--admin-list.css: { weight: -10 }
-      css/dist/components/system-admin--appearance.css: { weight: -10 }
       css/dist/components/system-admin--links.css: { weight: -10 }
       css/dist/components/system-admin--modules.css: { weight: -10 }
       css/dist/components/system-admin--panel.css: { weight: -10 }
       css/dist/components/system-admin--status-report.css: { weight: -10 }
     layout:
       css/dist/layout/system-admin--layout.css: { weight: -10 }
+  dependencies:
+    - claro/card
 
 drupal-theme:
   version: VERSION
@@ -227,3 +228,9 @@ views:
 messages:
   js:
     js/messages.js: {}
+
+card:
+  css:
+    component:
+      css/dist/layout/card-list.css: {}
+      css/dist/components/card.css: {}

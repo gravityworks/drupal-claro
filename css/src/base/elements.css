@@ -27,11 +27,11 @@ a:focus,
   outline: 0;
 }
 hr {
-  margin: 0;
+  margin: var(--space-m) 0;
   padding: 0;
   border: none;
   height: 1px;
-  background: #ccc;
+  background: var(--color-divider);
 }
 
 summary {

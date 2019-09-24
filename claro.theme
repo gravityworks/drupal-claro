@@ -221,7 +221,7 @@ function claro_preprocess_admin_block_content(&$variables) {
  */
 function claro_preprocess_menu_local_action(array &$variables) {
   $variables['link']['#options']['attributes']['class'][] = 'button--primary';
-  $variables['attributes']['class'][] = 'action-links__item';
+  $variables['attributes']['class'][] = 'local-actions__item';
   $legacy_class_key = array_search('button-action', $variables['link']['#options']['attributes']['class']);
 
   if ($legacy_class_key !== FALSE) {
@@ -993,5 +993,40 @@ function claro_preprocess_status_messages(&$variables) {
   $variables['title_ids'] = [];
   foreach ($variables['message_list'] as $message_type => $messages) {
     $variables['title_ids'][$message_type] = Html::getUniqueId("message-$message_type-title");
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for system_themes_page.
+ */
+function claro_preprocess_system_themes_page(&$variables) {
+  if (!empty($variables['theme_groups'])) {
+    foreach ($variables['theme_groups'] as &$theme_group) {
+      if (!empty($theme_group['themes'])) {
+        foreach ($theme_group['themes'] as &$theme_card) {
+          $theme_card['title_id'] = Html::getUniqueId($theme_card['name'] . '-label');
+          $description_is_empty = empty((string) $theme_card['description']);
+
+          // Set description_id only if the description is not empty.
+          if (!$description_is_empty) {
+            $theme_card['description_id'] = Html::getUniqueId($theme_card['name'] . '-description');
+          }
+
+          if (!empty($theme_card['operations']) && !empty($theme_card['operations']['#theme']) && $theme_card['operations']['#theme'] === 'links') {
+            $theme_card['operations']['#theme'] = 'links__action_links';
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for links__action_links.
+ */
+function claro_preprocess_links__action_links(&$variables) {
+  $variables['attributes']['class'][] = 'action-links';
+  foreach ($variables['links'] as $delta => $link_item) {
+    $variables['links'][$delta]['attributes']->addClass('action-links__item');
   }
 }

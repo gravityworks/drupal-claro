@@ -31,6 +31,7 @@ libraries-override:
         /core/themes/stable/css/system/components/system-status-report-counters.css: css/dist/components/system-status-report-counters.css
         /core/themes/stable/css/system/components/system-status-report-general-info.css: css/dist/components/system-status-report-general-info.css
         /core/themes/stable/css/system/components/tabledrag.module.css: css/dist/components/tabledrag.css
+
   system/admin:
     css:
       theme:
