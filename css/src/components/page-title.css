@@ -10,5 +10,6 @@
   display: inline-block;
   font-size: var(--font-size-h1);
   line-height: var(--line-height);
+  margin: 0;
   -webkit-font-smoothing: antialiased;
 }
