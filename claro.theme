@@ -494,6 +494,7 @@ function _claro_convert_link_to_action_link(array $link, $icon_name = NULL, $sma
     $link['#options']['attributes'] += $link['#attributes'];
     unset($link['#attributes']);
   }
+  $link['#options'] += ['attributes' => []];
   $link['#options']['attributes'] += ['class' => []];
 
   // Determine the needed (type) variant.
