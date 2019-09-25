@@ -412,7 +412,7 @@ function claro_form_alter(&$form, FormStateInterface $form_state) {
   $build_info = $form_state->getBuildInfo();
 
   // Make entity forms delete link use the action-link component.
-  if (!empty($build_info['callback_object']) && $build_info['callback_object'] instanceof EntityForm && !empty($form['actions']) && !empty($form['actions']['delete']) && $form['actions']['delete']['#type'] === 'link') {
+  if (isset($form['actions']['delete']['#type']) && $form['actions']['delete']['#type'] === 'link' && !empty($build_info['callback_object']) && $build_info['callback_object'] instanceof EntityForm) {
     $form['actions']['delete'] = _claro_convert_link_to_action_link($form['actions']['delete'], 'trash', FALSE, 'danger');
   }
 }
