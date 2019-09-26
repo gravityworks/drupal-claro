@@ -50,38 +50,43 @@ h1,
 .heading-a {
   font-weight: bold;
   margin: var(--space-m) 0 var(--space-s);
-  font-size: 1.625em;
-  line-height: 1.875em;
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-heading);
 }
 h2,
 .heading-b {
   font-weight: bold;
   margin: var(--space-m) 0 var(--space-s);
-  font-size: 1.385em;
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-heading);
 }
 h3,
 .heading-c {
   font-weight: bold;
   margin: var(--space-m) 0 var(--space-s);
-  font-size: 1.231em;
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-heading);
 }
 h4,
 .heading-d {
   font-weight: bold;
   margin: var(--space-m) 0 var(--space-s);
-  font-size: 1.154em;
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-heading);
 }
 h5,
 .heading-e {
   font-weight: bold;
   margin: var(--space-m) 0 var(--space-s);
-  font-size: 1.077em;
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-heading);
 }
 h6,
 .heading-f {
   font-weight: bold;
   margin: var(--space-m) 0 var(--space-s);
-  font-size: 1.077em;
+  font-size: var(--font-size-h6);
+  line-height: var(--line-height-heading);
 }
 p {
   margin: 1em 0;
