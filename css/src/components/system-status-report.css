@@ -20,6 +20,11 @@
 .system-status-report__entry--warning {
   background-color: transparent;
 }
+.system-status-report__entry h3 {
+  font-size: 1.231em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 /* Account for native and poly-filled details element */
 .system-status-report__status-title {
   position: relative;

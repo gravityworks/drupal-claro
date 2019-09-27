@@ -73,10 +73,13 @@
 }
 
 .system-status-general-info__item-title {
+  font-size: 1.231em;
+  margin-top: 10px;
   margin-bottom: 0;
 }
 
 .system-status-general-info__sub-item-title {
+  font-size: 1.154em;
   margin: 0;
 }
 
