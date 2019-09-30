@@ -17,13 +17,12 @@ body {
 a,
 .link {
   color: var(--color-link);
-  text-decoration: none;
 }
 a:hover,
 a:focus,
 .link:hover,
 .link:focus {
-  text-decoration: underline;
+  text-decoration: none;
   outline: 0;
 }
 hr {
@@ -111,7 +110,7 @@ address {
 }
 u,
 ins {
-  text-decoration: underline;
+  text-decoration: none;
 }
 s,
 strike,

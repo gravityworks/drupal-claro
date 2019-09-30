@@ -59,6 +59,7 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  text-decoration: none;
   min-height: var(--tabs-link-height);
   padding: var(--space-s) var(--space-l);
   color: var(--color-davysgrey);

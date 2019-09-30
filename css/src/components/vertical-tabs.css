@@ -66,9 +66,6 @@
 .vertical-tabs__menu-item a:focus {
   outline: none;
 }
-.vertical-tabs__menu-item a:focus .vertical-tabs__menu-item-title {
-  text-decoration: underline;
-}
 .vertical-tabs__menu-item a:active .vertical-tabs__menu-item-title,
 .vertical-tabs__menu-item.is-selected a:focus .vertical-tabs__menu-item-title {
   text-decoration: none;

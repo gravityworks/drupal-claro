@@ -382,7 +382,6 @@ td.group-title {
   border: 2px solid #ed541d;
 }
 .views-displays .tabs a:focus {
-  text-decoration: underline;
   outline: none;
 }
 .views-displays .tabs.secondary li a {
@@ -520,6 +519,7 @@ td.group-title {
   border-bottom: medium none;
 }
 .views-display-setting .views-ajax-link {
+  text-decoration: none;
   margin-right: 0.2083em;
   margin-left: 0.2083em;
 }

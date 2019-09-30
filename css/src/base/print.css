@@ -8,10 +8,6 @@
   body {
     padding-top: 0;
   }
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
   pre,
   blockquote {
     border: 1px solid #999;
@@ -40,7 +36,6 @@
   a,
   .link {
     color: #000;
-    text-decoration: underline;
   }
   .button,
   .button--primary {

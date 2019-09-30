@@ -275,10 +275,10 @@ details.fieldset-no-legend {
   border: 2px solid #ed541d;
 }
 .views-tabs a:focus {
-  text-decoration: underline;
   outline: none;
 }
 .views-tabs li a {
+  text-decoration: none;
   background-color: #fff;
 }
 .views-tabs li a:hover,

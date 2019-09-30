@@ -41,6 +41,7 @@ th {
 /* The actual sort link. */
 .sortable-heading > a {
   display: block;
+  text-decoration: none;
   padding: var(--space-xs) 1.5rem var(--space-xs) 0; /* LTR */
   color: inherit;
 }

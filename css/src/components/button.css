@@ -156,5 +156,5 @@
   border: 0;
   background: none;
   appearance: none;
-  text-decoration: none;
+  text-decoration: underline;
 }
