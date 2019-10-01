@@ -2,6 +2,8 @@
  * Layout overrides for node add/edit form.
  */
 
+@import "../base/variables.css";
+
 .layout-region-node-footer__content {
   margin-top: 1.5em;
 }

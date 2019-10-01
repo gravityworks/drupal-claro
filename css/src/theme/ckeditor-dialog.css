@@ -3,6 +3,8 @@
  * CKEditor-native dialogs theming.
  */
 
+@import "../base/variables.css";
+
 .cke_dialog_background_cover {
   display: none;
 }

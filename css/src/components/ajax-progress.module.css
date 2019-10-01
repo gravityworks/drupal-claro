@@ -3,6 +3,8 @@
  * Throbber.
  */
 
+@import "../base/variables.css";
+
 .ajax-progress {
   display: inline-block;
 }

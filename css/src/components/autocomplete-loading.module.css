@@ -5,6 +5,8 @@
  * @see autocomplete.js
  */
 
+@import "../base/variables.css";
+
 /**
  * Since the autocomplete library is attached conditionally and not globally,
  * we can be 99% sure that the default icon will be used.

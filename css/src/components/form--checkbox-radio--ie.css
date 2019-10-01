@@ -3,6 +3,8 @@
  * Checkbox and radio input elements styles for IE11 and below.
  */
 
+@import "../base/variables.css";
+
 .form-boolean::-ms-check {
   border: 1px solid var(--input-border-color);
   display: inline-block;

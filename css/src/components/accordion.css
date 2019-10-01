@@ -3,6 +3,8 @@
  * Accordion styles.
  */
 
+@import "../base/variables.css";
+
 .accordion {
   background-color: var(--color-white);
   color: var(--color-text);

@@ -3,6 +3,8 @@
  * Main form and form item styles.
  */
 
+@import "../base/variables.css";
+
 ::placeholder {
   color: var(--input-fg-color--placeholder);
 }

@@ -3,6 +3,8 @@
  * Styles for Claro's Pagination.
  */
 
+@import "../base/variables.css";
+
 :root {
   /**
   * Pager.

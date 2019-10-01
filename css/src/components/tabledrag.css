@@ -8,6 +8,8 @@
  * @see tabledrag.js
  */
 
+@import "../base/variables.css";
+
 :root {
   --table-row--dragging-bg-color: #fe7;
   --table-row--last-dragged-bg-color: #ffb;

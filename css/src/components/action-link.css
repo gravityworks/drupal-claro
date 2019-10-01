@@ -5,6 +5,8 @@
  * Contains Action link component and the action-links layout styles.
  */
 
+@import "../base/variables.css";
+
 /**
  * Action links layout.
  */

@@ -5,6 +5,8 @@
  * @see collapse.js
  */
 
+@import "../base/variables.css";
+
 /**
  * Available modifiers are:
  *  - .claro-details--accordion

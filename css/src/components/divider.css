@@ -1,6 +1,9 @@
 /**
  * Divider.
  */
+
+@import "../base/variables.css";
+
 .divider {
   background-color: var(--color-divider);
   height: 1px;

@@ -3,6 +3,8 @@
  * Breadcrumbs.
  */
 
+@import "../base/variables.css";
+
 .breadcrumb {
   font-size: 0.79rem;
   color: var(--color-text);

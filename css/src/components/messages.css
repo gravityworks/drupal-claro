@@ -2,6 +2,8 @@
  * Messages.
  */
 
+@import "../base/variables.css";
+
 :root {
   --messages-bg-color: #353641;
   --messages-fg-color: var(--color-white);

@@ -3,6 +3,8 @@
  * Text and textarea input elements.
  */
 
+@import "../base/variables.css";
+
 .form-element {
   appearance: none; /* Being able to control inner box shadow on iOS. */
   box-sizing: border-box;

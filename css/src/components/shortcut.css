@@ -4,6 +4,8 @@
  * Styling for the shortcut module.
  */
 
+@import "../base/variables.css";
+
 :root {
   /**
   * Shortcut action.

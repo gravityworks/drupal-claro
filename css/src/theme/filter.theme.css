@@ -3,6 +3,8 @@
  * Styling for the Filter module.
  */
 
+@import "../base/variables.css";
+
 /**
  * Filter information under field.
  */

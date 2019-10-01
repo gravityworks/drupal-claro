@@ -3,6 +3,8 @@
  * Card.
  */
 
+@import "../base/variables.css";
+
 :root {
   --card-bg-color: var(--color-white);
   --card-border-size: 1px;

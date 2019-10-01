@@ -44,7 +44,9 @@
     "eslint-plugin-react": "^7.8.2",
     "postcss-calc": "^7.0.1",
     "postcss-cli": "^6.0.1",
-    "postcss-custom-properties": "^8.0.8"
+    "postcss-custom-properties": "^8.0.8",
+    "postcss-discard-comments": "^4.0.2",
+    "postcss-import": "^12.0.1"
   },
   "//": "'development is the default environment, and legacy is for transpiling the old jQuery codebase",
   "babel": {

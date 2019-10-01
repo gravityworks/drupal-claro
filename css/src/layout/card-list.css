@@ -3,6 +3,8 @@
  * Cards list.
  */
 
+@import "../base/variables.css";
+
 :root {
   --card-list-spacing: var(--space-m);
   /* Using 100% as base causes issues in IE11. */
