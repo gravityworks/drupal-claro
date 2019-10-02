@@ -27,6 +27,14 @@ a:focus,
   text-decoration: none;
   outline: 0;
 }
+a:hover,
+.link:hover {
+  color: var(--color-link-hover);
+}
+a:active,
+.link:active {
+  color: var(--color-link-active);
+}
 hr {
   margin: var(--space-m) 0;
   padding: 0;

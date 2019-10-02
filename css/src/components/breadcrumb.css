@@ -37,6 +37,5 @@
 
 .breadcrumb__link:hover,
 .breadcrumb__link:focus {
-  color: var(--color-absolutezero);
   text-decoration: none;
 }

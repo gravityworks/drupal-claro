@@ -23,8 +23,8 @@
   /* Variations. */
   --color-lightgray-hover: #c2c3ca; /* 5% darker than base. */
   --color-lightgray-active: #adaeb3; /* 10% darker than base. */
-  --color-absolutezero-hover: #0036b1; /* 5% darker than base. */
-  --color-absolutezero-active: #00309e; /* 10% darker than base. */
+  --color-absolutezero-hover: #0036b1; /* 10% darker than base. */
+  --color-absolutezero-active: #00339a; /* 20% darker than base. */
   --color-maximumred-hover: #c11f1f; /* 5% darker than base. */
   --color-maximumred-active: #ab1b1b; /* 10% darker than base. */
   --color-bgblue-hover: #f0f5fd; /* 5% darker than base. */
@@ -37,6 +37,8 @@
   --color-fg: var(--color-text);
   --color-bg: var(--color-white);
   --color-link: var(--color-absolutezero);
+  --color-link-hover: var(--color-absolutezero-hover);
+  --color-link-active: var(--color-absolutezero-active);
   --color-divider: rgba(142, 146, 156, 0.5);
   /*
    * Typography.
