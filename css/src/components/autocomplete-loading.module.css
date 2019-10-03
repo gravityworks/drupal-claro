@@ -10,7 +10,7 @@
 /**
  * Since the autocomplete library is attached conditionally and not globally,
  * we can be 99% sure that the default icon will be used.
- * With inline SVGs we can prevent a  browser get and repaint addressing the
+ * With inline SVGs we can prevent a HTTP request and repaint addressing the
  * autocomplete input's background — until are sure that it will be pushed by
  * the server with HTTP/2.
  *
