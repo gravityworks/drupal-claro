@@ -1,11 +1,1 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  stroke="#000"
-  stroke-width="2"
-  fill="none"
-  width="16"
-  height="16"
-  viewBox="0 0 16 16">
-  <path
-    d="M2 8.57143L5.6 12L14 4" />
-</svg>
+<svg fill="none" height="16" stroke="#000" stroke-width="2" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m2 8.57143 3.6 3.42857 8.4-8"/></svg>
