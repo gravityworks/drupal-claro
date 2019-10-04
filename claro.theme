@@ -228,7 +228,9 @@ function claro_preprocess_menu_local_action(array &$variables) {
     $variables['link']['#options']['attributes']['class'][$legacy_class_key] = 'button--action';
   }
 
-  // We require Modernizr's touch test for button styling.
+  // Modernizr is used for recognising whether user is using a touch device or
+  // not. This allows conditionally rendering small variation of buttons on
+  // non-touch devices.
   $variables['#attached']['library'][] = 'core/modernizr';
 }
 
@@ -236,7 +238,9 @@ function claro_preprocess_menu_local_action(array &$variables) {
  * Implements hook_element_info_alter().
  */
 function claro_element_info_alter(&$type) {
-  // We require Modernizr for button styling.
+  // Modernizr is used for recognising whether user is using a touch device or
+  // not. This allows conditionally rendering small variation of buttons on
+  // non-touch devices.
   if (isset($type['button'])) {
     $type['button']['#attached']['library'][] = 'core/modernizr';
   }
