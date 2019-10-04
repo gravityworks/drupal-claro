@@ -27,21 +27,6 @@ function claro_theme_suggestions_form_element_alter(&$suggestions, $variables) {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for HTML document templates.
- */
-function claro_preprocess_html(&$variables) {
-  // If on a node add or edit page, add a node-layout class.
-  $path_args = explode('/', \Drupal::request()->getPathInfo());
-  if ($suggestions = theme_get_suggestions($path_args, 'page', '-')) {
-    foreach ($suggestions as $suggestion) {
-      if ($suggestion === 'page-node-edit' || strpos($suggestion, 'page-node-add') !== FALSE) {
-        $variables['attributes']['class'][] = 'node-form-layout';
-      }
-    }
-  }
-}
-
-/**
  * Implements hook_preprocess_HOOK() for menu-local-tasks templates.
  *
  * Use preprocess hook to set #attached to child elements
