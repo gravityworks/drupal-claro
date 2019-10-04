@@ -1,18 +1,20 @@
 /**
  * @file
- * Password confirm widget behaviors.
+ * Overrides Drupal core user.js that provides password strength indicator.
+ *
+ * @todo remove these overrides after
+ *   https://www.drupal.org/project/drupal/issues/3067523 has been resolved.
  */
 
 (($, Drupal) => {
   /**
-   * Attach handlers to evaluate the strength of any password fields and to
-   * check that its confirmation is correct.
+   * This overrides the default Drupal.behaviors.password functionality.
    *
-   * @type {Drupal~behavior}
-   *
-   * @prop {Drupal~behaviorAttach} attach
-   *   Attaches password strength indicator and other relevant validation to
-   *   password fields.
+   * - Markup has been moved to theme functions so that to enable customizations
+   *   needed for matching Claro's design requirements
+   *   (https://www.drupal.org/project/drupal/issues/3067523).
+   * - Modified classes so that same class names are not being used for different
+   *   elements (https://www.drupal.org/project/drupal/issues/3061265).
    */
   Drupal.behaviors.password = {
     attach(context, settings) {
@@ -146,20 +148,11 @@
   };
 
   /**
-   * Evaluate the strength of a user's password.
+   * Override the default Drupal.evaluatePasswordStrength.
    *
-   * Returns the estimated strength and the relevant output message.
-   *
-   * This is the duplicate of Drupal core's user.es6.js, but the returned
-   * message and password tips are themed with Drupal.theme().
-   *
-   * @param {string} password
-   *   The password to evaluate.
-   * @param {object} translate
-   *   An object containing the text to display for each strength level.
-   *
-   * @return {object}
-   *   An object containing strength, tips, indicatorText and indicatorClass.
+   * The default implementation of this function hard codes some markup inside
+   * this function. Rendering markup is now handled by
+   * Drupal.behaviors.password.
    */
   Drupal.evaluatePasswordStrength = (password, translate) => {
     password = password.trim();
