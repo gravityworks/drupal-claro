@@ -49,6 +49,8 @@ libraries-override:
     css:
       component:
         /core/themes/stable/css/core/vertical-tabs.css: false
+    js:
+      misc/vertical-tabs.js: js/claro.vertical-tabs.js
 
   core/jquery.ui:
     css:

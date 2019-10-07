@@ -41,10 +41,6 @@ hr {
 
 summary {
   font-weight: bold;
-  text-transform: uppercase;
-}
-.simpletest-results-form summary {
-  text-transform: none;
 }
 
 /**
