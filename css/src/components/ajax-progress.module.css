@@ -29,19 +29,32 @@
   position: relative;
   white-space: nowrap;
   vertical-align: middle;
-  margin: -3px var(--space-s) 0;
+  margin: -3px var(--ajax-progress-margin-horizontal) 0;
 }
 
 /**
  * Remove margin from ajax throbbers following buttons because buttons already
  * have a large margin set.
  */
-.button + .ajax-progress--throbber {
+.js .button:not(.js-hide) + .ajax-progress--throbber {
   margin-left: 0; /* LTR */
 }
-[dir="rtl"] .button + .ajax-progress--throbber {
-  margin-left: var(--space-s);
+[dir="rtl"].js .button:not(.js-hide) + .ajax-progress--throbber {
   margin-right: 0;
+  margin-left: var(--ajax-progress-margin-horizontal);
+}
+
+/**
+ * Restore start margin for ajax throbbers inside a managed file widget.
+ */
+.js .form-type--managed-file .button:not(.js-hide) + .ajax-progress--throbber,
+.js .file-operations-cell .button:not(.js-hide) + .ajax-progress--throbber {
+  margin-left: var(--ajax-progress-margin-horizontal); /* LTR */
+}
+[dir="rtl"].js .form-type--managed-file .button:not(.js-hide) + .ajax-progress--throbber,
+[dir="rtl"].js .file-operations-cell .button:not(.js-hide) + .ajax-progress--throbber {
+  margin-right: var(--ajax-progress-margin-horizontal);
+  margin-left: var(--ajax-progress-margin-horizontal);
 }
 
 .ajax-progress__throbber {
@@ -56,12 +69,12 @@
 
 .ajax-progress__message {
   display: inline-block;
-  padding-left: var(--space-s);
+  padding-left: var(--ajax-progress-margin-horizontal);
   font-size: var(--font-size-label);
 }
 [dir="rtl"] .ajax-progress__message {
   padding-left: 0;
-  padding-right: var(--space-s);
+  padding-right: var(--ajax-progress-margin-horizontal);
 }
 /**
  * Full screen throbber.

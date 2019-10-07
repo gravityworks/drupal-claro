@@ -73,11 +73,11 @@
 }
 
 /* Variants. */
-.js .dropbutton--small {
+.js.no-touchevents .dropbutton--small {
   height: var(--dropbutton-small-toggle-size);
 }
 
-.js .dropbutton--extrasmall {
+.js.no-touchevents .dropbutton--extrasmall {
   height: var(--dropbutton-extrasmall-toggle-size);
 }
 
@@ -93,18 +93,18 @@
 }
 
 /* First dropbutton list item variants */
-.js .dropbutton--multiple.dropbutton--small .dropbutton__item:first-of-type {
+.js.no-touchevents .dropbutton--multiple.dropbutton--small .dropbutton__item:first-of-type {
   margin-right: calc(var(--dropbutton-small-toggle-size) + var(--dropbutton-toggle-size-spacing)); /* LTR */
 }
-[dir="rtl"].js .dropbutton--multiple.dropbutton--small .dropbutton__item:first-of-type {
+[dir="rtl"].js.no-touchevents .dropbutton--multiple.dropbutton--small .dropbutton__item:first-of-type {
   margin-right: 0;
   margin-left: calc(var(--dropbutton-small-toggle-size) + var(--dropbutton-toggle-size-spacing));
 }
 
-.js .dropbutton--multiple.dropbutton--extrasmall .dropbutton__item:first-of-type {
+.js.no-touchevents .dropbutton--multiple.dropbutton--extrasmall .dropbutton__item:first-of-type {
   margin-right: calc(var(--dropbutton-extrasmall-toggle-size) + var(--dropbutton-toggle-size-spacing)); /* LTR */
 }
-[dir="rtl"].js .dropbutton--multiple.dropbutton--extrasmall .dropbutton__item:first-of-type {
+[dir="rtl"].js.no-touchevents .dropbutton--multiple.dropbutton--extrasmall .dropbutton__item:first-of-type {
   margin-right: 0;
   margin-left: calc(var(--dropbutton-extrasmall-toggle-size) + var(--dropbutton-toggle-size-spacing));
 }
@@ -168,18 +168,18 @@
 }
 
 /* Toggler variants */
-.dropbutton--small .dropbutton__toggle {
+.no-touchevents .dropbutton--small .dropbutton__toggle {
   width: var(--dropbutton-small-toggle-size);
   height: var(--dropbutton-small-toggle-size);
 }
 
-.dropbutton--extrasmall .dropbutton__toggle {
+.no-touchevents .dropbutton--extrasmall .dropbutton__toggle {
   width: var(--dropbutton-extrasmall-toggle-size);
   height: var(--dropbutton-extrasmall-toggle-size);
 }
 
-.dropbutton--small .dropbutton__toggle::before,
-.dropbutton--extrasmall .dropbutton__toggle::before {
+.no-touchevents .dropbutton--small .dropbutton__toggle::before,
+.no-touchevents .dropbutton--extrasmall .dropbutton__toggle::before {
   width: 0.75rem; /* 12px */
 }
 
@@ -206,8 +206,8 @@
 
   /* Variants */
 
-  .dropbutton--small .dropbutton__toggle::before,
-  .dropbutton--extrasmall .dropbutton__toggle::before {
+  .no-touchevents .dropbutton--small .dropbutton__toggle::before,
+  .no-touchevents .dropbutton--extrasmall .dropbutton__toggle::before {
     width: 0.4375rem;
     height: 0.4375rem;
     margin-top: calc(0.4375rem / (2 * -1.41429));
@@ -246,14 +246,14 @@
 }
 
 /* Variants */
-.dropbutton__item--small:first-of-type > * {
+.no-touchevents .dropbutton__item--small:first-of-type > * {
   padding-top: calc(var(--dropbutton-small-spacing-size) - var(--dropbutton-border-size));
   padding-bottom: calc(var(--dropbutton-small-spacing-size) - var(--dropbutton-border-size));
   font-size: var(--dropbutton-small-font-size);
   line-height: var(--dropbutton-small-line-height);
 }
 
-.dropbutton__item--extrasmall:first-of-type > * {
+.no-touchevents .dropbutton__item--extrasmall:first-of-type > * {
   padding-top: calc(var(--dropbutton-extrasmall-spacing-size) - var(--dropbutton-border-size));
   padding-bottom: calc(var(--dropbutton-extrasmall-spacing-size) - var(--dropbutton-border-size));
   font-size: var(--dropbutton-extrasmall-font-size);
@@ -369,16 +369,16 @@
 }
 
 /* Variants. */
-.dropbutton__item:first-of-type ~ .dropbutton__item--small > a,
-.dropbutton__item:first-of-type ~ .dropbutton__item--small > .button {
+.no-touchevents .dropbutton__item:first-of-type ~ .dropbutton__item--small > a,
+.no-touchevents .dropbutton__item:first-of-type ~ .dropbutton__item--small > .button {
   padding-top: var(--dropbutton-small-spacing-size);
   padding-bottom: var(--dropbutton-small-spacing-size);
   font-size: var(--dropbutton-small-font-size);
   line-height: var(--dropbutton-small-line-height);
 }
 
-.dropbutton__item:first-of-type ~ .dropbutton__item--extrasmall > a,
-.dropbutton__item:first-of-type ~ .dropbutton__item--extrasmall > .button {
+.no-touchevents .dropbutton__item:first-of-type ~ .dropbutton__item--extrasmall > a,
+.no-touchevents .dropbutton__item:first-of-type ~ .dropbutton__item--extrasmall > .button {
   padding-top: var(--dropbutton-extrasmall-spacing-size);
   padding-bottom: var(--dropbutton-extrasmall-spacing-size);
   font-size: var(--dropbutton-extrasmall-font-size);

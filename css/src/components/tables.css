@@ -10,6 +10,7 @@ table {
   margin-top: var(--space-l);
   margin-bottom: var(--space-l);
 }
+
 .sticky-header {
   min-width: 0;
 }
@@ -25,6 +26,7 @@ th {
   height: var(--space-xl);
   padding: var(--space-xs) var(--space-m);
   background: var(--color-whitesmoke);
+  color: var(--color-text);
   line-height: 1.25rem; /* 20px */
   text-align: left; /* LTR */
   position: relative;
@@ -181,7 +183,8 @@ td > .ajax-new-content > .form-item > .form-element {
   width: 100%;
 }
 
-th.is-disabled {
+/* Win over table-file-multiple-widget. */
+th.is-disabled.is-disabled {
   color: var(--input--disabled-fg-color);
 }
 /* Force browsers to calculate the width of a 'select all' <th> element. */
@@ -228,4 +231,14 @@ td.priority-medium {
   td.priority-low {
     display: table-cell;
   }
+}
+
+.tabledrag-toggle-weight-wrapper {
+  margin-top: var(--space-l);
+  line-height: calc(28rem / 16);
+}
+
+.tabledrag-toggle-weight-wrapper + table,
+.tabledrag-toggle-weight-wrapper + .tableresponsive-toggle-columns + table {
+  margin-top: 0;
 }

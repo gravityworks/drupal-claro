@@ -17,11 +17,14 @@
   padding-left: calc(2rem - var(--input-border-size));
   background-position: 0 50%;
 }
-.form-element--type-select.form-element--small {
-  background-size: 1.75rem 0.5625rem; /* w: 14px + (2 * 7px), h: 9px */
+
+.no-touchevents .form-element--type-select.form-element--extrasmall,
+.no-touchevents .form-element--type-select[name$="][_weight]"] {
+  background-size: 1.75rem 0.4375rem; /* w: 14px + (2 * 7px), h: 7px */
   padding-right: calc(1.5rem - var(--input-border-size));
 }
-[dir="rtl"] .form-element--type-select.form-element--small {
+[dir="rtl"].no-touchevents .form-element--type-select.form-element--extrasmall,
+[dir="rtl"].no-touchevents .form-element--type-select[name$="][_weight]"] {
   padding-right: calc(0.5rem - var(--input-border-size));
   padding-left: calc(1.5rem - var(--input-border-size));
 }
