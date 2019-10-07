@@ -11,7 +11,7 @@
   width: 18px;
   height: 18px;
   background: var(--input-bg-color) no-repeat 50% 50%;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10'xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.18182 6.96572L1.97655 4.64855L1.79545 4.45826L1.61436 4.64855L0.818904 5.48437L0.654878 5.65672L0.818904 5.82907L4.00072 9.17235L4.18182 9.36263L4.36291 9.17235L11.1811 2.00817L11.3451 1.83582L11.1811 1.66347L10.3856 .827651L10.2045 .637365L10.0234 .82765L4.18182 6.96572Z' fill='white' /%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.18182 6.96572L1.97655 4.64855L1.79545 4.45826L1.61436 4.64855L0.818904 5.48437L0.654878 5.65672L0.818904 5.82907L4.00072 9.17235L4.18182 9.36263L4.36291 9.17235L11.1811 2.00817L11.3451 1.83582L11.1811 1.66347L10.3856 .827651L10.2045 .637365L10.0234 .82765L4.18182 6.96572Z' fill='white' /%3E%3C/svg%3E");
   background-size: 100% 100%;
   border-radius: 2px;
   box-shadow: 0 0 0 4px transparent;

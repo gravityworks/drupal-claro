@@ -105,12 +105,6 @@ drupal.responsive-detail:
     - core/jquery.once
     - core/collapse
 
-vertical-tabs:
-  version: VERSION
-  css:
-    component:
-      css/dist/components/vertical-tabs.css: {}
-
 claro.jquery.ui:
   version: VERSION
   css:
@@ -235,3 +229,10 @@ card:
     component:
       css/dist/layout/card-list.css: {}
       css/dist/components/card.css: {}
+
+vertical-tabs:
+  css:
+    component:
+      css/dist/components/vertical-tabs.css: {}
+  dependencies:
+    - claro/global-styling

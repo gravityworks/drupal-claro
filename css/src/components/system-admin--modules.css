@@ -37,9 +37,6 @@
   white-space: normal;
 }
 .system-modules details[open] summary .text {
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
   hyphens: auto;
   text-transform: none;
 }
