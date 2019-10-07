@@ -221,27 +221,12 @@ function claro_preprocess_menu_local_action(array &$variables) {
   if ($legacy_class_key !== FALSE) {
     $variables['link']['#options']['attributes']['class'][$legacy_class_key] = 'button--action';
   }
-
-  // Modernizr is used for recognising whether user is using a touch device or
-  // not. This allows conditionally rendering small variation of buttons on
-  // non-touch devices.
-  $variables['#attached']['library'][] = 'core/modernizr';
 }
 
 /**
  * Implements hook_element_info_alter().
  */
 function claro_element_info_alter(&$type) {
-  // Modernizr is used for recognising whether user is using a touch device or
-  // not. This allows conditionally rendering small variation of buttons on
-  // non-touch devices.
-  if (isset($type['button'])) {
-    $type['button']['#attached']['library'][] = 'core/modernizr';
-  }
-  if (isset($type['submit'])) {
-    $type['submit']['#attached']['library'][] = 'core/modernizr';
-  }
-
   // Add a pre-render function that handles the sidebar of the node form.
   // @todo Refactor when https://www.drupal.org/node/3056089 is in.
   if (isset($type['container'])) {
@@ -264,6 +249,60 @@ function claro_element_info_alter(&$type) {
   if (isset($type['vertical_tabs'])) {
     $type['vertical_tabs']['#pre_render'][] = '_claro_vertical_tabs_prerender';
   }
+
+  // Add a pre-render to managed_file.
+  if (isset($type['managed_file'])) {
+    $type['managed_file']['#pre_render'][] = '_claro_managed_file_prerender';
+  }
+}
+
+/**
+ * Prerender callback for managed_file.
+ */
+function _claro_managed_file_prerender($element) {
+  if (!empty($element['remove_button']) && is_array($element['remove_button'])) {
+    $element['remove_button']['#attributes']['class'][] = 'button--extrasmall';
+    $element['remove_button']['#attributes']['class'][] = 'remove-button';
+  }
+
+  if (!empty($element['upload_button']) && is_array($element['upload_button'])) {
+    $element['upload_button']['#attributes']['class'][] = 'upload-button';
+  }
+
+  // Wrap single-cardinality widgets with a details element.
+  $single_file_widget = !empty($element['#cardinality']) && $element['#cardinality'] === 1;
+  if ($single_file_widget && empty($element['#single_wrapped'])) {
+    $element['#theme_wrappers']['details'] = [
+      '#title' => $element['#title'],
+      '#summary_attributes' => [],
+      '#attributes' => ['open' => TRUE],
+      '#value' => NULL,
+      // The description of the single cardinality file widgets will be
+      // displayed by the managed file widget.
+      '#description' => NULL,
+      '#required' => $element['#required'],
+      '#errors' => NULL,
+      '#disabled' => !empty($element['#disabled']),
+    ];
+    $element['#single_wrapped'] = TRUE;
+
+    $upload_is_accessible = empty($element['#default_value']['fids']) && (!isset($element['upload']['#access']) || $element['upload']['#access'] !== FALSE);
+    if ($upload_is_accessible) {
+      // Change widget title. This is the same title that is used by the
+      // multiple file widget.
+      // @see https://git.drupalcode.org/project/drupal/blob/ade7b950a1/core/modules/file/src/Plugin/Field/FieldWidget/FileWidget.php#L192
+      $element['#title'] = t('Add a new file');
+    }
+    else {
+      // If the field has a value, the file upload title doesn't have to be
+      // visible because the wrapper element will have the same title as the
+      // managed file widget. The title is kept in the markup as visually
+      // hidden for accessibility.
+      $element['#title_display'] = 'invisible';
+    }
+  }
+
+  return $element;
 }
 
 /**
@@ -366,7 +405,7 @@ function _claro_text_format_prerender($element) {
   // Hide format select label visually.
   $element['format']['format']['#title_display'] = 'invisible';
   $element['format']['format']['#wrapper_attributes']['class'][] = 'form-item--editor-format';
-  $element['format']['format']['#attributes']['class'][] = 'form-element--small';
+  $element['format']['format']['#attributes']['class'][] = 'form-element--extrasmall';
   $element['format']['format']['#attributes']['class'][] = 'form-element--editor-format';
 
   // Fix JS inconsistencies of the 'text_textarea_with_summary' widgets.
@@ -452,6 +491,25 @@ function claro_preprocess_details(&$variables) {
     // Details should appear as a standalone accordion.
     $variables['accordion'] = TRUE;
   }
+
+  if (!empty($element['#theme']) &&  $element['#theme'] === 'file_widget_multiple') {
+    // Mark the details required if needed. If the file widget allows uploading
+    // multiple files, the required state is checked by checking the state of
+    // the first child.
+    $variables['required'] = isset($element[0]['#required']) ?
+      $element[0]['#required'] :
+      !empty($element['#required']);
+
+    // If the error is the same as the one in the multiple field widget element,
+    // we have to avoid displaying it twice. Seven and Stark have this issue
+    // as well.
+    // @todo revisit when https://www.drupal.org/node/3084906 is fixed.
+    if (isset($element['#errors']) && isset($variables['errors']) && $element['#errors'] === $variables['errors']) {
+      unset($variables['errors']);
+    }
+  }
+
+  $variables['disabled'] = !empty($element['#disabled']);
 }
 
 /**
@@ -462,7 +520,7 @@ function claro_form_alter(&$form, FormStateInterface $form_state) {
 
   // Make entity forms delete link use the action-link component.
   if (isset($form['actions']['delete']['#type']) && $form['actions']['delete']['#type'] === 'link' && !empty($build_info['callback_object']) && $build_info['callback_object'] instanceof EntityForm) {
-    $form['actions']['delete'] = _claro_convert_link_to_action_link($form['actions']['delete'], 'trash', FALSE, 'danger');
+    $form['actions']['delete'] = _claro_convert_link_to_action_link($form['actions']['delete'], 'trash', 'default', 'danger');
   }
 }
 
@@ -475,16 +533,16 @@ function claro_preprocess_links(&$variables) {
       if ($links_item['link']['#url']->isRouted()) {
         switch ($links_item['link']['#url']->getRouteName()) {
           case 'system.theme_settings_theme':
-            $links_item['link'] = _claro_convert_link_to_action_link($links_item['link'], 'cog', TRUE);
+            $links_item['link'] = _claro_convert_link_to_action_link($links_item['link'], 'cog', 'small');
             break;
 
           case 'system.theme_uninstall':
-            $links_item['link'] = _claro_convert_link_to_action_link($links_item['link'], 'ex', TRUE);
+            $links_item['link'] = _claro_convert_link_to_action_link($links_item['link'], 'ex', 'small');
             break;
 
           case 'system.theme_set_default':
           case 'system.theme_install':
-            $links_item['link'] = _claro_convert_link_to_action_link($links_item['link'], 'checkmark', TRUE);
+            $links_item['link'] = _claro_convert_link_to_action_link($links_item['link'], 'checkmark', 'small');
             break;
         }
       }
@@ -510,8 +568,12 @@ function claro_preprocess_links(&$variables) {
  *    - ex,
  *    - plus,
  *    - trash.
- * @param bool $small
- *   Whether the small action link variant is needed. Defaults to FALSE.
+ * @param string $size
+ *   Name of the small action link variant. Defaults to 'default'.
+ *   Supported sizes are:
+ *    - default,
+ *    - small,
+ *    - extrasmall.
  * @param string $variant
  *   Variant of the action link. Supported variants are 'default' and 'danger'.
  *   Defaults to 'default'.
@@ -519,7 +581,7 @@ function claro_preprocess_links(&$variables) {
  * @return array
  *   The link renderable converted to action link.
  */
-function _claro_convert_link_to_action_link(array $link, $icon_name = NULL, $small = FALSE, $variant = 'default') {
+function _claro_convert_link_to_action_link(array $link, $icon_name = NULL, $size = 'default', $variant = 'default') {
   // Early opt-out if we cannot do anything.
   if (empty($link['#type']) || $link['#type'] !== 'link' || empty($link['#url'])) {
     return $link;
@@ -557,6 +619,7 @@ function _claro_convert_link_to_action_link(array $link, $icon_name = NULL, $sma
     'button--primary',
     'button--danger',
     'button--small',
+    'button--extrasmall',
     'link',
   ]);
 
@@ -573,8 +636,8 @@ function _claro_convert_link_to_action_link(array $link, $icon_name = NULL, $sma
     $link['#options']['attributes']['class'][] = Html::getClass("action-link--icon-$icon_name");
   }
 
-  if ($small) {
-    $link['#options']['attributes']['class'][] = 'action-link--small';
+  if ($size && in_array($size, ['small', 'extrasmall'])) {
+    $link['#options']['attributes']['class'][] = Html::getClass("action-link--$size");
   }
 
   // If the provided $link is an item of the 'links' theme function, then only
@@ -813,7 +876,7 @@ function claro_preprocess_select(&$variables) {
     'form-element--type-select';
 
   if (in_array('block-region-select', $variables['attributes']['class'])) {
-    $variables['attributes']['class'][] = 'form-element--small';
+    $variables['attributes']['class'][] = 'form-element--extrasmall';
   }
 }
 
@@ -1164,5 +1227,80 @@ function claro_preprocess_links__action_links(&$variables) {
   $variables['attributes']['class'][] = 'action-links';
   foreach ($variables['links'] as $delta => $link_item) {
     $variables['links'][$delta]['attributes']->addClass('action-links__item');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for file_managed_file.
+ */
+function claro_preprocess_file_managed_file(&$variables) {
+  $element = $variables['element'];
+
+  // Calculate helper values for the template.
+  $upload_is_accessible = !isset($element['upload']['#access']) || $element['upload']['#access'] !== FALSE;
+  $is_multiple = !empty($element['#cardinality']) && $element['#cardinality'] !== 1;
+  $has_value = isset($element['#value']['fids']) && !empty($element['#value']['fids']);
+  $display_can_be_displayed = !empty($element['#display_field']);
+  // Display is rendered in a separate table cell for multiple value widgets.
+  $display_is_visible = $display_can_be_displayed && !$is_multiple && isset($element['display']['#type']) && $element['display']['#type'] !== 'hidden';
+  $description_can_be_displayed = !empty($element['#description_field']);
+  $description_is_visible = $description_can_be_displayed && isset($element['description']);
+
+  $variables['multiple'] = $is_multiple;
+  $variables['upload'] = $upload_is_accessible;
+  $variables['has_value'] = $has_value;
+  $variables['has_meta'] = $display_is_visible || $description_is_visible;
+  $variables['display'] = $display_is_visible;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for file_widget_multiple.
+ */
+function claro_preprocess_file_widget_multiple(&$variables) {
+  if (isset($variables['table']['#type']) && $variables['table']['#type'] === 'table') {
+    // Add a variant class for the table.
+    $variables['table']['#attributes']['class'][] = 'table-file-multiple-widget';
+
+    // Mark table disabled if the field widget is disabled.
+    if (isset($variables['element']['#disabled']) && $variables['element']['#disabled']) {
+      $variables['table']['#attributes']['class'][] = 'tabledrag-disabled';
+      $variables['table']['#attributes']['class'][] = 'js-tabledrag-disabled';
+
+      // We will add the 'is-disabled' CSS class to the disabled table header
+      // cells.
+      foreach ($variables['table']['#header'] as &$cell) {
+        if (is_array($cell) && isset($cell['data'])) {
+          $cell = $cell + ['class' => []];
+          $cell['class'][] = 'is-disabled';
+        }
+        else {
+          // We have to modify the structure of this header cell.
+          $cell = [
+            'data' => $cell,
+            'class' => ['is-disabled'],
+          ];
+        }
+      }
+    }
+
+    // Mark operations column cells with a CSS class.
+    if (isset($variables['table']['#rows']) && is_array($variables['table']['#rows'])) {
+      foreach ($variables['table']['#rows'] as $row_key => $row) {
+        if (isset($row['data']) && is_array($row['data'])) {
+          $last_cell = end($row['data']);
+          $last_cell_key = key($row['data']);
+
+          if (is_array($last_cell['data'])) {
+            foreach ($last_cell['data'] as $last_cell_item) {
+              if (isset($last_cell_item['#attributes']['class']) && is_array($last_cell_item['#attributes']['class']) && in_array('remove-button', $last_cell_item['#attributes']['class'])) {
+                $variables['table']['#rows'][$row_key]['data'][$last_cell_key] += ['class' => []];
+                $variables['table']['#rows'][$row_key]['data'][$last_cell_key]['class'][] = 'file-operations-cell';
+                break 1;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

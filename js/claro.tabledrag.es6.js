@@ -4,6 +4,10 @@
  *
  * - New Drupal.theme.tableDragHandle() function for tabledrag handle markup
  *   (https://www.drupal.org/node/3077938).
+ * - New Drupal.theme.tableDragToggle() function for tabledrag toggle markup
+ *   (@todo: https://www.drupal.org/node/3084916).
+ * - New Drupal.theme.tableDragToggleWrapper() function for the wrapper of the
+ *   tabledrag toggle (@todo: https://www.drupal.org/node/3084916).
  * - Tabledrag functionality can be disabled
  *   (https://www.drupal.org/node/3083039).
  * - The initial content of the tabledrag-cell is wrapped into a new DOM element
@@ -21,6 +25,8 @@
  *     changed marker.
  * - Fixes the RTL bug of the original tabledrag.js
  *   (https://www.drupal.org/node/197641).
+ * - Tabledrag changed mark is added next to the drag-handle, and not after the
+ *   last item. (@todo: https://www.drupal.org/node/3084910).
  *
  * The '_slicedToArray' shim added for handling destructured arrays breaks IE11,
  * that is why the 'prefer-destructuring' rule is disabled.
@@ -252,17 +258,18 @@
       self.makeDraggable(this);
     });
 
-    // Add a link before the table for users to show or hide weight columns.
-    $table.before($('<button type="button" class="link tabledrag-toggle-weight"></button>')
+    // Add the toggle link wrapper before the table that will contain the toggle
+    // for users to show or hide weight columns.
+    $table.before($(Drupal.theme('tableDragToggleWrapper'))
+      .addClass('js-tabledrag-toggle-weight-wrapper')
       .on(
         'click',
+        '.js-tabledrag-toggle-weight',
         $.proxy(function toggleColumns(event) {
           event.preventDefault();
           this.toggleColumns();
         }, this),
-      )
-      .wrap('<div class="tabledrag-toggle-weight-wrapper"></div>')
-      .parent());
+      ));
 
     // Initialize the specified columns (for example, weight or parent columns)
     // to show or hide according to user preference. This aids accessibility
@@ -431,7 +438,18 @@
         this.colSpan = this.colSpan - 1;
       });
       // Change link text.
-      $('.tabledrag-toggle-weight').text(Drupal.t('Show row weights'));
+      $('.js-tabledrag-toggle-weight-wrapper').each(function addShowWeightToggle() {
+        const $wrapper = $(this);
+        const toggleWasFocused = $wrapper.find('.js-tabledrag-toggle-weight:focus').length;
+        $wrapper.empty().append($(Drupal.theme(
+          'tableDragToggle',
+          'show',
+          Drupal.t('Show row weights'),
+        )).addClass('js-tabledrag-toggle-weight'));
+        if (toggleWasFocused) {
+          $wrapper.find('.js-tabledrag-toggle-weight').trigger('focus');
+        }
+      });
     },
 
     /**
@@ -450,7 +468,18 @@
         this.colSpan = this.colSpan + 1;
       });
       // Change link text.
-      $('.tabledrag-toggle-weight').text(Drupal.t('Hide row weights'));
+      $('.js-tabledrag-toggle-weight-wrapper').each(function addHideWeightToggle() {
+        const $wrapper = $(this);
+        const toggleWasFocused = $wrapper.find('.js-tabledrag-toggle-weight:focus').length;
+        $wrapper.empty().append($(Drupal.theme(
+          'tableDragToggle',
+          'hide',
+          Drupal.t('Hide row weights'),
+        )).addClass('js-tabledrag-toggle-weight'));
+        if (toggleWasFocused) {
+          $wrapper.find('.js-tabledrag-toggle-weight').trigger('focus');
+        }
+      });
     },
 
     /**
@@ -903,8 +932,11 @@
 
           self.rowObject.markChanged();
           if (self.changed === false) {
+            const $messageTarget = $(self.table).prevAll('.js-tabledrag-toggle-weight-wrapper').length ?
+              $(self.table).prevAll('.js-tabledrag-toggle-weight-wrapper').last() :
+              self.table;
             $(Drupal.theme('tableDragChangedWarning'))
-              .insertBefore(self.table)
+              .insertBefore($messageTarget)
               .hide()
               .fadeIn('slow');
             self.changed = true;
@@ -1682,7 +1714,7 @@
       const marker = $(Drupal.theme('tableDragChangedMarker')).addClass('js-tabledrag-changed-marker');
       const cell = $(this.element).find('td:first-of-type');
       if (cell.find('.js-tabledrag-changed-marker').length === 0) {
-        cell.parent().find('.js-tabledrag-cell-content').append(marker);
+        cell.find('.js-tabledrag-handle').after(marker);
       }
     },
 
@@ -1766,6 +1798,52 @@
        */
       tableDragCellContentWrapper() {
         return '<div class="tabledrag-cell-content__item"/>';
+      },
+
+      /**
+       * Constructs the weight column toggle.
+       *
+       * The 'tabledrag-toggle-weight' CSS class should be kept since it is used
+       * elsewhere as well (e.g. in tests).
+       *
+       * @param {string} action
+       *   The action the toggle will perform.
+       * @param {string} text
+       *   The text content of the toggle.
+       *
+       * @return {string}
+       *   A string representing a DOM fragment.
+       */
+      tableDragToggle(action, text) {
+        const classes = [
+          'action-link',
+          'action-link--extrasmall',
+          'tabledrag-toggle-weight',
+        ];
+        switch (action) {
+          case 'show':
+            classes.push('action-link--icon-show');
+            break;
+
+          default:
+            classes.push('action-link--icon-hide');
+            break;
+        }
+
+        return `<a href="#" class="${classes.join(' ')}">${text}</a>`;
+      },
+
+      /**
+       * Constructs the wrapper of the weight column toggle.
+       *
+       * The 'tabledrag-toggle-weight-wrapper' CSS class should be kept since it is used
+       * by Views UI and inside off-canvas dialogs.
+       *
+       * @return {string}
+       *   A string representing a DOM fragment.
+       */
+      tableDragToggleWrapper() {
+        return '<div class="tabledrag-toggle-weight-wrapper"></div>';
       },
     },
   );

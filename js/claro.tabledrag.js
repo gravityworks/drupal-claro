@@ -86,10 +86,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       self.makeDraggable(this);
     });
 
-    $table.before($('<button type="button" class="link tabledrag-toggle-weight"></button>').on('click', $.proxy(function toggleColumns(event) {
+    $table.before($(Drupal.theme('tableDragToggleWrapper')).addClass('js-tabledrag-toggle-weight-wrapper').on('click', '.js-tabledrag-toggle-weight', $.proxy(function toggleColumns(event) {
       event.preventDefault();
       this.toggleColumns();
-    }, this)).wrap('<div class="tabledrag-toggle-weight-wrapper"></div>').parent());
+    }, this)));
 
     self.initColumns();
 
@@ -191,7 +191,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         this.colSpan = this.colSpan - 1;
       });
 
-      $('.tabledrag-toggle-weight').text(Drupal.t('Show row weights'));
+      $('.js-tabledrag-toggle-weight-wrapper').each(function addShowWeightToggle() {
+        var $wrapper = $(this);
+        var toggleWasFocused = $wrapper.find('.js-tabledrag-toggle-weight:focus').length;
+        $wrapper.empty().append($(Drupal.theme('tableDragToggle', 'show', Drupal.t('Show row weights'))).addClass('js-tabledrag-toggle-weight'));
+        if (toggleWasFocused) {
+          $wrapper.find('.js-tabledrag-toggle-weight').trigger('focus');
+        }
+      });
     },
     showColumns: function showColumns() {
       var $tables = $('table').findOnce('tabledrag');
@@ -204,7 +211,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         this.colSpan = this.colSpan + 1;
       });
 
-      $('.tabledrag-toggle-weight').text(Drupal.t('Hide row weights'));
+      $('.js-tabledrag-toggle-weight-wrapper').each(function addHideWeightToggle() {
+        var $wrapper = $(this);
+        var toggleWasFocused = $wrapper.find('.js-tabledrag-toggle-weight:focus').length;
+        $wrapper.empty().append($(Drupal.theme('tableDragToggle', 'hide', Drupal.t('Hide row weights'))).addClass('js-tabledrag-toggle-weight'));
+        if (toggleWasFocused) {
+          $wrapper.find('.js-tabledrag-toggle-weight').trigger('focus');
+        }
+      });
     },
     rowSettings: function rowSettings(group, row) {
       var field = $(row).find('.' + group);
@@ -488,7 +502,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
           self.rowObject.markChanged();
           if (self.changed === false) {
-            $(Drupal.theme('tableDragChangedWarning')).insertBefore(self.table).hide().fadeIn('slow');
+            var $messageTarget = $(self.table).prevAll('.js-tabledrag-toggle-weight-wrapper').length ? $(self.table).prevAll('.js-tabledrag-toggle-weight-wrapper').last() : self.table;
+            $(Drupal.theme('tableDragChangedWarning')).insertBefore($messageTarget).hide().fadeIn('slow');
             self.changed = true;
           }
         }
@@ -935,7 +950,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       var marker = $(Drupal.theme('tableDragChangedMarker')).addClass('js-tabledrag-changed-marker');
       var cell = $(this.element).find('td:first-of-type');
       if (cell.find('.js-tabledrag-changed-marker').length === 0) {
-        cell.parent().find('.js-tabledrag-cell-content').append(marker);
+        cell.find('.js-tabledrag-handle').after(marker);
       }
     },
     onIndent: function onIndent() {
@@ -964,6 +979,23 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
     tableDragCellContentWrapper: function tableDragCellContentWrapper() {
       return '<div class="tabledrag-cell-content__item"/>';
+    },
+    tableDragToggle: function tableDragToggle(action, text) {
+      var classes = ['action-link', 'action-link--extrasmall', 'tabledrag-toggle-weight'];
+      switch (action) {
+        case 'show':
+          classes.push('action-link--icon-show');
+          break;
+
+        default:
+          classes.push('action-link--icon-hide');
+          break;
+      }
+
+      return '<a href="#" class="' + classes.join(' ') + '">' + text + '</a>';
+    },
+    tableDragToggleWrapper: function tableDragToggleWrapper() {
+      return '<div class="tabledrag-toggle-weight-wrapper"></div>';
     }
   });
 })(jQuery, Drupal, drupalSettings);

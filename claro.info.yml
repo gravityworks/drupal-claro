@@ -138,6 +138,8 @@ libraries-extend:
     - claro/drupal.tableselect
   core/jquery.ui:
     - claro/claro.jquery.ui
+  file/drupal.file:
+    - claro/file
   media_library/view:
     - claro/media_library.view
   system/admin:
