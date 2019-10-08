@@ -153,6 +153,15 @@
    * The default implementation of this function hard codes some markup inside
    * this function. Rendering markup is now handled by
    * Drupal.behaviors.password.
+   *
+   * @param {string} password
+   *   Password to evaluate the strength.
+   *
+   * @param {Array.<string>} translate
+   *   Settings and translated messages added by user_form_process_password_confirm().
+   *
+   * @return {Array.<string>}
+   *   Array containing the strength, tips, indicators text and class.
    */
   Drupal.evaluatePasswordStrength = (password, translate) => {
     password = password.trim();
