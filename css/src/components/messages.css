@@ -1,5 +1,8 @@
 /**
  * Messages.
+ *
+ * @todo revisit this after https://www.drupal.org/project/drupal/issues/3078400
+ *   has been resolved.
  */
 
 @import "../base/variables.css";
@@ -119,8 +122,9 @@
   margin-top: var(--space-s);
 }
 
-.messages-list {
-  padding-bottom: var(--space-l);
+.messages:last-child,
+.messages-list__item:last-child {
+  margin-bottom: calc(var(--space-l) + var(--space-m));
 }
 
 @media screen and (-ms-high-contrast: active) {
