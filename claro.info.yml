@@ -134,14 +134,10 @@ libraries-extend:
     - claro/messages
   core/drupal.vertical-tabs:
     - claro/vertical-tabs
-  core/drupal.tableselect:
-    - claro/drupal.tableselect
   core/jquery.ui:
     - claro/claro.jquery.ui
   file/drupal.file:
     - claro/file
-  media_library/view:
-    - claro/media_library.view
   system/admin:
     - claro/system.admin
   core/drupal.autocomplete:

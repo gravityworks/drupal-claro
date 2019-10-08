@@ -181,18 +181,7 @@ drupal-theme:
     js/claro.theme.js: {}
   dependencies:
     - core/drupal
-
-# @todo Remove after https://www.drupal.org/node/3024975 is in.
-drupal.tableselect:
-  version: VERSION
-  js:
-    js/claro.tableselect.js: {}
-
-# @todo Remove after https://www.drupal.org/node/3024975 is in.
-media_library.view:
-  version: VERSION
-  js:
-    js/claro.media_library.view.js: {}
+    - core/drupal.checkbox
 
 autocomplete:
   version: VERSION
