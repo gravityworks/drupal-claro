@@ -164,6 +164,7 @@
 .form-boolean--type-radio[disabled]:active:hover,
 .form-boolean--type-radio[disabled].error:active:hover {
   box-shadow: none;
+  background-image: none;
   background-color: var(--input--disabled-bg-color);
   border-color: var(--input--disabled-border-color);
 }
