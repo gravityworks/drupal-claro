@@ -185,12 +185,21 @@
 
   .is-horizontal .tabs--secondary {
     margin-bottom: var(--space-m);
-    border-bottom: var(--tabs-base-border);
     margin-left: calc(calc(var(--tabs--focus-height) + 3px) * -1);
     margin-right: calc(calc(var(--tabs--focus-height) + 3px) * -1);
     padding: calc(var(--tabs--focus-height) + 3px) calc(var(--tabs--focus-height) + 3px) 0;
     overflow: hidden;
     border-radius: 0;
+  }
+
+  .is-horizontal .tabs--secondary::after {
+    content: '';
+    position: absolute;
+    bottom: var(--space-m);
+    left: 0;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid var(--color-lightgray);
   }
 
   .is-horizontal .tabs__tab {
