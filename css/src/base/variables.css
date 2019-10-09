@@ -173,4 +173,8 @@
    * Ajax progress.
    */
   --ajax-progress-margin-horizontal: var(--space-s);
+  /**
+   * Breadcrumb.
+   */
+  --breadcrumb-height: 1.25rem;
 }

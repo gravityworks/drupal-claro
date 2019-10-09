@@ -45,6 +45,7 @@ global-styling:
     theme:
       css/dist/theme/colors.css: {}
     layout:
+      css/dist/layout/breadcrumb.css: {}
       css/dist/layout/local-actions.css: {}
       css/dist/layout/layout.css: {}
   dependencies:
