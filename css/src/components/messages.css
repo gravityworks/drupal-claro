@@ -21,6 +21,18 @@
   --messages__text-margin: calc(var(--messages__icon-size) + var(--space-l));
 }
 
+.messages-list {
+  margin-top: calc(var(--space-m) + var(--space-l));
+  margin-bottom: calc(var(--space-m) + var(--space-l));
+  padding: 0;
+  list-style: none;
+}
+
+.field .messages-list,
+.form-wrapper .messages-list {
+  margin-bottom: 0;
+}
+
 .messages {
   box-sizing: border-box;
   background-color: var(--messages-bg-color);
@@ -30,6 +42,7 @@
   color: var(--messages-fg-color);
   border-radius: var(--messages-border-radius);
   padding: var(--space-l) var(--space-l) 2rem calc(var(--space-l) - 5px); /* LTR */
+  margin-top: var(--space-m);
   margin-bottom: var(--space-m);
 }
 
@@ -120,11 +133,6 @@
 
 .messages__item + .messages__item {
   margin-top: var(--space-s);
-}
-
-.messages:last-child,
-.messages-list__item:last-child {
-  margin-bottom: calc(var(--space-l) + var(--space-m));
 }
 
 @media screen and (-ms-high-contrast: active) {

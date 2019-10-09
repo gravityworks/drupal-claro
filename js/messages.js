@@ -5,21 +5,35 @@
 * @preserve
 **/
 
-Drupal.theme.message = function (_ref, _ref2) {
-  var text = _ref.text;
-  var type = _ref2.type,
-      id = _ref2.id;
+(function (Drupal) {
+  Drupal.Message.defaultWrapper = function () {
+    var wrapper = document.querySelector('[data-drupal-messages]');
+    if (!wrapper) {
+      wrapper = document.querySelector('[data-drupal-messages-fallback]');
+      wrapper.removeAttribute('data-drupal-messages-fallback');
+      wrapper.setAttribute('data-drupal-messages', '');
+      wrapper.classList.remove('hidden');
+      wrapper.classList.add('messages-list');
+    }
+    return wrapper.innerHTML === '' ? Drupal.Message.messageInternalWrapper(wrapper) : wrapper.firstElementChild;
+  };
 
-  var messagesTypes = Drupal.Message.getMessageTypeLabels();
-  var messageWrapper = document.createElement('div');
+  Drupal.theme.message = function (_ref, _ref2) {
+    var text = _ref.text;
+    var type = _ref2.type,
+        id = _ref2.id;
 
-  messageWrapper.setAttribute('class', 'messages messages--' + type);
-  messageWrapper.setAttribute('role', type === 'error' || type === 'warning' ? 'alert' : 'status');
-  messageWrapper.setAttribute('aria-labelledby', id + '-title');
-  messageWrapper.setAttribute('data-drupal-message-id', id);
-  messageWrapper.setAttribute('data-drupal-message-type', type);
+    var messagesTypes = Drupal.Message.getMessageTypeLabels();
+    var messageWrapper = document.createElement('div');
 
-  messageWrapper.innerHTML = '\n    <div class="messages__header">\n      <h2 id="' + id + '-title" class="messages__title">\n        ' + messagesTypes[type] + '\n      </h2>\n    </div>\n    <div class="messages__content">\n      ' + text + '\n    </div>\n  ';
+    messageWrapper.setAttribute('class', 'messages messages--' + type);
+    messageWrapper.setAttribute('role', type === 'error' || type === 'warning' ? 'alert' : 'status');
+    messageWrapper.setAttribute('aria-labelledby', id + '-title');
+    messageWrapper.setAttribute('data-drupal-message-id', id);
+    messageWrapper.setAttribute('data-drupal-message-type', type);
 
-  return messageWrapper;
-};
+    messageWrapper.innerHTML = '\n    <div class="messages__header">\n      <h2 id="' + id + '-title" class="messages__title">\n        ' + messagesTypes[type] + '\n      </h2>\n    </div>\n    <div class="messages__content">\n      ' + text + '\n    </div>\n  ';
+
+    return messageWrapper;
+  };
+})(Drupal);
