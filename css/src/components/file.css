@@ -6,12 +6,12 @@
 @import "../base/variables.css";
 
 .file {
-  font-size: var(--font-size-s);
-  line-height: calc(18rem / 16);
-  background-size: var(--space-m) var(--space-m);
-  background-position: left 0.0625rem;
   min-height: calc(var(--space-m) + 0.0625rem);
   padding-left: var(--space-l); /* LTR */
+  background-position: left 0.0625rem;
+  background-size: var(--space-m) var(--space-m);
+  font-size: var(--font-size-s);
+  line-height: calc(18rem / 16);
 }
 [dir="rtl"] .file {
   padding-right: var(--space-l); /* LTR */

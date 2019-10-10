@@ -46,22 +46,22 @@
 .vertical-tabs__menu {
   position: relative;
   display: none;
+  float: left; /* LTR */
   width: var(--vertical-tabs-menu-width);
   margin: 0;
   padding-top: var(--vertical-tabs-menu-item-shadow-extraspace);
-  color: var(--color-text);
   list-style: none;
-  float: left; /* LTR */
+  color: var(--color-text);
 }
 [dir="rtl"] .vertical-tabs__menu {
-  margin: 0;
   float: right;
+  margin: 0;
 }
 
 @media screen and (min-width: 85em) {
   .vertical-tabs__menu {
-    width: var(--vertical-tabs-menu-width);
     display: block;
+    width: var(--vertical-tabs-menu-width);
   }
 }
 
@@ -69,9 +69,9 @@
  * Vertical tabs menu item.
  */
 .vertical-tabs__menu-item {
+  overflow: hidden;
   margin: calc(var(--vertical-tabs-menu-item-shadow-extraspace) * -2) calc(var(--vertical-tabs-border-size) * -1) calc(var(--vertical-tabs-menu-item-shadow-extraspace) * -1) calc(var(--vertical-tabs-menu-item-shadow-extraspace) * -1); /* LTR */
   padding: var(--vertical-tabs-menu-item-shadow-extraspace) 0 var(--vertical-tabs-menu-item-shadow-extraspace) var(--vertical-tabs-menu-item-shadow-extraspace); /* LTR */
-  overflow: hidden;
 }
 [dir="rtl"] .vertical-tabs__menu-item {
   margin-right: calc(var(--vertical-tabs-menu-item-shadow-extraspace) * -1);
@@ -86,12 +86,12 @@
  */
 .vertical-tabs__menu-item::before,
 .vertical-tabs__menu-item::after {
-  display: block;
   position: absolute;
+  z-index: 1; /* The line should be kept above the vertical tabs menu link to keep it visible even if the link is hovered and gets the 'hover' background color. */
+  display: block;
   width: 100%;
   margin-top: calc(var(--vertical-tabs-menu-separator-size) * -1);
   border-top: var(--vertical-tabs-menu-separator-size) solid var(--vertical-tabs-menu-separator-color);
-  z-index: 1; /* The line should be kept above the vertical tabs menu link to keep it visible even if the link is hovered and gets the 'hover' background color. */
 }
 
 /**
@@ -104,21 +104,21 @@
  * Let's call this 'masking' line.
  */
 .vertical-tabs__menu-item::after {
-  border-color: var(--color-white);
   z-index: 2;
+  border-color: var(--color-white);
 }
 
 /**
  * Making the separator line visible only if it follows an unhidden menu item.
  */
 .vertical-tabs__menu-item:not(.vertical-tabs__menu-item--hidden) ~ .vertical-tabs__menu-item::before {
-  content: '';
+  content: "";
 }
 
 /* Menu item states. */
 .vertical-tabs__menu-item:focus {
-  box-shadow: none;
   outline: 0;
+  box-shadow: none;
 }
 
 .vertical-tabs__menu-item.is-selected::before,
@@ -128,7 +128,7 @@
 
 /* Make the white masking line displayed for the selected menu item. */
 .vertical-tabs__menu-item.is-selected::after {
-  content: '';
+  content: "";
 }
 
 /**
@@ -139,13 +139,13 @@
   display: block;
   margin-top: calc(var(--vertical-tabs-border-size) * -1);
   padding: var(--space-s) var(--space-s) var(--space-s) calc(var(--space-l) - var(--vertical-tabs-menu-link--active-border-size)); /* LTR */
-  border: var(--vertical-tabs-border-size) solid transparent;
-  border-width: var(--vertical-tabs-border-size) 0 var(--vertical-tabs-border-size) var(--vertical-tabs-menu-link--active-border-size); /* LTR */
-  border-radius: var(--vertical-tabs-border-radius) 0 0 var(--vertical-tabs-border-radius); /* LTR */
-  color: var(--color-text);
   text-decoration: none;
   word-wrap: break-word;
   hyphens: auto;
+  color: var(--color-text);
+  border: var(--vertical-tabs-border-size) solid transparent;
+  border-width: var(--vertical-tabs-border-size) 0 var(--vertical-tabs-border-size) var(--vertical-tabs-menu-link--active-border-size); /* LTR */
+  border-radius: var(--vertical-tabs-border-radius) 0 0 var(--vertical-tabs-border-radius); /* LTR */
 }
 [dir="rtl"] .vertical-tabs__menu-link {
   padding-right: calc(var(--space-l) - var(--vertical-tabs-menu-link--active-border-size));
@@ -162,25 +162,25 @@
 
 /* Menu link states. */
 .vertical-tabs__menu-link:focus {
+  z-index: 4; /* Focus state should be on the highest level to make the focus effect be fully visible. This also means that it should have bigger z-index than the selected link. */
   text-decoration: none;
   box-shadow: none;
-  z-index: 4; /* Focus state should be on the highest level to make the focus effect be fully visible. This also means that it should have bigger z-index than the selected link. */
 }
 
 .vertical-tabs__menu-link:hover {
-  color: var(--color-absolutezero);
   text-decoration: none;
+  color: var(--color-absolutezero);
 }
 
 /* This pseudo element provides the background for the hover state. */
 .vertical-tabs__menu-link::before {
-  content: '';
   position: absolute;
+  z-index: 0; /* This should be on a lower level than the menu-item separator lines. */
   top: calc(var(--vertical-tabs-border-size) * -1);
   right: 0; /* LTR */
   bottom: calc(var(--vertical-tabs-border-size) * -1);
   left: calc(var(--vertical-tabs-menu-link--active-border-size) * -1); /* LTR */
-  z-index: 0; /* This should be on a lower level than the menu-item separator lines. */
+  content: "";
   pointer-events: none;
   background-clip: padding-box;
 }
@@ -194,39 +194,39 @@
 }
 
 .vertical-tabs__menu-link:focus::after {
-  content: '';
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   margin: calc(var(--vertical-tabs-border-size) * -1) calc(var(--vertical-tabs-menu-link--active-border-size) * -1);
+  content: "";
+  pointer-events: none;
   border: var(--vertical-tabs-menu-link-focus-border-size) solid var(--color-focus);
   border-radius: var(--vertical-tabs-border-radius);
-  pointer-events: none;
 }
 
 .vertical-tabs__menu-item.is-selected .vertical-tabs__menu-link {
-  color: var(--color-absolutezero);
-  background-color: var(--color-white);
-  border-color: var(--vertical-tabs-border-color) transparent;
-  box-shadow: var(--vertical-tabs-shadow);
   z-index: 3; /* The selected menu link should be on a higher level than the white masking line that hides the grey separator. */
+  color: var(--color-absolutezero);
+  border-color: var(--vertical-tabs-border-color) transparent;
+  background-color: var(--color-white);
+  box-shadow: var(--vertical-tabs-shadow);
 }
 
 .vertical-tabs__menu-item.is-selected .vertical-tabs__menu-link:hover {
-  background-color: var(--color-bgblue-hover);
   color: var(--color-absolutezero-hover);
+  background-color: var(--color-bgblue-hover);
 }
 
 .vertical-tabs__menu-item.is-selected .vertical-tabs__menu-link::before {
+  z-index: 1; /* The blue active-tab indication should be on a higher level than the green focus border. */
   border-left: var(--vertical-tabs-menu-link--active-border-size) solid var(--vertical-tabs-menu-link--active-border-color); /* LTR */
   border-radius: var(--base-border-radius) 0 0 var(--base-border-radius); /* LTR */
-  z-index: 1; /* The blue active-tab indication should be on a higher level than the green focus border. */
 }
 [dir=rtl] .vertical-tabs__menu-item.is-selected .vertical-tabs__menu-link::before {
-  border-left: 0;
   border-right: var(--vertical-tabs-menu-link--active-border-size) solid var(--vertical-tabs-menu-link--active-border-color);
+  border-left: 0;
   border-radius: 0 var(--base-border-radius) var(--base-border-radius) 0;
 }
 
@@ -259,8 +259,8 @@
 .vertical-tabs__menu-link-summary,
 .vertical-tabs__details-summary-summary {
   display: block;
-  font-size: var(--font-size-s);
   color: var(--color-davysgrey);
+  font-size: var(--font-size-s);
   font-weight: normal;
 }
 
@@ -268,29 +268,29 @@
  * Wrapper of vertical tabs panes.
  */
 .vertical-tabs__items {
+  box-sizing: border-box;
   margin-top: var(--vertical-tabs-margin-vertical);
   margin-bottom: var(--vertical-tabs-margin-vertical);
-  background-color: var(--color-white);
   color: var(--color-text);
   border: var(--vertical-tabs-border);
   border-radius: var(--vertical-tabs-border-radius);
+  background-color: var(--color-white);
   box-shadow: var(--vertical-tabs-shadow);
-  box-sizing: border-box;
 }
 
 /* This modifier is added by JavaScript (this is inherited from Drupal core). */
 .vertical-tabs__items--processed {
+  position: relative;
+  z-index: 1; /* The wrapper of the details of the vertical tabs should be on a higher level than the vertical tabs menu */
+  top: -1px;
   margin-top: 0;
   margin-bottom: 0;
-  position: relative;
-  top: -1px;
-  z-index: 1; /* The wrapper of the details of the vertical tabs should be on a higher level than the vertical tabs menu */
 }
 /* This clearfix makes the pane wrapper at least as tall as the menu. */
 .vertical-tabs__items--processed::after {
-  content: '';
   display: block;
   clear: both;
+  content: "";
 }
 
 @media screen and (min-width: 85em) {
@@ -320,8 +320,8 @@
 }
 
 .vertical-tabs__item--first {
-  border-top-right-radius: var(--details-accordion-border-size-radius);
   border-top-left-radius: var(--details-accordion-border-size-radius);
+  border-top-right-radius: var(--details-accordion-border-size-radius);
 }
 
 .vertical-tabs__item--last {
@@ -332,9 +332,9 @@
 
 @media screen and (min-width: 85em) {
   .js .vertical-tabs__item {
+    overflow: hidden;
     margin: 0;
     border: 0;
-    overflow: hidden;
   }
 
   .js .vertical-tabs__item--first,

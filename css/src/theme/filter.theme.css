@@ -31,10 +31,10 @@
 }
 
 .filter-help {
+  float: right; /* LTR */
   padding-top: 0.25em; /* (3 / 12), because font size is 12px */
   padding-bottom: 0.25em; /* (3 / 12) */
   font-size: 0.75em; /* (12 / 16), inherited font size is 16px */
-  float: right; /* LTR */
 }
 [dir="rtl"] .filter-help {
   float: left;
@@ -55,8 +55,8 @@
  */
 .filter-guidelines__item {
   margin-top: 0.5em; /* (6 / 12) */
-  font-size: 0.75em; /* (12 / 16) */
   color: var(--input-fg-color--description);
+  font-size: 0.75em; /* (12 / 16) */
 }
 .filter-guidelines p {
   margin-top: 0.3333em; /* (4 / 12) */

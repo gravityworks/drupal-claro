@@ -21,9 +21,9 @@
   justify-items: flex-start;
   padding: 0;
   border: var(--card-border-size) solid var(--card-border-color);
-  box-shadow: var(--card-box-shadow);
-  background-color: var(--card-bg-color);
   border-radius: var(--card-border-radius-size);
+  background-color: var(--card-bg-color);
+  box-shadow: var(--card-box-shadow);
 }
 
 /* 588px theme screenshot width */
@@ -48,9 +48,9 @@
  * Card image.
  */
 .card__image {
-  line-height: 0;
   overflow: hidden;
   border-radius: var(--card-image-border-radius-size) var(--card-image-border-radius-size) 0 0;
+  line-height: 0;
 }
 
 @media screen and (min-width: 36.75rem) {
@@ -84,12 +84,12 @@
  * Card content.
  */
 .card__content-wrapper {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: var(--space-l);
   flex-grow: 1;
   flex-shrink: 0;
+  box-sizing: border-box;
+  padding: var(--space-l);
 }
 
 @media screen and (min-width: 36.75rem) {
@@ -141,20 +141,20 @@
  * Card footer.
  */
 .card__footer {
-  order: 100;
-  margin-top: var(--space-l);
   /**
    * Without specifying flex-shrink, IE11 will increase footer height if an
    * interactive element inside is hovered or focused.
    */
   flex-shrink: 0;
+  order: 100;
+  margin-top: var(--space-l);
 }
 
 .card__footer .action-links,
 [dir="rtl"] .card__footer .action-links {
   margin-top: 0;
-  text-align: right; /* LTR */
   margin-bottom: 0;
+  text-align: right; /* LTR */
 }
 [dir="rtl"] .card__footer .action-links {
   text-align: left;

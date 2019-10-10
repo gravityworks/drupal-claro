@@ -36,18 +36,18 @@ tr .form-item,
  */
 .form-item__label {
   display: table;
-  font-size: var(--font-size-s); /* ~14px */
-  line-height: calc(18rem / 16); /* 18px */
   margin-top: calc(var(--space-xs) / 2); /* 4px */
   margin-bottom: calc(var(--space-xs) / 2); /* 4px */
+  font-size: var(--font-size-s); /* ~14px */
   font-weight: bold;
+  line-height: calc(18rem / 16); /* 18px */
 }
 .form-item__label--multiple-value-form {
-  font-size: inherit;
-  line-height: inherit;
   margin-top: 0;
   margin-bottom: 0;
+  font-size: inherit;
   font-weight: inherit;
+  line-height: inherit;
 }
 .form-item__label[for] {
   cursor: pointer;
@@ -64,33 +64,33 @@ tr .form-item,
   color: inherit;
 }
 .form-item__label.is-disabled {
-  color: var(--input--disabled-fg-color);
   cursor: default; /* @todo ...or auto? */
+  color: var(--input--disabled-fg-color);
 }
 .form-item__label.form-required::after,
 .fieldset__label.form-required::after {
-  content: "";
-  vertical-align: super;
   display: inline-block;
-  /* Use a background image to prevent screen readers from announcing the text. */
-  background-image: url(../../../images/core/ee0000/required.svg);
-  background-repeat: no-repeat;
-  background-size: var(--input--required-mark-size) var(--input--required-mark-size);
   width: var(--input--required-mark-size);
   height: var(--input--required-mark-size);
   margin-right: 0.3em;
   margin-left: 0.3em;
+  content: "";
+  vertical-align: super;
+  /* Use a background image to prevent screen readers from announcing the text. */
+  background-image: url(../../../images/core/ee0000/required.svg);
+  background-repeat: no-repeat;
+  background-size: var(--input--required-mark-size) var(--input--required-mark-size);
 }
 
 /**
  * Form item description.
  */
 .form-item__description {
-  font-size: var(--font-size-xs); /* ~13px */
-  line-height: calc(17rem / 16); /* 17px */
-  color: var(--input-fg-color--description);
   margin-top: calc(6rem / 16); /* 6px */
   margin-bottom: calc(6rem / 16); /* 6px */
+  color: var(--input-fg-color--description);
+  font-size: var(--font-size-xs); /* ~13px */
+  line-height: calc(17rem / 16); /* 17px */
 }
 /* Description states. */
 .form-item__description.is-disabled {
@@ -101,12 +101,12 @@ tr .form-item,
  * Error message (Inline form errors).
  */
 .form-item__error-message {
+  margin-top: calc(6rem / 16); /* 6px */
+  margin-bottom: calc(6rem / 16); /* 6px */
+  color: var(--input--error-color);
   font-size: var(--font-size-xs); /* ~13px */
   font-weight: normal;
   line-height: calc(17rem / 16); /* 17px */
-  color: var(--input--error-color);
-  margin-top: calc(6rem / 16); /* 6px */
-  margin-bottom: calc(6rem / 16); /* 6px */
 }
 
 .form-item__prefix.is-disabled,
