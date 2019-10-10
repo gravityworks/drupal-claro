@@ -179,7 +179,7 @@ system.admin:
 drupal-theme:
   version: VERSION
   js:
-    js/claro.theme.js: {}
+    js/theme.js: {}
   dependencies:
     - core/drupal
 
@@ -198,7 +198,7 @@ media_library.view:
 autocomplete:
   version: VERSION
   js:
-    js/claro.autocomplete.js: {}
+    js/autocomplete.js: {}
 
 drupal.shortcut:
   version: VERSION
@@ -210,11 +210,11 @@ drupal.shortcut:
 
 details-focus:
   js:
-    js/claro.details.js: {}
+    js/details.js: {}
 
 ajax:
   js:
-    js/claro.ajax.js: {}
+    js/ajax.js: {}
 
 form.password-confirm:
   css:
