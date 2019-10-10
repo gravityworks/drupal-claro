@@ -62,9 +62,6 @@ global-styling:
     # links, it is hard recognize when Modernizr should be attached, therefore
     # it has to be always attached.
     - core/modernizr
-    # @todo Remove 'claro/drupal-theme' from dependencies and add to core/drupal
-    # extensions after https://www.drupal.org/node/3024975 is in.
-    - claro/drupal-theme
 
 node-form:
   version: VERSION
@@ -176,10 +173,17 @@ system.admin:
   dependencies:
     - claro/card
 
-drupal-theme:
+checkbox:
   version: VERSION
   js:
-    js/theme.js: {}
+    js/checkbox.js: {}
+  dependencies:
+    - core/drupal
+
+dropbutton:
+  version: VERSION
+  js:
+    js/dropbutton.js: {}
   dependencies:
     - core/drupal
 

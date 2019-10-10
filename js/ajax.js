@@ -11,13 +11,13 @@
   };
 
   Drupal.theme.ajaxProgressThrobber = function (message) {
-    var messageMarkup = typeof message === 'string' ? Drupal.theme('ajaxProgressMessage', message) : '';
+    var messageMarkup = typeof message === "string" ? Drupal.theme("ajaxProgressMessage", message) : "";
     var throbber = '<div class="ajax-progress__throbber">&nbsp;</div>';
 
-    return '<div class="ajax-progress ajax-progress--throbber">' + throbber + messageMarkup + '</div>';
+    return "<div class=\"ajax-progress ajax-progress--throbber\">" + throbber + messageMarkup + "</div>";
   };
 
   Drupal.theme.ajaxProgressMessage = function (message) {
-    return '<div class="ajax-progress__message">' + message + '</div>';
+    return "<div class=\"ajax-progress__message\">" + message + "</div>";
   };
 })(Drupal);
