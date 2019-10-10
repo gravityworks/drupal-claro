@@ -3,7 +3,7 @@
  * Ajax theme overrides for Claro.
  */
 
-((Drupal) => {
+(Drupal => {
   /**
    * Theme override of the ajax progress indicator for full screen.
    *
@@ -21,12 +21,12 @@
    * @return {string}
    *   The HTML markup for the throbber.
    */
-  Drupal.theme.ajaxProgressThrobber = (message) => {
+  Drupal.theme.ajaxProgressThrobber = message => {
     // Build markup without adding extra white space since it affects rendering.
     const messageMarkup =
-      typeof message === 'string'
-        ? Drupal.theme('ajaxProgressMessage', message)
-        : '';
+      typeof message === "string"
+        ? Drupal.theme("ajaxProgressMessage", message)
+        : "";
     const throbber = '<div class="ajax-progress__throbber">&nbsp;</div>';
 
     return `<div class="ajax-progress ajax-progress--throbber">${throbber}${messageMarkup}</div>`;
@@ -41,5 +41,5 @@
    *   The HTML markup for the throbber.
    */
   Drupal.theme.ajaxProgressMessage = message =>
-    (`<div class="ajax-progress__message">${message}</div>`);
+    `<div class="ajax-progress__message">${message}</div>`;
 })(Drupal);
