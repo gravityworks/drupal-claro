@@ -9,8 +9,4 @@
   Drupal.theme.checkbox = function () {
     return '<input type="checkbox" class="form-checkbox form-boolean form-boolean--type-checkbox"/>';
   };
-
-  Drupal.theme.dropbuttonToggle = function (options) {
-    return '<li class="dropbutton-toggle"><button type="button" class="dropbutton__toggle"><span class="visually-hidden">' + options.title + '</span></button></li>';
-  };
 })(Drupal);
