@@ -129,9 +129,7 @@ libraries-extend:
   core/drupal.collapse:
     - claro/details-focus
   core/drupal.dropbutton:
-    - claro/dropbutton
-  core/drupal.checkbox:
-    - claro/checkbox
+    - claro/drupal-theme
   core/drupal.message:
     - claro/messages
   core/drupal.vertical-tabs:

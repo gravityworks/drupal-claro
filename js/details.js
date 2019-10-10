@@ -8,9 +8,9 @@
 (function ($, Modernizr, Drupal) {
   Drupal.behaviors.claroDetails = {
     attach: function attach(context) {
-      $(context).once("claroDetails").on("click", function (event) {
-        if (event.target.nodeName === "SUMMARY") {
-          $(event.target).trigger("focus");
+      $(context).once('claroDetails').on('click', function (event) {
+        if (event.target.nodeName === 'SUMMARY') {
+          $(event.target).trigger('focus');
         }
       });
     }
@@ -22,10 +22,10 @@
         return;
       }
 
-      $(context).find("details .details-title").once("claroDetailsToggleShim").on("keypress", function (event) {
+      $(context).find('details .details-title').once('claroDetailsToggleShim').on('keypress', function (event) {
         var keyCode = event.keyCode || event.charCode;
         if (keyCode === 32) {
-          $(event.target).closest("summary").trigger("click");
+          $(event.target).closest('summary').trigger('click');
           event.preventDefault();
         }
       });
