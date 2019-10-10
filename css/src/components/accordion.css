@@ -6,10 +6,10 @@
 @import "../base/variables.css";
 
 .accordion {
-  background-color: var(--color-white);
   color: var(--color-text);
   border: var(--details-border-size) solid var(--details-border-color);
   border-radius: var(--details-accordion-border-size-radius);
+  background-color: var(--color-white);
   box-shadow: var(--details-box-shadow);
 }
 
@@ -20,8 +20,8 @@
 
 .accordion__item:first-child {
   margin-top: -1px;
-  border-top-right-radius: var(--details-accordion-border-size-radius);
   border-top-left-radius: var(--details-accordion-border-size-radius);
+  border-top-right-radius: var(--details-accordion-border-size-radius);
 }
 
 .accordion__item + .accordion__item {

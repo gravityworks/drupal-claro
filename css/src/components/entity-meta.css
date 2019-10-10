@@ -11,10 +11,10 @@
 
 .entity-meta__header {
   padding: calc(var(--space-m) - var(--size-entity-meta-spacing)) var(--space-m) calc(var(--space-l) - var(--size-entity-meta-spacing));
+  color: var(--color-fg);
   border: var(--details-border-size) solid var(--details-border-color);
   border-radius: var(--details-accordion-border-size-radius);
   background-color: var(--color-bg);
-  color: var(--color-fg);
 }
 
 @media screen and (min-width: 48em) {
@@ -29,10 +29,10 @@
 }
 
 .entity-meta__title {
+  margin: 0.25em 0;
+  text-shadow: 0 1px 0 #fff;
   font-size: 1.231em;
   font-weight: bold;
-  text-shadow: 0 1px 0 #fff;
-  margin: 0.25em 0;
 }
 
 .entity-meta__revision {
@@ -41,8 +41,8 @@
 
 .entity-meta__header .form-type--item .form-item__label {
   display: inline-block;
-  font-size: var(--font-size-base);
   margin: 0;
+  font-size: var(--font-size-base);
 }
 
 .entity-meta__header .form-type--item .form-item__label::after {

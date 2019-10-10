@@ -54,10 +54,10 @@
 }
 
 .table-file-multiple-widget th {
+  height: calc(var(--space-m) * 2);
   color: var(--color-davysgrey);
   background: var(--color-whitesmoke);
   font-size: var(--font-size-s);
-  height: calc(var(--space-m) * 2);
 }
 
 .table-file-multiple-widget td {

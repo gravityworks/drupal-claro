@@ -35,22 +35,22 @@
 
 .messages {
   box-sizing: border-box;
-  background-color: var(--messages-bg-color);
+  margin-top: var(--space-m);
+  margin-bottom: var(--space-m);
+  padding: var(--space-l) var(--space-l) 2rem calc(var(--space-l) - 5px); /* LTR */
+  color: var(--messages-fg-color);
   border-width: 0 0 0 var(--messages-border-width); /* LTR */
   border-style: solid;
   border-color: var(--messages-bg-color);
-  color: var(--messages-fg-color);
   border-radius: var(--messages-border-radius);
-  padding: var(--space-l) var(--space-l) 2rem calc(var(--space-l) - 5px); /* LTR */
-  margin-top: var(--space-m);
-  margin-bottom: var(--space-m);
+  background-color: var(--messages-bg-color);
 }
 
 [dir="rtl"] .messages {
-  border-left-width: 0;
-  border-right-width: var(--messages-border-width);
-  padding-left: var(--space-l);
   padding-right: calc(var(--space-l) - 5px);
+  padding-left: var(--space-l);
+  border-right-width: var(--messages-border-width);
+  border-left-width: 0;
 }
 
 .messages--error {
@@ -70,8 +70,8 @@
   font-size: var(--font-size-base);
 }
 [dir="rtl"] .messages__title {
-  margin-left: 0;
   margin-right: var(--messages__text-margin);
+  margin-left: 0;
 }
 
 .messages--error .messages__header {
@@ -107,14 +107,14 @@
   }
 
   [dir="rtl"] .messages__content {
-    margin-left: 0;
     margin-right: var(--messages__text-margin);
+    margin-left: 0;
   }
 }
 
 .messages a {
-  color: var(--messages__link-color);
   text-decoration: underline;
+  color: var(--messages__link-color);
 }
 
 .messages a:hover {
@@ -140,8 +140,8 @@
     border-width: 1px 1px 1px var(--messages-border-width); /* LTR */
   }
   [dir="rtl"] .messages {
-    border-left-width: 1px;
     border-right-width: var(--messages-border-width);
+    border-left-width: 1px;
   }
   .messages__header {
     filter: grayscale(1) brightness(1.5) contrast(10);

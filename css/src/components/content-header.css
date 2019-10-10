@@ -5,8 +5,8 @@
 @import "../base/variables.css";
 
 .content-header {
-  padding: 1.5rem 0 0;
   overflow: hidden;
-  background-color: var(--color-whitesmoke);
   margin-bottom: 2rem;
+  padding: 1.5rem 0 0;
+  background-color: var(--color-whitesmoke);
 }

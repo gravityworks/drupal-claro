@@ -34,15 +34,15 @@
 
 /* Settings edit. */
 .field-plugin-settings-edit-wrapper {
-  align-items: center;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 
 .field-plugin-settings-edit {
+  width: var(--space-m);
   margin: 0;
   padding: 1px 8px;
-  width: var(--space-m);
 }
 
 .field-plugin-settings-edit-wrapper .ajax-progress--throbber {

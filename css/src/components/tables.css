@@ -22,14 +22,14 @@ caption {
   text-align: right;
 }
 th {
+  position: relative;
   box-sizing: border-box;
   height: var(--space-xl);
   padding: var(--space-xs) var(--space-m);
-  background: var(--color-whitesmoke);
-  color: var(--color-text);
-  line-height: 1.25rem; /* 20px */
   text-align: left; /* LTR */
-  position: relative;
+  color: var(--color-text);
+  background: var(--color-whitesmoke);
+  line-height: 1.25rem; /* 20px */
 }
 [dir="rtl"] th {
   text-align: right;
@@ -45,8 +45,8 @@ th {
 /* The actual sort link. */
 .sortable-heading > a {
   display: block;
-  text-decoration: none;
   padding: var(--space-xs) 1.5rem var(--space-xs) 0; /* LTR */
+  text-decoration: none;
   color: inherit;
 }
 [dir="rtl"] .sortable-heading > a {
@@ -55,14 +55,14 @@ th {
 }
 .sortable-heading > a::before {
   position: absolute;
+  z-index: 0;
   top: 0;
   right: 1rem;
   bottom: 0;
   left: 1rem;
-  z-index: 0;
   display: block;
-  border-bottom: 0.125rem solid transparent;
   content: "";
+  border-bottom: 0.125rem solid transparent;
 }
 /* stylelint-disable-next-line selector-type-no-unknown */
 _:-ms-fullscreen, /* Only IE 11 */
@@ -77,10 +77,10 @@ _:-ms-fullscreen, /* Only IE 11 */
   width: 0.875rem;
   height: 1rem;
   margin-top: -0.5rem;
+  content: "";
+  opacity: 0.5;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='m1.75,0.25v1.5h10.5v-1.5z m0,3v1.5h7.5v-1.5z m0,3v1.5h4.5v-1.5z' fill='%23222330'/%3E%3C/svg%3E") no-repeat 50% 50%;
   background-size: contain;
-  opacity: 0.5;
-  content: "";
 }
 /* stylelint-disable-next-line selector-type-no-unknown */
 _:-ms-fullscreen, /* Only IE 11 */
@@ -131,33 +131,33 @@ tr {
 }
 tr,
 .draggable-table.tabledrag-disabled tr {
-  background: var(--color-white);
   color: var(--color-text);
+  background: var(--color-white);
 }
 thead tr {
   border: 0;
 }
 tr:hover,
 tr:focus {
-  background: var(--color-bgblue-hover);
   color: var(--color-text);
+  background: var(--color-bgblue-hover);
 }
 tr.color-warning:hover,
 tr.color-warning:focus {
-  background: #fdf8ed;
   color: var(--color-text);
+  background: #fdf8ed;
 }
 tr.color-error:hover,
 tr.color-error:focus {
-  background: #fcf4f2;
   color: var(--color-text);
+  background: #fcf4f2;
 }
 
 td {
-  padding: var(--space-xs) var(--space-m);
-  text-align: left; /* LTR */
   box-sizing: border-box;
   height: 4rem;
+  padding: var(--space-xs) var(--space-m);
+  text-align: left; /* LTR */
 }
 [dir="rtl"] td {
   text-align: right;

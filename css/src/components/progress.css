@@ -26,9 +26,9 @@
   height: var(--progress-bar-small-size);
 }
 .progress--small .progress__bar {
-  height: var(--progress-bar-small-size);
   width: var(--progress-bar-small-size);
   min-width: var(--progress-bar-small-size);
+  height: var(--progress-bar-small-size);
 }
 
 .progress--small .progress__label {
@@ -36,27 +36,27 @@
 }
 
 .progress__track {
-  margin-top: 0;
   height: var(--progress-bar-default-size);
+  margin-top: 0;
   border: var(--progress-bar-border-size) var(--progress-track-border-color) solid;
   border-radius: var(--progress-bar-default-size-radius);
   background-color: var(--progress-track-bg-color);
 }
 
 .progress__bar {
-  margin-top: calc(var(--progress-bar-border-size) * -1);
-  margin-left: calc(var(--progress-bar-border-size) * -1); /* LTR */
-  border: var(--progress-bar-border-size) var(--progress-bar-border-color) solid;
-  background-color: var(--progress-bar-bg-color);
   width: var(--progress-bar-default-size);
   min-width: var(--progress-bar-default-size);
   height: var(--progress-bar-default-size);
-  border-radius: var(--progress-bar-default-size-radius);
+  margin-top: calc(var(--progress-bar-border-size) * -1);
+  margin-left: calc(var(--progress-bar-border-size) * -1); /* LTR */
   transition: var(--progress-bar-transition);
+  border: var(--progress-bar-border-size) var(--progress-bar-border-color) solid;
+  border-radius: var(--progress-bar-default-size-radius);
+  background-color: var(--progress-bar-bg-color);
 }
 [dir="rtl"] .progress__bar {
-  margin-left: 0;
   margin-right: calc(var(--progress-bar-border-size) * -1);
+  margin-left: 0;
 }
 
 @media screen and (-ms-high-contrast: active) {
@@ -66,17 +66,17 @@
 }
 
 .progress__label {
+  margin-bottom: var(--progress-bar-spacing-size);
   font-size: var(--progress-bar-label-font-size);
   font-weight: bold;
-  margin-bottom: var(--progress-bar-spacing-size);
 }
 
 .progress__description,
 .progress__percentage {
-  color: var(--progress-bar-description-color);
   overflow: hidden;
-  font-size: var(--progress-bar-description-font-size);
   margin-top: var(--progress-bar-spacing-size);
+  color: var(--progress-bar-description-color);
+  font-size: var(--progress-bar-description-font-size);
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
