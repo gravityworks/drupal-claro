@@ -1266,6 +1266,8 @@ function claro_preprocess_file_managed_file(&$variables) {
  * Implements hook_preprocess_HOOK() for file_widget_multiple.
  */
 function claro_preprocess_file_widget_multiple(&$variables) {
+  $has_upload = FALSE;
+
   if (isset($variables['table']['#type']) && $variables['table']['#type'] === 'table') {
     // Add a variant class for the table.
     $variables['table']['#attributes']['class'][] = 'table-file-multiple-widget';
@@ -1311,5 +1313,52 @@ function claro_preprocess_file_widget_multiple(&$variables) {
         }
       }
     }
+
+    // Add a CSS class to the table if an upload widget is present.
+    // This is required for removing the border of the last table row.
+    if (!empty($variables['element'])) {
+      $element_keys = Element::children($variables['element']);
+
+      foreach ($element_keys as $delta) {
+        if (!isset($variables['element'][$delta]['upload']['#access']) || $variables['element'][$delta]['upload']['#access'] !== FALSE) {
+          $has_upload = TRUE;
+          break 1;
+        }
+      }
+    }
+    $variables['table']['#attributes']['class'][] = $has_upload ? 'table-file-multiple-widget--has-upload' : 'table-file-multiple-widget--no-upload';
   }
+
+  $table_is_not_empty = isset($variables['table']['#rows']) && !empty($variables['table']['#rows']);
+  $table_is_accessible = !isset($variables['table']['#access']) || (isset($variables['table']['#access']) && $variables['table']['#access'] !== FALSE);
+  $variables['has_table'] = $table_is_not_empty && $table_is_accessible;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for image_widget.
+ */
+function claro_preprocess_image_widget(&$variables) {
+  $element = $variables['element'];
+
+  // Stable adds the file size as #suffix for image file_link renderable array.
+  // We have to remove that because we will render it in our file_link template
+  // for every kind of files, and not just for images.
+  if (!empty($variables['element']['fids']['#value'])) {
+    $file = reset($variables['element']['#files']);
+    unset($variables['data']['file_' . $file->id()]['filename']['#suffix']);
+  }
+
+  // Calculate helper values for the template.
+  $upload_is_accessible = !isset($element['upload']['#access']) || $element['upload']['#access'] !== FALSE;
+  $is_multiple = !empty($element['#cardinality']) && $element['#cardinality'] !== 1;
+  $has_value = isset($element['#value']['fids']) && !empty($element['#value']['fids']);
+  $alt_can_be_displayed = !empty($element['#alt_field']);
+  $alt_is_visible = $alt_can_be_displayed && (!isset($element['alt']['#access']) || $element['alt']['#access'] !== FALSE);
+  $title_can_be_displayed = !empty($element['#title_field']);
+  $title_is_visible = $title_can_be_displayed && (!isset($element['title']['#access']) || $element['title']['#access'] !== FALSE);
+
+  $variables['multiple'] = $is_multiple;
+  $variables['upload'] = $upload_is_accessible;
+  $variables['has_value'] = $has_value;
+  $variables['has_meta'] = $alt_is_visible || $title_is_visible;
 }

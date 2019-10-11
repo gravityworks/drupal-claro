@@ -65,11 +65,6 @@
   padding-bottom: var(--space-m);
 }
 
-.table-file-multiple-widget .form-item {
-  margin-top: var(--space-m);
-  margin-bottom: var(--space-xs);
-}
-
 .table-file-multiple-widget .tabledrag-cell {
   padding-top: var(--space-xs);
   padding-bottom: var(--space-xs);
@@ -89,6 +84,14 @@
 .file-operations-cell {
   width: 1px;
   white-space: nowrap; /* Don't let ajax-progress be broken into a new line. */
+}
+
+/**
+ * Remove the border for the last table row if upload is not possible.
+ * (A full file widget with limited cardinality.)
+ */
+.table-file-multiple-widget--no-upload > tbody:last-child > tr:last-child {
+  border-bottom: 0;
 }
 
 /**
