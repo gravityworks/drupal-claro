@@ -449,6 +449,7 @@
   position: relative;
   display: block;
   padding: var(--space-m) var(--space-m) var(--space-m) var(--details-desktop-wrapper-padding-start); /* LTR */
+  text-decoration: none;
   color: inherit;
   border-radius: var(--size-summary-border-radius);
 }
