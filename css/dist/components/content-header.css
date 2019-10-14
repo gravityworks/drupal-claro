@@ -1,9 +1,9 @@
-/**
- * Content header.
- */
-.content-header {
-  padding: 1.5rem 0 0;
-  overflow: hidden;
-  background-color: #f3f4f9;
-  margin-bottom: 2rem;
+:root{
+}
+
+.content-header{
+  overflow:hidden;
+  margin-bottom:2rem;
+  padding:1.5rem 0 0;
+  background-color:#f3f4f9;
 }
