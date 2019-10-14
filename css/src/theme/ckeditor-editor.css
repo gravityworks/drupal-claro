@@ -3,6 +3,8 @@
  * CKEditor appearance overrides.
  */
 
+@import "../base/variables.css";
+
 .cke .cke_top,
 .cke .cke_bottom,
 .cke .cke_contents,
@@ -24,8 +26,8 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: var(--input-bg-color);
   content: "";
+  background: var(--input-bg-color);
 }
 
 .cke .cke_top {
@@ -93,8 +95,8 @@
   border-color: transparent;
 }
 [disabled] + .cke .cke_contents {
-  background: hsl(240, 4%, 90%); /* Calculated from disabled input bg and iframe opacity. */
   border-color: var(--input--disabled-bg-color);
+  background: hsl(240, 4%, 90%); /* Calculated from disabled input bg and iframe opacity. */
 }
 [disabled] + .cke iframe,
 [disabled] + .cke .cke_source {

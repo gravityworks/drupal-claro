@@ -10,9 +10,9 @@
   font-weight: bold;
 }
 .system-modules td.checkbox {
-  padding-left: 1rem; /* LTR */
-  min-width: 25px;
   width: 4%;
+  min-width: 25px;
+  padding-left: 1rem; /* LTR */
 }
 [dir="rtl"] .system-modules td.checkbox {
   padding-right: 1rem;
@@ -32,37 +32,34 @@
   color: #5c5c5b;
 }
 .system-modules details[open] {
-  height: auto;
   overflow: visible;
+  height: auto;
   white-space: normal;
 }
 .system-modules details[open] summary .text {
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
   text-transform: none;
+  hyphens: auto;
 }
 .system-modules td details a {
   color: #5c5c5b;
   border: 0;
 }
 .system-modules td details {
-  border: 0;
   margin: 0;
+  border: 0;
 }
 .system-modules td details summary {
   padding: 0;
+  cursor: default;
   text-transform: none;
   font-weight: normal;
-  cursor: default;
 }
 .system-modules td {
   padding-left: 0; /* LTR */
 }
 [dir="rtl"] .system-modules td {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 12px;
 }
 
 @media screen and (max-width: 40em) {
@@ -74,8 +71,8 @@
   }
 }
 .system-modules .requirements {
-  padding: 5px 0;
   max-width: 490px;
+  padding: 5px 0;
 }
 .system-modules .links {
   overflow: hidden; /* prevents collapse */
@@ -89,8 +86,8 @@
 }
 .admin-requirements,
 .admin-required {
-  font-size: 0.9em;
   color: #666;
+  font-size: 0.9em;
 }
 .admin-enabled {
   color: #080;
@@ -100,10 +97,10 @@
 }
 .module-link {
   display: block;
+  float: left; /* LTR */
+  margin-top: 2px;
   padding: 2px 20px;
   white-space: nowrap;
-  margin-top: 2px;
-  float: left; /* LTR */
 }
 [dir="rtl"] .module-link {
   float: right;

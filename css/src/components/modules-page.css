@@ -14,9 +14,9 @@
 .system-modules tr.odd,
 .locale-translation-status-form tr.even,
 .locale-translation-status-form tr.odd {
-  background: #f3f4ee;
   border: 0;
   border-bottom: 10px solid #fff;
+  background: #f3f4ee;
 }
 .system-modules tr td:last-child,
 .locale-translation-status-form tr td:last-child {

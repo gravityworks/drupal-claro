@@ -13,6 +13,7 @@
  * - accordion: whether the details element should look as an accordion.
  * - accordion_item: whether the details element is an item of an accordion
  *   list.
+ * - disabled: whether the details is disabled.
  *
  * @see template_preprocess_details()
  * @see claro_preprocess_details()
@@ -58,6 +59,9 @@
     %}
     <summary{{ summary_attributes.addClass(summary_classes) }}>
       {{- title -}}
+      {%- if required -%}
+        <span class="required-mark"></span>
+      {%- endif -%}
     </summary>
   {%- endif -%}
   <div{{ content_attributes.addClass(content_wrapper_classes) }}>
@@ -71,7 +75,7 @@
         </div>
       {% endif %}
       {%- if description -%}
-        <div class="claro-details__description">{{ description }}</div>
+        <div class="claro-details__description{{ disabled ? ' is-disabled' }}">{{ description }}</div>
       {%- endif -%}
       {%- if children -%}
         {{ children }}

@@ -3,41 +3,43 @@
  * Layout styles for local actions.
  */
 
+@import "../base/variables.css";
+
 /**
  * Action link layout styles.
  */
-.action-links {
+.local-actions {
   margin: var(--space-m) 0;
   padding: 0;
   list-style: none;
 }
 /* This is required to win over specificity of [dir="rtl"] ul */
-[dir="rtl"] .action-links {
+[dir="rtl"] .local-actions {
   margin-right: 0;
 }
 
-.action-links__item {
+.local-actions__item {
   display: inline-block;
   margin: 0 calc(var(--space-xs) / 2);
 }
 
-.action-links__item:first-child {
+.local-actions__item:first-child {
   margin-left: 0; /* LTR */
 }
-[dir="rtl"] .action-links__item:first-child {
+[dir="rtl"] .local-actions__item:first-child {
   margin-right: 0;
   margin-left: calc(var(--space-xs) / 2);
 }
 
-.action-links__item:last-child {
+.local-actions__item:last-child {
   margin-right: 0; /* LTR */
 }
-[dir="rtl"] .action-links__item:last-child {
+[dir="rtl"] .local-actions__item:last-child {
   margin-right: calc(var(--space-xs) / 2);
   margin-left: 0;
 }
 
-[dir="rtl"] .action-links__item:only-child {
+[dir="rtl"] .local-actions__item:only-child {
   margin-right: 0;
   margin-left: 0;
 }

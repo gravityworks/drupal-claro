@@ -2,6 +2,8 @@
  * Visual styles for views exposed form.
  */
 
+@import "../base/variables.css";
+
 /**
  * Use flexbox and some margin resets to make the fields + actions go inline
  */
@@ -10,13 +12,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
+  margin-top: var(--space-l);
+  margin-bottom: var(--space-l);
   padding: var(--space-xs) var(--space-l) var(--space-l) var(--space-l);
   border: var(--details-border-size) solid var(--details-border-color);
   border-radius: var(--details-border-size-radius);
   background-color: var(--color-white);
   box-shadow: var(--details-box-shadow);
-  margin-top: var(--space-l);
-  margin-bottom: var(--space-l);
 }
 
 .views-exposed-form__item {

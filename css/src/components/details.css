@@ -5,17 +5,15 @@
  * @see collapse.js
  */
 
+@import "../base/variables.css";
+
 /**
  * Available modifiers are:
  *  - .claro-details--accordion
  *  - .claro-details--accordion-item
  *
- * 'Accordion item' is used for the details of the node edit sidebar. For creating
- * accordion item list from a set of details, set the surrounding Container
- * render element's '#accordion' key to TRUE.
- *
- * The other variant is 'accordion'. Despite the fact that it isn't used
- * anywhere right now, we implemented it (since the design defines that).
+ * Despite the fact that 'accordion' isn't used anywhere right now, we
+ * implemented it (since the design defines that).
  * This variant can be used by setting the '#accordion' to TRUE for a
  * Details render element:
  * @code
@@ -23,25 +21,34 @@
  *   '#type' => 'details',
  *   '#accordion' => TRUE,
  * ];
+ *
+ * 'Accordion item' is used for the details of the node edit sidebar. For
+ * creating accordion item list from a set of details, set the surrounding
+ * Container render element's '#accordion' key to TRUE.
+ *
+ * 'Vertical tabs item' is used for the children of the VerticalTabs render
+ * element.
  */
 
 :root {
   --size-summary-border-radius: calc(var(--details-border-size-radius) - var(--details-border-size));
-  --size-summary-focus-border: 3px;
+  --summary-accordion-padding-vertical: calc(var(--space-l) + ((var(--space-m) - var(--space-l)) / 2));
+  --summary-accordion-line-height: var(--space-l);
 }
 
 .claro-details {
   display: block;
-  border: var(--details-border-size) solid var(--details-border-color);
   margin-top: var(--space-m);
   margin-bottom: var(--space-m);
-  background-color: var(--color-white);
   color: var(--color-text);
+  border: var(--details-border-size) solid var(--details-border-color);
   border-radius: var(--details-border-size-radius);
+  background-color: var(--color-white);
   box-shadow: var(--details-box-shadow);
 }
 
-.claro-details--accordion-item {
+.claro-details--accordion-item,
+.claro-details--vertical-tabs-item {
   margin-top: 0;
   margin-bottom: 0;
   border-radius: 0;
@@ -49,8 +56,8 @@
 }
 
 .claro-details--accordion-item:first-of-type {
-  border-top-right-radius: var(--details-border-size-radius);
   border-top-left-radius: var(--details-border-size-radius);
+  border-top-right-radius: var(--details-border-size-radius);
 }
 
 .claro-details--accordion-item:last-of-type {
@@ -63,17 +70,18 @@
  */
 
 .claro-details__summary {
+  position: relative;
   box-sizing: border-box;
   padding: var(--space-m) var(--space-m) var(--space-m) var(--details-desktop-wrapper-padding-start); /* LTR */
   list-style: none;
-  background-color: transparent;
-  color: var(--color-davysgrey);
-  line-height: 1rem;
-  text-transform: capitalize;
-  border-radius: var(--size-summary-border-radius);
-  transition: background-color var(--details-bg-color-transition-duration) ease-in-out;
   cursor: pointer;
-  position: relative;
+  transition: background-color var(--details-bg-color-transition-duration) ease-in-out;
+  word-wrap: break-word;
+  hyphens: auto;
+  color: var(--color-davysgrey);
+  border-radius: var(--size-summary-border-radius);
+  background-color: transparent;
+  line-height: var(--space-m);
 }
 [dir="rtl"] .claro-details__summary {
   padding-right: var(--details-desktop-wrapper-padding-start);
@@ -82,15 +90,19 @@
 
 /* Modifiers */
 .claro-details__summary--accordion,
-.claro-details__summary--accordion-item {
-  padding: var(--space-l) var(--space-l) var(--space-l) var(--details-desktop-wrapper-padding-start); /* LTR */
+.claro-details__summary--accordion-item,
+.claro-details__summary--vertical-tabs-item {
+  padding: var(--summary-accordion-padding-vertical) var(--space-l) var(--summary-accordion-padding-vertical) var(--details-desktop-wrapper-padding-start); /* LTR */
   background: var(--color-white);
+  line-height: var(--summary-accordion-line-height);
 }
 [dir="rtl"] .claro-details__summary--accordion,
-[dir="rtl"] .claro-details__summary--accordion-item {
+[dir="rtl"] .claro-details__summary--accordion-item,
+[dir="rtl"] .claro-details__summary--vertical-tabs-item {
   padding-right: var(--details-desktop-wrapper-padding-start);
   padding-left: var(--space-l);
 }
+
 /**
  * Accordion list items must not have border radius except they are the first
  * or the last ones.
@@ -100,8 +112,8 @@
 }
 
 .claro-details--accordion-item:first-child .claro-details__summary--accordion-item {
-  border-top-right-radius: var(--details-border-size-radius);
   border-top-left-radius: var(--details-border-size-radius);
+  border-top-right-radius: var(--details-border-size-radius);
 }
 
 .claro-details--accordion-item:last-child .claro-details__summary--accordion-item {
@@ -119,19 +131,19 @@
 }
 
 .claro-details__summary::before {
-  content: "";
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M5.2109375,1.3144531 3.7890625,2.7226562 9.0917969,8.0761719 3.7890625,13.429688 5.2109375,14.837891 11.908203,8.0761719Z' fill='%23545560'/%3E%3C/svg%3E") no-repeat 50% 50%;
-  background-size: contain;
+  position: absolute;
+  top: 50%;
+  left: var(--space-s); /* LTR */
+  display: inline-block;
   width: var(--space-m);
   height: var(--space-m);
-  transition: transform var(--details-transform-transition-duration) ease-in 0s;
-  display: inline-block;
-  text-align: center;
-  transform: rotate(0); /* LTR */
-  position: absolute;
-  left: var(--space-s); /* LTR */
-  top: 50%;
   margin-top: calc(var(--space-m) / -2);
+  content: "";
+  transition: transform var(--details-transform-transition-duration) ease-in 0s;
+  transform: rotate(0); /* LTR */
+  text-align: center;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M5.2109375,1.3144531 3.7890625,2.7226562 9.0917969,8.0761719 3.7890625,13.429688 5.2109375,14.837891 11.908203,8.0761719Z' fill='%23545560'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  background-size: contain;
 }
 [dir="rtl"] .claro-details__summary::before {
   right: var(--space-s);
@@ -147,14 +159,14 @@
 
 @media screen and (-ms-high-contrast: active) {
   .claro-details__summary::before {
-    transition: transform var(--details-transform-transition-duration) ease-in 0s, margin var(--details-transform-transition-duration) ease-in 0s;
-    background: none;
-    border: 0.125rem solid;
-    border-width: 0.125rem 0.125rem 0 0;
     width: 0.5625rem;
     height: 0.5625rem;
     margin-top: calc(0.5625rem / -2);
+    transition: transform var(--details-transform-transition-duration) ease-in 0s, margin var(--details-transform-transition-duration) ease-in 0s;
     transform: rotate(45deg); /* LTR */
+    border: 0.125rem solid;
+    border-width: 0.125rem 0.125rem 0 0;
+    background: none;
   }
 
   [dir="rtl"] .claro-details__summary::before {
@@ -196,24 +208,29 @@
   right: -1px;
   bottom: -1px;
   left: -1px;
-  transition: opacity var(--details-box-shadow-transition-duration) ease-in-out;
-  opacity: 0;
-  box-shadow: inset 0 0 0 var(--size-summary-focus-border) var(--details-summary-shadow-color);
   content: "";
-  border-radius: var(--details-border-size-radius);
+  transition: opacity var(--details-box-shadow-transition-duration) ease-in-out;
   pointer-events: none;
+  opacity: 0;
+  border-radius: var(--details-border-size-radius);
+  box-shadow: inset 0 0 0 var(--details-summary-focus-border-size) var(--details-summary-shadow-color);
 }
 
-.claro-details > .claro-details__summary--accordion-item::after {
+.claro-details > .claro-details__summary--accordion-item::after,
+.vertical-tabs__item > .claro-details__summary--vertical-tabs-item::after {
   border-radius: 0;
 }
 
-.claro-details:first-child > .claro-details__summary--accordion-item::after {
-  border-radius: var(--details-border-size-radius) var(--details-border-size-radius) 0 0;
+.claro-details:first-child > .claro-details__summary--accordion-item::after,
+.vertical-tabs__item--first > .claro-details__summary--vertical-tabs-item::after {
+  border-top-left-radius: var(--details-border-size-radius);
+  border-top-right-radius: var(--details-border-size-radius);
 }
 
-.claro-details:last-child > .claro-details__summary--accordion-item::after {
-  border-radius: 0 0 var(--details-border-size-radius) var(--details-border-size-radius);
+.claro-details:last-child > .claro-details__summary--accordion-item::after,
+.vertical-tabs__item--last > .claro-details__summary--vertical-tabs-item::after {
+  border-bottom-right-radius: var(--details-border-size-radius);
+  border-bottom-left-radius: var(--details-border-size-radius);
 }
 
 /**
@@ -221,9 +238,10 @@
  * radius if their accordion is expanded.
  */
 .claro-details[open] > .claro-details__summary--accordion::after,
-.claro-details[open] > .claro-details__summary--accordion-item::after {
-  border-bottom-left-radius: 0;
+.claro-details[open] > .claro-details__summary--accordion-item::after,
+.vertical-tabs__item--last[open] > .claro-details__summary--vertical-tabs-item::after {
   border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 /**
@@ -234,7 +252,8 @@
 }
 
 [open] .claro-details__summary--accordion,
-[open] .claro-details__summary--accordion-item {
+[open] .claro-details__summary--accordion-item,
+[open] .claro-details__summary--vertical-tabs-item {
   color: var(--color-absolutezero);
 }
 
@@ -242,7 +261,8 @@
 .claro-details__summary:hover:focus::before,
 .claro-details[open] > .claro-details__summary:focus::before,
 .claro-details[open] > .claro-details__summary--accordion::before,
-.claro-details[open] > .claro-details__summary--accordion-item::before {
+.claro-details[open] > .claro-details__summary--accordion-item::before,
+.claro-details[open] > .claro-details__summary--vertical-tabs-item::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M5.2109375,1.3144531 3.7890625,2.7226562 9.0917969,8.0761719 3.7890625,13.429688 5.2109375,14.837891 11.908203,8.0761719Z' fill='%230036B1'/%3E%3C/svg%3E");
 }
 
@@ -262,15 +282,16 @@
 
   .claro-details[open] > .claro-details__summary::before,
   [dir="rtl"] .claro-details[open] > .claro-details__summary::before {
-    background: none;
-    transform: rotate(135deg); /* for LTR and RTL */
-    margin-right: 0.125rem;
     margin-top: calc((0.5625rem / -2) - 0.125rem);
+    margin-right: 0.125rem;
+    transform: rotate(135deg); /* for LTR and RTL */
+    background: none;
   }
 }
 
 .claro-details[open] > .claro-details__summary--accordion,
-.claro-details[open] > .claro-details__summary--accordion-item {
+.claro-details[open] > .claro-details__summary--accordion-item,
+.claro-details[open] > .claro-details__summary--vertical-tabs-item {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -287,21 +308,24 @@
  * Active has to be here for Firefox.
  * Merges standard collapse-processed selectors.
  */
-
 [open] > .claro-details__summary--accordion:not(:focus):not(:active)::after,
 [open] > .claro-details__summary--accordion-item:not(:focus):not(:active)::after,
 .collapse-processed[open] > .claro-details__summary--accordion .details-title:not(:focus)::after,
-.collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after {
-  box-shadow: none;
-  border: 3px solid var(--color-absolutezero);
-  border-width: 0 0 0 3px; /* LTR */
+.collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after,
+[open] > .claro-details__summary--vertical-tabs-item:not(:focus):not(:active)::after,
+.collapse-processed[open] > .claro-details__summary--vertical-tabs-item .details-title:not(:focus)::after {
   opacity: 1;
+  border: var(--details-summary-focus-border-size) solid var(--color-absolutezero);
+  border-width: 0 0 0 var(--details-summary-focus-border-size); /* LTR */
+  box-shadow: none;
 }
 [dir="rtl"] [open] > .claro-details__summary--accordion:not(:focus)::after,
 [dir="rtl"] [open] > .claro-details__summary--accordion-item:not(:focus)::after,
 [dir="rtl"] .collapse-processed[open] > .claro-details__summary--accordion .details-title:not(:focus)::after,
-[dir="rtl"] .collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after {
-  border-width: 0 3px 0 0;
+[dir="rtl"] .collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after,
+[dir="rtl"] [open] > .claro-details__summary--vertical-tabs-item:not(:focus)::after,
+[dir="rtl"] .collapse-processed[open] > .claro-details__summary--vertical-tabs-item .details-title:not(:focus)::after {
+  border-width: 0 var(--details-summary-focus-border-size) 0 0;
 }
 
 .claro-details__summary:focus::after,
@@ -316,8 +340,7 @@
 /* stylelint-disable-next-line unit-whitelist */
 @media not all and (min-resolution: 0.001dpcm) {
   @media {
-    .claro-details__summary:focus::after,
-    .claro-details__summary:active::after {
+    .claro-details__summary::after {
       transition: none;
     }
   }
@@ -346,16 +369,26 @@
 }
 
 .claro-details__wrapper--accordion,
-.claro-details__wrapper--accordion-item {
+.claro-details__wrapper--accordion-item,
+.claro-details__wrapper--vertical-tabs-item {
   margin: 0;
 }
 .claro-details__wrapper--accordion::before,
 .claro-details__wrapper--accordion::after,
 .claro-details__wrapper--accordion-item::before,
-.claro-details__wrapper--accordion-item::after {
+.claro-details__wrapper--accordion-item::after,
+.claro-details__wrapper--vertical-tabs-item::before,
+.claro-details__wrapper--vertical-tabs-item::after {
   display: table;
   clear: both;
   content: "";
+}
+
+.claro-details__wrapper--accordion,
+.claro-details__wrapper--accordion-item,
+.claro-details__wrapper--vertical-tabs-item {
+  border-top: var(--details-border-size) solid var(--details-border-color);
+  background-color: var(--color-whitesmoke-o-40);
 }
 
 @media screen and (min-width: 48em) {
@@ -364,20 +397,41 @@
   }
 
   .claro-details__wrapper--accordion,
-  .claro-details__wrapper--accordion-item {
+  .claro-details__wrapper--accordion-item,
+  .claro-details__wrapper--vertical-tabs-item {
     margin: 0;
   }
 }
 
+@media screen and (min-width: 85em) {
+  .js .claro-details__wrapper--vertical-tabs-item {
+    margin: 0;
+    border-top: 0;
+    background-color: transparent;
+  }
+}
+
 .claro-details__content--accordion,
-.claro-details__content--accordion-item {
+.claro-details__content--accordion-item,
+.claro-details__content--vertical-tabs-item {
   margin: var(--space-m) var(--space-m) var(--space-l);
 }
 
-.claro-details__wrapper--accordion,
-.claro-details__wrapper--accordion-item {
-  background-color: var(--color-whitesmoke-o-40);
-  border-top: var(--details-border-size) solid var(--details-border-color);
+@media screen and (min-width: 85em) {
+  .vertical-tabs .claro-details__content--vertical-tabs-item {
+    margin: var(--space-l);
+  }
+}
+
+/* Description. */
+.claro-details__description {
+  margin-bottom: var(--space-m);
+  color: var(--input-fg-color--description);
+  font-size: var(--font-size-xs); /* ~13px */
+  line-height: calc(17rem / 16); /* 17px */
+}
+.claro-details__description.is-disabled {
+  color: var(--input--disabled-fg-color);
 }
 
 /**
@@ -392,11 +446,12 @@
 }
 
 .collapse-processed > .claro-details__summary .details-title {
+  position: relative;
   display: block;
   padding: var(--space-m) var(--space-m) var(--space-m) var(--details-desktop-wrapper-padding-start); /* LTR */
+  text-decoration: none;
   color: inherit;
   border-radius: var(--size-summary-border-radius);
-  position: relative;
 }
 [dir="rtl"] .collapse-processed > .claro-details__summary .details-title {
   padding-right: var(--details-desktop-wrapper-padding-start);
@@ -404,11 +459,13 @@
 }
 
 .collapse-processed > .claro-details__summary--accordion .details-title,
-.collapse-processed > .claro-details__summary--accordion-item .details-title {
-  padding: var(--space-l) var(--space-l) var(--space-l) var(--details-desktop-wrapper-padding-start); /* LTR */
+.collapse-processed > .claro-details__summary--accordion-item .details-title,
+.collapse-processed > .claro-details__summary--vertical-tabs-item .details-title {
+  padding: var(--summary-accordion-padding-vertical) var(--space-l) var(--summary-accordion-padding-vertical) var(--details-desktop-wrapper-padding-start); /* LTR */
 }
 [dir="rtl"] .collapse-processed > .claro-details__summary--accordion .details-title,
-[dir="rtl"] .collapse-processed > .claro-details__summary--accordion-item .details-title {
+[dir="rtl"] .collapse-processed > .claro-details__summary--accordion-item .details-title,
+[dir="rtl"] .collapse-processed > .claro-details__summary--vertical-tabs-item .details-title {
   padding-right: var(--details-desktop-wrapper-padding-start);
   padding-left: var(--space-l);
 }
@@ -416,10 +473,10 @@
 /* Focus and hover states. */
 .collapse-processed > .claro-details__summary .details-title:focus,
 .collapse-processed > .claro-details__summary .details-title:hover {
+  z-index: 1;
   text-decoration: none;
   outline: none;
   box-shadow: none;
-  z-index: 1;
 }
 
 .collapse-processed > .claro-details__summary .details-title::after {
@@ -428,12 +485,12 @@
   right: -1px;
   bottom: -1px;
   left: -1px;
-  transition: opacity var(--details-box-shadow-transition-duration) ease-in-out;
-  opacity: 0;
   content: "";
-  border: 3px solid var(--color-focus);
-  border-radius: var(--details-border-size-radius);
+  transition: opacity var(--details-box-shadow-transition-duration) ease-in-out;
   pointer-events: none;
+  opacity: 0;
+  border: var(--details-summary-focus-border-size) solid var(--color-focus);
+  border-radius: var(--details-border-size-radius);
 }
 
 .collapse-processed > .claro-details__summary .details-title:focus::after {
@@ -442,22 +499,26 @@
 
 /* Accordion item modifiers for the focus box. */
 
-.collapse-processed > .claro-details__summary--accordion-item .details-title::after {
+.collapse-processed > .claro-details__summary--accordion-item .details-title::after,
+.vertical-tabs__item > .claro-details__summary--vertical-tabs-item .details-title::after {
   border-radius: 0;
 }
 
-.collapse-processed:first-child > .claro-details__summary--accordion-item .details-title::after {
-  border-top-right-radius: var(--details-border-size-radius);
+.collapse-processed:first-child > .claro-details__summary--accordion-item .details-title::after,
+.vertical-tabs__item--first > .claro-details__summary--vertical-tabs-item .details-title::after {
   border-top-left-radius: var(--details-border-size-radius);
+  border-top-right-radius: var(--details-border-size-radius);
 }
 
-.collapse-processed:last-child > .claro-details__summary--accordion-item .details-title::after {
+.collapse-processed:last-child > .claro-details__summary--accordion-item .details-title::after,
+.vertical-tabs__item--last > .claro-details__summary--vertical-tabs-item .details-title::after {
   border-bottom-right-radius: var(--details-border-size-radius);
   border-bottom-left-radius: var(--details-border-size-radius);
 }
 
 .collapse-processed[open] > .claro-details__summary--accordion .details-title::after,
-.collapse-processed[open] > .claro-details__summary--accordion-item .details-title::after {
+.collapse-processed[open] > .claro-details__summary--accordion-item .details-title::after,
+.vertical-tabs__item[open] > .claro-details__summary--vertical-tabs-item .details-title::after {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -470,13 +531,15 @@
  * been solved.
  */
 .claro-details__summary--accordion .summary,
-.claro-details__summary--accordion-item .summary {
+.claro-details__summary--accordion-item .summary,
+.claro-details__summary--vertical-tabs-item .summary {
   display: none;
 }
 
 @media screen and (-ms-high-contrast: active) {
   .collapse-processed[open] > .claro-details__summary--accordion .details-title:not(:focus)::after,
-  .collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after {
+  .collapse-processed[open] > .claro-details__summary--accordion-item .details-title:not(:focus)::after,
+  .collapse-processed[open] > .claro-details__summary--vertical-tabs-item .details-title:not(:focus)::after {
     top: -1px;
     right: -1px;
     bottom: -1px;
@@ -489,4 +552,17 @@
     left: -5px;
     border: 2px dotted;
   }
+}
+
+.required-mark::after {
+  display: inline-block;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  margin-right: 0.3em;
+  margin-left: 0.3em;
+  content: "";
+  vertical-align: super;
+  background-image: url(../../../images/core/ee0000/required.svg);
+  background-repeat: no-repeat;
+  background-size: 0.4375rem 0.4375rem;
 }

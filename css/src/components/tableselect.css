@@ -5,6 +5,8 @@
  * @see tableselect.js
  */
 
+@import "../base/variables.css";
+
 td.checkbox,
 th.checkbox {
   text-align: center;

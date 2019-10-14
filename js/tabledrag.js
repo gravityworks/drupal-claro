@@ -6,8 +6,6 @@
 **/
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 (function ($, Drupal, drupalSettings) {
   var showWeight = JSON.parse(localStorage.getItem('Drupal.tableDrag.showWeight'));
 
@@ -88,10 +86,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       self.makeDraggable(this);
     });
 
-    $table.before($('<button type="button" class="link tabledrag-toggle-weight"></button>').on('click', $.proxy(function toggleColumns(event) {
+    $table.before($(Drupal.theme('tableDragToggleWrapper')).addClass('js-tabledrag-toggle-weight-wrapper').on('click', '.js-tabledrag-toggle-weight', $.proxy(function toggleColumns(event) {
       event.preventDefault();
       this.toggleColumns();
-    }, this)).wrap('<div class="tabledrag-toggle-weight-wrapper"></div>').parent());
+    }, this)));
 
     self.initColumns();
 
@@ -193,7 +191,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         this.colSpan = this.colSpan - 1;
       });
 
-      $('.tabledrag-toggle-weight').text(Drupal.t('Show row weights'));
+      $('.js-tabledrag-toggle-weight-wrapper').each(function addShowWeightToggle() {
+        var $wrapper = $(this);
+        var toggleWasFocused = $wrapper.find('.js-tabledrag-toggle-weight:focus').length;
+        $wrapper.empty().append($(Drupal.theme('tableDragToggle', 'show', Drupal.t('Show row weights'))).addClass('js-tabledrag-toggle-weight'));
+        if (toggleWasFocused) {
+          $wrapper.find('.js-tabledrag-toggle-weight').trigger('focus');
+        }
+      });
     },
     showColumns: function showColumns() {
       var $tables = $('table').findOnce('tabledrag');
@@ -206,7 +211,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         this.colSpan = this.colSpan + 1;
       });
 
-      $('.tabledrag-toggle-weight').text(Drupal.t('Hide row weights'));
+      $('.js-tabledrag-toggle-weight-wrapper').each(function addHideWeightToggle() {
+        var $wrapper = $(this);
+        var toggleWasFocused = $wrapper.find('.js-tabledrag-toggle-weight:focus').length;
+        $wrapper.empty().append($(Drupal.theme('tableDragToggle', 'hide', Drupal.t('Hide row weights'))).addClass('js-tabledrag-toggle-weight'));
+        if (toggleWasFocused) {
+          $wrapper.find('.js-tabledrag-toggle-weight').trigger('focus');
+        }
+      });
     },
     rowSettings: function rowSettings(group, row) {
       var field = $(row).find('.' + group);
@@ -228,32 +240,38 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     makeDraggable: function makeDraggable(item) {
       var self = this;
       var $item = $(item);
+      var $firstCell = $item.find('td:first-of-type').wrapInner(Drupal.theme.tableDragCellContentWrapper()).wrapInner($(Drupal.theme('tableDragCellItemsWrapper')).addClass('js-tabledrag-cell-content'));
+      var $targetElem = $firstCell.find('.js-tabledrag-cell-content').length ? $firstCell.find('.js-tabledrag-cell-content') : $firstCell.addClass('js-tabledrag-cell-content');
 
-      $item.find('td:first-of-type').find('a').addClass('menu-item__link');
+      $targetElem.find('.js-indentation').detach().prependTo($targetElem);
+
+      $targetElem.find('a').addClass('menu-item__link');
 
       var handle = $(Drupal.theme.tableDragHandle()).addClass('js-tabledrag-handle').attr('title', Drupal.t('Drag to re-order'));
 
-      var $indentationLast = $item.find('td:first-of-type').find('.js-indentation').eq(-1);
+      var $indentationLast = $targetElem.find('.js-indentation').eq(-1);
       if ($indentationLast.length) {
         $indentationLast.after(handle);
 
         self.indentCount = Math.max($item.find('.js-indentation').length, self.indentCount);
       } else {
-        $item.find('td').eq(0).prepend(handle);
+        $targetElem.prepend(handle);
+      }
+
+      handle.on('click', function (event) {
+        event.preventDefault();
+      });
+
+      if (handle.closest('.js-tabledrag-disabled').length) {
+        return;
       }
 
       handle.on('mousedown touchstart pointerdown', function (event) {
         event.preventDefault();
         if (event.originalEvent.type === 'touchstart') {
-          var _event$originalEvent$ = _slicedToArray(event.originalEvent.touches, 1);
-
-          event = _event$originalEvent$[0];
+          event = event.originalEvent.touches[0];
         }
         self.dragStart(event, self, item);
-      });
-
-      handle.on('click', function (event) {
-        event.preventDefault();
       });
 
       handle.on('focus', function () {
@@ -484,7 +502,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
           self.rowObject.markChanged();
           if (self.changed === false) {
-            $(Drupal.theme('tableDragChangedWarning')).insertBefore(self.table).hide().fadeIn('slow');
+            var $messageTarget = $(self.table).prevAll('.js-tabledrag-toggle-weight-wrapper').length ? $(self.table).prevAll('.js-tabledrag-toggle-weight-wrapper').last() : self.table;
+            $(Drupal.theme('tableDragChangedWarning')).insertBefore($messageTarget).hide().fadeIn('slow');
             self.changed = true;
           }
         }
@@ -750,13 +769,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       this.group = [tableRow];
       this.groupDepth = $tableRow.find('.js-indentation').length;
       this.changed = false;
-
-      var _$tableRow$closest = $tableRow.closest('table');
-
-      var _$tableRow$closest2 = _slicedToArray(_$tableRow$closest, 1);
-
-      this.table = _$tableRow$closest2[0];
-
+      this.table = $tableRow.closest('table')[0];
       this.indentEnabled = indentEnabled;
       this.maxDepth = maxDepth;
 
@@ -883,7 +896,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
           $group.find('.js-indentation:first-of-type').remove();
           this.indents -= 1;
         } else {
-          $group.find('td:first-of-type').prepend(Drupal.theme('tableDragIndentation'));
+          $group.find('.js-tabledrag-cell-content').prepend(Drupal.theme('tableDragIndentation'));
           this.indents += 1;
         }
       }
@@ -934,10 +947,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       });
     },
     markChanged: function markChanged() {
-      var marker = Drupal.theme('tableDragChangedMarker');
+      var marker = $(Drupal.theme('tableDragChangedMarker')).addClass('js-tabledrag-changed-marker');
       var cell = $(this.element).find('td:first-of-type');
-      if (cell.find('abbr.tabledrag-changed').length === 0) {
-        cell.append(marker);
+      if (cell.find('.js-tabledrag-changed-marker').length === 0) {
+        cell.find('.js-tabledrag-handle').after(marker);
       }
     },
     onIndent: function onIndent() {
@@ -953,13 +966,36 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
       return '<abbr class="warning tabledrag-changed" title="' + Drupal.t('Changed') + '">*</abbr>';
     },
     tableDragIndentation: function tableDragIndentation() {
-      return '<div class="js-indentation indentation"><svg xmlns="http://www.w3.org/2000/svg" class="tree" width="25" height="25" viewBox="0 0 25 25"><path class="tree__item tree__item-child-ltr tree__item-child-last-ltr tree__item-horizontal tree__item-horizontal-right" d="M12,12.5 H25" stroke="#888"/><path class="tree__item tree__item-child-rtl tree__item-child-last-rtl tree__item-horizontal tree__horizontal-left" d="M0,12.5 H13" stroke="#888"/><path class="tree__item tree__item-child-ltr tree__item-child-rtl tree__item-child-last-ltr tree__item-child-last-rtl tree__vertical tree__vertical-top" d="M12.5,0 V13" stroke="#888"/><path class="tree__item tree__item-child-ltr tree__item-child-rtl tree__vertical tree__vertical-bottom" d="M12.5,12 V25" stroke="#888"/></svg></div>';
+      return '<div class="js-indentation indentation"><svg xmlns="http://www.w3.org/2000/svg" class="tree" width="25" height="25" viewBox="0 0 25 25"><path class="tree__item tree__item-child-ltr tree__item-child-last-ltr tree__item-horizontal tree__item-horizontal-right" d="M12,12.5 H25" stroke="#888"/><path class="tree__item tree__item-child-rtl tree__item-child-last-rtl tree__item-horizontal tree__horizontal-left" d="M0,12.5 H13" stroke="#888"/><path class="tree__item tree__item-child-ltr tree__item-child-rtl tree__item-child-last-ltr tree__item-child-last-rtl tree__vertical tree__vertical-top" d="M12.5,12 v-99" stroke="#888"/><path class="tree__item tree__item-child-ltr tree__item-child-rtl tree__vertical tree__vertical-bottom" d="M12.5,12 v99" stroke="#888"/></svg></div>';
     },
     tableDragChangedWarning: function tableDragChangedWarning() {
       return '<div class="tabledrag-changed-warning messages messages--warning" role="alert">' + Drupal.theme('tableDragChangedMarker') + ' ' + Drupal.t('You have unsaved changes.') + '</div>';
     },
     tableDragHandle: function tableDragHandle() {
-      return '<a href="#" class="tabledrag-handle"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 16 16" class="tabledrag-handle__svg"><path d="m 14.102955,5.47562 c -0.1819,-0.20654 -0.4917,-0.23016 -0.7014,-0.05265 -0.2098,0.17684 -0.2462,0.4914 -0.0814,0.71278 l 1.0998,1.34591 H 8.5124153 V 1.62014 l 1.31954,1.11304 c 0.1033,0.0945 0.2395997,0.14242 0.3771997,0.13162 0.1383,-0.01013 0.2667,-0.07762 0.3548,-0.18629 0.088,-0.10935 0.129,-0.24974 0.1131,-0.39014 -0.0159,-0.14039 -0.0873,-0.26796 -0.1979,-0.35369 L 8.3278353,0.118965 c -0.1879501,-0.1586199 -0.4592601,-0.1586199 -0.6472101,0 l -2.15136,1.815715 c -0.11052,0.08572 -0.1819799,0.2133 -0.19787,0.35369 -0.0159,0.1404 0.02514,0.2808 0.1131601,0.39014 0.08801,0.10867 0.2163899,0.17616 0.35471,0.18629 0.1376499,0.0108 0.2739799,-0.03712 0.3772199,-0.13162 l 1.31956,-1.11304 v 5.86152 h -5.90757 L 2.6797353,6.13575 c 0.13963,-0.22004 0.09661,-0.51163 -0.10059,-0.6797 -0.19722,-0.16875 -0.4864,-0.15997 -0.67369,0.01957 L 0.11663625,7.66993 c -0.155515,0.1917 -0.155515,0.46843 0,0.66013 L 1.9054553,10.5244 c 0.18199,0.2065 0.49169,0.2301 0.70147,0.0526 0.20978,-0.1768 0.24617,-0.4914 0.0814,-0.71276 l -1.09986,-1.34591 h 5.9075699 v 5.86147 l -1.3195699,-1.113 c -0.2170501,-0.1681 -0.52545,-0.1316 -0.6988201,0.0824 -0.1740399,0.2146 -0.15089,0.5298 0.05162,0.7161 l 2.15136,1.8164 v -7e-4 c 0.18794,0.1587 0.4592601,0.1587 0.6472001,0 l 2.1513297,-1.8157 c 0.2025,-0.1863 0.2257,-0.5015 0.0517,-0.7161 -0.1734,-0.214 -0.4818,-0.2504 -0.6988997,-0.0824 l -1.31954,1.1131 V 8.51835 h 5.9075397 l -1.0912,1.3459 c -0.1059,0.10193 -0.1641,0.24505 -0.1602,0.39285 0.004,0.1485 0.0702,0.2875 0.182,0.3827 0.1119,0.0952 0.2581,0.137 0.4017,0.1154 0.1436,-0.0223 0.2713,-0.106 0.3507,-0.2308 l 1.7809,-2.19434 c 0.1549,-0.19169 0.1549,-0.46842 0,-0.66012 z" fill="#000"/></svg></a>';
+      return '<a href="#" class="tabledrag-handle"></a>';
+    },
+    tableDragCellItemsWrapper: function tableDragCellItemsWrapper() {
+      return '<div class="tabledrag-cell-content"/>';
+    },
+    tableDragCellContentWrapper: function tableDragCellContentWrapper() {
+      return '<div class="tabledrag-cell-content__item"/>';
+    },
+    tableDragToggle: function tableDragToggle(action, text) {
+      var classes = ['action-link', 'action-link--extrasmall', 'tabledrag-toggle-weight'];
+      switch (action) {
+        case 'show':
+          classes.push('action-link--icon-show');
+          break;
+
+        default:
+          classes.push('action-link--icon-hide');
+          break;
+      }
+
+      return '<a href="#" class="' + classes.join(' ') + '">' + text + '</a>';
+    },
+    tableDragToggleWrapper: function tableDragToggleWrapper() {
+      return '<div class="tabledrag-toggle-weight-wrapper"></div>';
     }
   });
 })(jQuery, Drupal, drupalSettings);

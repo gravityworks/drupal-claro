@@ -2,6 +2,8 @@
  * Generic elements.
  */
 
+@import "./variables.css";
+
 html {
   font: normal 100%/var(--line-height) var(--font-family);
 }
@@ -10,36 +12,35 @@ body {
   background: var(--color-bg);
 }
 
-.cke_editable:not(.cke_editable_inline) {
-  margin: 1em calc(1em - var(--input-border-size) - var(--input-border-size));
-}
-
 a,
 .link {
   color: var(--color-link);
-  text-decoration: none;
 }
 a:hover,
 a:focus,
 .link:hover,
 .link:focus {
-  text-decoration: underline;
+  text-decoration: none;
   outline: 0;
 }
+a:hover,
+.link:hover {
+  color: var(--color-link-hover);
+}
+a:active,
+.link:active {
+  color: var(--color-link-active);
+}
 hr {
-  margin: 0;
+  height: 1px;
+  margin: var(--space-m) 0;
   padding: 0;
   border: none;
-  height: 1px;
-  background: #ccc;
+  background: var(--color-divider);
 }
 
 summary {
   font-weight: bold;
-  text-transform: uppercase;
-}
-.simpletest-results-form summary {
-  text-transform: none;
 }
 
 /**
@@ -48,40 +49,45 @@ summary {
  */
 h1,
 .heading-a {
+  margin: var(--space-m) 0 var(--space-s);
+  font-size: var(--font-size-h1);
   font-weight: bold;
-  margin: 0;
-  font-size: 1.625em;
-  line-height: 1.875em;
+  line-height: var(--line-height-heading);
 }
 h2,
 .heading-b {
+  margin: var(--space-m) 0 var(--space-s);
+  font-size: var(--font-size-h2);
   font-weight: bold;
-  margin: 10px 0;
-  font-size: 1.385em;
+  line-height: var(--line-height-heading);
 }
 h3,
 .heading-c {
+  margin: var(--space-m) 0 var(--space-s);
+  font-size: var(--font-size-h3);
   font-weight: bold;
-  margin: 10px 0;
-  font-size: 1.231em;
+  line-height: var(--line-height-heading);
 }
 h4,
 .heading-d {
+  margin: var(--space-m) 0 var(--space-s);
+  font-size: var(--font-size-h4);
   font-weight: bold;
-  margin: 10px 0;
-  font-size: 1.154em;
+  line-height: var(--line-height-heading);
 }
 h5,
 .heading-e {
+  margin: var(--space-m) 0 var(--space-s);
+  font-size: var(--font-size-h5);
   font-weight: bold;
-  margin: 10px 0;
-  font-size: 1.077em;
+  line-height: var(--line-height-heading);
 }
 h6,
 .heading-f {
+  margin: var(--space-m) 0 var(--space-s);
+  font-size: var(--font-size-h6);
   font-weight: bold;
-  margin: 10px 0;
-  font-size: 1.077em;
+  line-height: var(--line-height-heading);
 }
 p {
   margin: 1em 0;
@@ -91,8 +97,8 @@ dl {
 }
 dl dd,
 dl dl {
-  margin-left: 20px; /* LTR */
   margin-bottom: 10px;
+  margin-left: 20px; /* LTR */
 }
 [dir="rtl"] dl dd,
 [dir="rtl"] dl dl {
@@ -106,7 +112,7 @@ address {
 }
 u,
 ins {
-  text-decoration: underline;
+  text-decoration: none;
 }
 s,
 strike,
@@ -134,14 +140,14 @@ acronym {
   border-bottom: dotted 1px;
 }
 ul {
-  list-style-type: disc;
-  list-style-image: none;
   margin: 0.25em 0 0.25em 1.5em; /* LTR */
   padding-left: 0;
+  list-style-type: disc;
+  list-style-image: none;
 }
 [dir="rtl"] ul {
-  margin-left: 0;
   margin-right: 1.5em;
+  margin-left: 0;
   padding-right: 0;
 }
 /* This is required to win over specificity of [dir="rtl"] ul */
@@ -149,14 +155,23 @@ ul {
   margin-right: 0;
 }
 ol {
-  list-style-type: decimal;
   margin: 0.25em 0 0.25em 2em; /* LTR */
   padding: 0;
+  list-style-type: decimal;
 }
 [dir="rtl"] ol {
-  margin-left: 0;
   margin-right: 2em;
+  margin-left: 0;
 }
+
+/**
+ * Fix duplicate border caused by normalize.css adding border-bottom without
+ * removing the text-decoration.
+ */
+abbr[title] {
+  text-decoration: none;
+}
+
 code {
   margin: 0.5em 0;
 }
@@ -189,6 +204,6 @@ img {
  */
 .page-wrapper *:focus,
 .ui-dialog *:focus {
-  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 5px var(--color-focus);
   outline: 2px dotted transparent;
+  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 5px var(--color-focus);
 }

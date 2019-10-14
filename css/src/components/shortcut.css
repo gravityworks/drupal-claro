@@ -4,6 +4,8 @@
  * Styling for the shortcut module.
  */
 
+@import "../base/variables.css";
+
 :root {
   /**
   * Shortcut action.
@@ -25,35 +27,35 @@
   margin-right: var(--space-xs);
 }
 .shortcut-action__message {
-  background: var(--shortcut-bg-color);
-  border-radius: var(--shortcut-border-radius-size);
-  font-size: var(--font-size-label);
-  padding: var(--shortcut-padding-size);
-  color: var(--color-white);
   display: inline-block;
   margin-left: var(--space-s); /* LTR */
-  opacity: 0;
-  transform: translateY(calc(-1 * var(--space-xs)));
+  padding: var(--shortcut-padding-size);
   transition: var(--transition);
-  backface-visibility: hidden;
+  transform: translateY(calc(-1 * var(--space-xs)));
   vertical-align: top;
+  opacity: 0;
+  color: var(--color-white);
+  border-radius: var(--shortcut-border-radius-size);
+  background: var(--shortcut-bg-color);
+  font-size: var(--font-size-label);
+  backface-visibility: hidden;
 }
 [dir="rtl"] .shortcut-action__message {
-  margin-left: 0;
   margin-right: var(--space-s);
+  margin-left: 0;
 }
 .shortcut-action:hover .shortcut-action__message,
 .shortcut-action:focus .shortcut-action__message {
-  opacity: 1;
   transform: translateY(0);
+  opacity: 1;
 }
 
 .shortcut-action__icon {
-  background: transparent url(../../../images/shortcut/favstar.svg) left top / calc(var(--shortcut-icon-size) * 4) var(--shortcut-icon-size) no-repeat;
+  display: inline-block;
   width: var(--shortcut-icon-size);
   height: var(--shortcut-icon-size);
-  display: inline-block;
   vertical-align: -0.0625rem;
+  background: transparent url(../../../images/shortcut/favstar.svg) left top / calc(var(--shortcut-icon-size) * 4) var(--shortcut-icon-size) no-repeat;
 }
 [dir="rtl"] .shortcut-action__icon {
   background-image: url(../../../images/shortcut/favstar-rtl.svg);

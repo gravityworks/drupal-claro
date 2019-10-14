@@ -3,11 +3,14 @@
  * Claro styles for Tables.
  */
 
+@import "../base/variables.css";
+
 table {
   width: 100%;
   margin-top: var(--space-l);
   margin-bottom: var(--space-l);
 }
+
 .sticky-header {
   min-width: 0;
 }
@@ -19,13 +22,14 @@ caption {
   text-align: right;
 }
 th {
+  position: relative;
   box-sizing: border-box;
   height: var(--space-xl);
   padding: var(--space-xs) var(--space-m);
+  text-align: left; /* LTR */
+  color: var(--color-text);
   background: var(--color-whitesmoke);
   line-height: 1.25rem; /* 20px */
-  text-align: left; /* LTR */
-  position: relative;
 }
 [dir="rtl"] th {
   text-align: right;
@@ -42,6 +46,7 @@ th {
 .sortable-heading > a {
   display: block;
   padding: var(--space-xs) 1.5rem var(--space-xs) 0; /* LTR */
+  text-decoration: none;
   color: inherit;
 }
 [dir="rtl"] .sortable-heading > a {
@@ -50,14 +55,14 @@ th {
 }
 .sortable-heading > a::before {
   position: absolute;
+  z-index: 0;
   top: 0;
   right: 1rem;
   bottom: 0;
   left: 1rem;
-  z-index: 0;
   display: block;
-  border-bottom: 0.125rem solid transparent;
   content: "";
+  border-bottom: 0.125rem solid transparent;
 }
 /* stylelint-disable-next-line selector-type-no-unknown */
 _:-ms-fullscreen, /* Only IE 11 */
@@ -72,10 +77,10 @@ _:-ms-fullscreen, /* Only IE 11 */
   width: 0.875rem;
   height: 1rem;
   margin-top: -0.5rem;
+  content: "";
+  opacity: 0.5;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='m1.75,0.25v1.5h10.5v-1.5z m0,3v1.5h7.5v-1.5z m0,3v1.5h4.5v-1.5z' fill='%23222330'/%3E%3C/svg%3E") no-repeat 50% 50%;
   background-size: contain;
-  opacity: 0.5;
-  content: "";
 }
 /* stylelint-disable-next-line selector-type-no-unknown */
 _:-ms-fullscreen, /* Only IE 11 */
@@ -124,27 +129,35 @@ _:-ms-fullscreen, /* Only IE 11 */
 tr {
   border-bottom: 0.0625rem solid var(--color-lightgray);
 }
+tr,
+.draggable-table.tabledrag-disabled tr {
+  color: var(--color-text);
+  background: var(--color-white);
+}
 thead tr {
   border: 0;
 }
 tr:hover,
 tr:focus {
+  color: var(--color-text);
   background: var(--color-bgblue-hover);
 }
 tr.color-warning:hover,
 tr.color-warning:focus {
+  color: var(--color-text);
   background: #fdf8ed;
 }
 tr.color-error:hover,
 tr.color-error:focus {
+  color: var(--color-text);
   background: #fcf4f2;
 }
 
 td {
-  padding: var(--space-xs) var(--space-m);
-  text-align: left; /* LTR */
   box-sizing: border-box;
   height: 4rem;
+  padding: var(--space-xs) var(--space-m);
+  text-align: left; /* LTR */
 }
 [dir="rtl"] td {
   text-align: right;
@@ -161,6 +174,19 @@ td.is-active {
   background: none;
 }
 
+/**
+ * Target every .form-element input that parent is a form-item of a table cell.
+ * This ignores the filter format select of the textarea editor.
+ */
+td > .form-item > .form-element,
+td > .ajax-new-content > .form-item > .form-element {
+  width: 100%;
+}
+
+/* Win over table-file-multiple-widget. */
+th.is-disabled.is-disabled {
+  color: var(--input--disabled-fg-color);
+}
 /* Force browsers to calculate the width of a 'select all' <th> element. */
 th.select-all {
   width: 1px;
@@ -205,4 +231,14 @@ td.priority-medium {
   td.priority-low {
     display: table-cell;
   }
+}
+
+.tabledrag-toggle-weight-wrapper {
+  margin-top: var(--space-l);
+  line-height: calc(28rem / 16);
+}
+
+.tabledrag-toggle-weight-wrapper + table,
+.tabledrag-toggle-weight-wrapper + .tableresponsive-toggle-columns + table {
+  margin-top: 0;
 }

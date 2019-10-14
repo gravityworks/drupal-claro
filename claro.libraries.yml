@@ -21,9 +21,12 @@ global-styling:
       css/dist/components/form.css: {}
       css/dist/components/form--checkbox-radio.css: {}
       css/dist/components/form--checkbox-radio--ie.css: {}
+      css/dist/components/form--field-multiple.css: {}
+      css/dist/components/form--managed-file.css: {}
       css/dist/components/form--text.css: {}
       css/dist/components/form--select.css: {}
       css/dist/components/help.css: {}
+      css/dist/components/image-preview.css: {}
       css/dist/components/menus-and-lists.css: {}
       css/dist/components/modules-page.css: {}
       css/dist/components/node.css: {}
@@ -31,6 +34,7 @@ global-styling:
       css/dist/components/pager.css: {}
       css/dist/components/skip-link.css: {}
       css/dist/components/tables.css: {}
+      css/dist/components/table--file-multiple-widget.css: {}
       css/dist/components/search-admin-settings.css: {}
       css/dist/components/tablesort-indicator.css: {}
       css/dist/components/system-status-report-general-info.css: {}
@@ -42,12 +46,23 @@ global-styling:
     theme:
       css/dist/theme/colors.css: {}
     layout:
-      css/dist/layout/action-links.css: {}
+      css/dist/layout/breadcrumb.css: {}
+      css/dist/layout/local-actions.css: {}
       css/dist/layout/layout.css: {}
   dependencies:
     - system/admin
     - core/jquery
     - core/drupal
+    # Claro has small and extra small variation for most of the control elements
+    # such as inputs, action links, buttons, dropbuttons. For usability and
+    # accessibility reasons, we keep target sizes big enough on touch screen
+    # devices (by not making these elements smaller than their default size).
+    # Modernizr is used for recognising whether user is using a touch device or
+    # not. This allows conditionally rendering small variation of the control
+    # elements on non-touch devices. In some cases, such as when rendering
+    # links, it is hard recognize when Modernizr should be attached, therefore
+    # it has to be always attached.
+    - core/modernizr
     # @todo Remove 'claro/drupal-theme' from dependencies and add to core/drupal
     # extensions after https://www.drupal.org/node/3024975 is in.
     - claro/drupal-theme
@@ -104,12 +119,6 @@ drupal.responsive-detail:
     - core/jquery.once
     - core/collapse
 
-vertical-tabs:
-  version: VERSION
-  css:
-    component:
-      css/dist/components/vertical-tabs.css: {}
-
 claro.jquery.ui:
   version: VERSION
   css:
@@ -159,18 +168,19 @@ system.admin:
   css:
     component:
       css/dist/components/system-admin--admin-list.css: { weight: -10 }
-      css/dist/components/system-admin--appearance.css: { weight: -10 }
       css/dist/components/system-admin--links.css: { weight: -10 }
       css/dist/components/system-admin--modules.css: { weight: -10 }
       css/dist/components/system-admin--panel.css: { weight: -10 }
       css/dist/components/system-admin--status-report.css: { weight: -10 }
     layout:
       css/dist/layout/system-admin--layout.css: { weight: -10 }
+  dependencies:
+    - claro/card
 
 drupal-theme:
   version: VERSION
   js:
-    js/claro.theme.js: {}
+    js/theme.js: {}
   dependencies:
     - core/drupal
 
@@ -189,7 +199,7 @@ media_library.view:
 autocomplete:
   version: VERSION
   js:
-    js/claro.autocomplete.js: {}
+    js/autocomplete.js: {}
 
 drupal.shortcut:
   version: VERSION
@@ -201,11 +211,11 @@ drupal.shortcut:
 
 details-focus:
   js:
-    js/claro.details.js: {}
+    js/details.js: {}
 
 ajax:
   js:
-    js/claro.ajax.js: {}
+    js/ajax.js: {}
 
 form.password-confirm:
   css:
@@ -227,3 +237,21 @@ views:
 messages:
   js:
     js/messages.js: {}
+
+card:
+  css:
+    component:
+      css/dist/layout/card-list.css: {}
+      css/dist/components/card.css: {}
+
+vertical-tabs:
+  css:
+    component:
+      css/dist/components/vertical-tabs.css: {}
+  dependencies:
+    - claro/global-styling
+
+file:
+  css:
+    component:
+      css/dist/components/file.css: {}
